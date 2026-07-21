@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./site.css">
+  <script src="./support.js"></script>
+</head>
+
+<body>
+  <x-dc>
+    <helmet>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+      <style>
+        body {
+          margin: 0;
+          background: #faf9f8;
+          color: #1a181c;
+          font-family: 'Archivo', 'Noto Sans TC', Helvetica, Arial, sans-serif;
+          -webkit-font-smoothing: antialiased
+        }
+
+        a {
+          color: #7d2882;
+          text-decoration: none
+        }
+
+        a:hover {
+          color: #5c1d61
+        }
+
+        .news-label-row {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap
+        }
+
+        .news-label {
+          display: inline-flex;
+          align-items: center;
+          border: 1px solid #ddd4df;
+          background: #f7f2f8;
+          color: #6d2b73;
+          border-radius: 999px;
+          padding: 2px 10px;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: .04em;
+          text-transform: uppercase
+        }
+
+        .news-filter-btn {
+          display: inline-flex;
+          align-items: center;
+          border: 1px solid #ddd4df;
+          background: #fff;
+          color: #5a555e;
+          border-radius: 999px;
+          padding: 6px 12px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: .03em;
+          cursor: pointer
+        }
+
+        .news-filter-btn.is-active {
+          background: #7d2882;
+          border-color: #7d2882;
+          color: #fff
+        }
+      </style>
+    </helmet>
+    <header data-screen-label="Nav"
+      style="position:sticky;top:0;z-index:50;background:rgba(250,249,248,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <a href="Home.html" style="display:flex;align-items:center;gap:10px;color:#1a181c">
+          <img src="assets/NTHU_Round_Seal.svg" alt="NTHU seal" style="width:46px;height:46px;flex:0 0 auto">
+          <span style="display:flex;flex-direction:column;line-height:1.2">
+            <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#7d2882"
+              data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
+            <span style="font-size:18px;font-weight:800;letter-spacing:-.01em"
+              data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+          </span>
+        </a>
+        <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:600">
+          <a href="Research.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Research">Research</a>
+          <a href="People.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Group">Group</a>
+          <a href="Publications.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Publications">Publications</a>
+          <a href="News.html" style="color:#7d2882" data-en="News">News</a>
+          <a href="Teaching.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Teaching">Teaching</a>
+          <a href="Contact.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Contact">Contact</a>
+          <a href="Join.html" style="background:#7d2882;color:#fff;padding:9px 18px;border-radius:3px"
+            style-hover="background:#5c1d61;color:#fff" data-en="Join Us">Join Us</a>
+        </nav>
+      </div>
+    </header>
+    <section data-screen-label="Page hero" style="background:#1d1721;color:#fff">
+      <div style="max-width:1240px;margin:0 auto;padding:80px 32px 72px;display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#c884d1"
+          data-en="NEWS">NEWS</span>
+        <h1 style="margin:0;font-size:clamp(36px,4.4vw,54px);font-weight:800;letter-spacing:-.02em;line-height:1.06"
+          data-en="News &amp; highlights">News &amp; highlights</h1>
+      </div>
+    </section>
+    <section data-screen-label="Timeline" style="background:#fff">
+      <div style="max-width:900px;margin:0 auto;padding:88px 32px">
+        <div class="news-label-row" style="margin-bottom:24px">
+          <button class="news-filter-btn is-active" data-filter-button="all" onClick="{{ filterAll }}"
+            data-en="All">All</button>
+          <button class="news-filter-btn" data-filter-button="paper" onClick="{{ filterPaper }}"
+            data-en="Paper">Paper</button>
+          <button class="news-filter-btn" data-filter-button="talk" onClick="{{ filterTalk }}"
+            data-en="Talk">Talk</button>
+          <button class="news-filter-btn" data-filter-button="poster" onClick="{{ filterPoster }}"
+            data-en="Poster">Poster</button>
+          <button class="news-filter-btn" data-filter-button="award" onClick="{{ filterAward }}"
+            data-en="Award">Award</button>
+          <button class="news-filter-btn" data-filter-button="service" onClick="{{ filterService }}"
+            data-en="Service">Service</button>
+          <button class="news-filter-btn" data-filter-button="event" onClick="{{ filterEvent }}"
+            data-en="Event">Event</button>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <div data-news-item data-labels="milestone,recruitment" data-date="2026-08-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#7d2882" data-en="AUG 2026">AUG
+              2026</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="The Particle Physics &amp; Fast AI Lab opens at NTHU">The Particle Physics &amp; Fast AI Lab
+                opens at NTHU</span>
+              <div class="news-label-row">
+                <span class="news-label" data-en="Milestone">Milestone</span>
+                <span class="news-label" data-en="Recruitment">Recruitment</span>
+              </div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Yuan-Tang Chou joins the Department of Physics as Assistant Professor. The lab begins recruiting its founding cohort of Ph.D., M.S., and undergraduate students — see the Join Us page.">Yuan-Tang
+                Chou joins the Department of Physics as Assistant Professor. The lab begins recruiting its founding
+                cohort of Ph.D., M.S., and undergraduate students — see the Join Us page.</span>
+            </div>
+          </div>
+          <div data-news-item data-metric="presentation" data-labels="poster" data-date="2026-07-13"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="JUL 2026">JUL
+              2026</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="https://indico.cern.ch/event/1574970/timetable/?view=standard#34-preference-optimized-genera"
+                target="_blank" rel="noopener noreferrer"
+                style="font-size:19px;font-weight:700;line-height:1.35;color:#1a181c"
+                data-en="Yi-Ren Wu presents preference-optimized generative inference at BOOST 2026">Yi-Ren Wu presents
+                preference-optimized generative inference at BOOST 2026</a>
+              <div class="news-label-row"><span class="news-label" data-en="Poster">Poster</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Presenting an EveNet-based generative framework that uses Direct Group Preference Optimization (DGPO) to improve underconstrained kinematic reconstruction with invisible particles while preserving multimodal solutions, in Kraków, Poland.">Presenting
+                an EveNet-based generative framework that uses Direct Group Preference Optimization (DGPO) to improve
+                underconstrained kinematic reconstruction with invisible particles while preserving multimodal
+                solutions,
+                in Kraków, Poland.</span>
+            </div>
+          </div>
+          <div data-news-item data-labels="paper" data-date="2026-01-23"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="JAN 2026">JAN
+              2026</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="https://arxiv.org/abs/2601.17126" target="_blank" rel="noopener noreferrer"
+                style="font-size:19px;font-weight:700;line-height:1.35;color:#1a181c"
+                data-en="EveNet: A Foundation Model for Particle Collision Data Analysis">EveNet: A Foundation Model for
+                Particle Collision Data Analysis</a>
+              <div class="news-label-row"><span class="news-label" data-en="Paper">Paper</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Pretrained on 500 million simulated collision events, EveNet outperforms leading baselines across diverse analysis tasks and demonstrates transfer to experimental data using CMS Open Data. arXiv:2601.17126">Pretrained
+                on 500 million simulated collision events, EveNet outperforms leading baselines across diverse analysis
+                tasks and demonstrates transfer to experimental data using CMS Open Data. arXiv:2601.17126</span>
+            </div>
+          </div>
+          <div data-news-item data-metric="presentation" data-labels="talk" data-date="2025-11-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="NOV 2025">NOV
+              2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Efficient Point Transformer tracking presented at Connecting The Dots 2025">Efficient Point
+                Transformer tracking presented at Connecting The Dots 2025</span>
+              <div class="news-label-row"><span class="news-label" data-en="Talk">Talk</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Presenting attention-based next-generation track reconstruction at the University of Tokyo.">Presenting
+                attention-based next-generation track reconstruction at the University of Tokyo.</span>
+            </div>
+          </div>
+          <div data-news-item data-labels="paper" data-date="2025-10-08"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="OCT 2025">OCT
+              2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="https://arxiv.org/abs/2510.07594" target="_blank" rel="noopener noreferrer"
+                style="font-size:19px;font-weight:700;line-height:1.35;color:#1a181c"
+                data-en="HEPTv2 accepted at the NeurIPS 2025 ML4PS Workshop">HEPTv2 accepted at the NeurIPS 2025 ML4PS
+                Workshop</a>
+              <div class="news-label-row"><span class="news-label" data-en="Paper">Paper</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Locality-Sensitive Hashing-Based Efficient Point Transformer introduces HEPTv2, whose lightweight decoder removes post-hoc clustering and reaches approximately 28 ms per event on an A100 while maintaining competitive tracking efficiency. arXiv:2510.07594">Locality-Sensitive
+                Hashing-Based Efficient Point Transformer introduces HEPTv2, whose lightweight decoder removes post-hoc
+                clustering and reaches approximately 28 ms per event on an A100 while maintaining competitive tracking
+                efficiency. arXiv:2510.07594</span>
+            </div>
+          </div>
+          <div data-news-item data-metric="presentation" data-labels="talk" data-date="2025-09-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="SEP 2025">SEP
+              2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Invited plenary at ACAT 2025, Hamburg">Invited plenary at ACAT 2025, Hamburg</span>
+              <div class="news-label-row"><span class="news-label" data-en="Talk">Talk</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Presenting SONIC, a portable framework for as-a-service ML serving. SuperSONIC also featured at PEARC25 and Fast ML for Science 2025 in Zurich.">Presenting
+                SONIC, a portable framework for as-a-service ML serving. SuperSONIC also featured at PEARC25 and Fast ML
+                for Science 2025 in Zurich.</span>
+            </div>
+          </div>
+          <div data-news-item data-labels="paper" data-date="2025-07-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="JUL 2025">JUL
+              2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="https://doi.org/10.1103/mzld-ldlt" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Higgs → 4b/6b scalar search published in Phys. Rev. D 112 (2025) 072005">Higgs → 4b/6b
+                scalar search published in Phys. Rev. D 112 (2025) 072005</a>
+              <div class="news-label-row"><span class="news-label" data-en="Paper">Paper</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="A seven-year search led as primary analyzer, setting the most stringent limits on several BSM light-scalar models. Phys. Rev. D 112 (2025) 072005 · arXiv:2507.01165">A
+                seven-year search led as primary analyzer, setting the most stringent limits on several BSM light-scalar
+                models. Phys. Rev. D 112 (2025) 072005 · arXiv:2507.01165</span>
+            </div>
+          </div>
+          <div data-news-item data-metric="presentation" data-labels="talk" data-date="2025-05-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="MAY 2025">MAY
+              2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Invited talk at LHCP 2025, Taipei">Invited talk at LHCP 2025, Taipei</span>
+              <div class="news-label-row"><span class="news-label" data-en="Talk">Talk</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Presenting recent heavy H/A results in ATLAS at the 13th LHC Physics Conference, National Taiwan University.">Presenting
+                recent heavy H/A results in ATLAS at the 13th LHC Physics Conference, National Taiwan University.</span>
+            </div>
+          </div>
+          <div data-news-item data-metric="presentation" data-labels="talk" data-date="2025-02-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="FEB 2025">FEB
+              2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Invited plenary at ATLAS Collaboration Week: taggers for BSM particles">Invited plenary at
+                ATLAS Collaboration Week: taggers for BSM particles</span>
+              <div class="news-label-row"><span class="news-label" data-en="Talk">Talk</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Presented at CERN during the 'Building the ATLAS of Tomorrow' collaboration week.">Presented at
+                CERN during the 'Building the ATLAS of Tomorrow' collaboration week.</span>
+            </div>
+          </div>
+          <div data-news-item data-labels="award" data-date="2025-01-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="2025">2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="NERSC Director Reserve Allocation Award (AI for Science)">NERSC Director Reserve Allocation
+                Award (AI for Science)</span>
+              <div class="news-label-row"><span class="news-label" data-en="Award">Award</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Awarded 10,000 GPU and 3,000 CPU node-hours as PI to develop an event-level foundation model for HEP analysis.">Awarded
+                10,000 GPU and 3,000 CPU node-hours as PI to develop an event-level foundation model for HEP
+                analysis.</span>
+            </div>
+          </div>
+          <div data-news-item data-labels="service" data-date="2025-01-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="2025">2025</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Appointed ATLAS b-jet Trigger Signature Coordinator">Appointed ATLAS b-jet Trigger Signature
+                Coordinator</span>
+              <div class="news-label-row"><span class="news-label" data-en="Service">Service</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Leading ~20 physicists developing Run 3 High-Level Trigger b-jet algorithms and official ATLAS recommendations.">Leading
+                ~20 physicists developing Run 3 High-Level Trigger b-jet algorithms and official ATLAS
+                recommendations.</span>
+            </div>
+          </div>
+          <div data-news-item data-labels="award,event" data-date="2024-12-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="DEC 2024">DEC
+              2024</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="NeurIPS 2024 Competition: FAIR Universe HiggsML Uncertainty Challenge">NeurIPS 2024
+                Competition: FAIR Universe HiggsML Uncertainty Challenge</span>
+              <div class="news-label-row">
+                <span class="news-label" data-en="Award">Award</span>
+                <span class="news-label" data-en="Event">Event</span>
+              </div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Co-organized the uncertainty-aware AI competition with 180+ teams; also co-organized the NSF HDR Hackathon intro session at National Taiwan University.">Co-organized
+                the uncertainty-aware AI competition with 180+ teams; also co-organized the NSF HDR Hackathon intro
+                session at National Taiwan University.</span>
+            </div>
+          </div>
+          <div data-news-item data-metric="presentation" data-labels="talk" data-date="2024-12-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="DEC 2024">DEC
+              2024</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Seminar at NTHU: 'Unconventional Search in an Unconventional Way'">Seminar at NTHU:
+                'Unconventional Search in an Unconventional Way'</span>
+              <div class="news-label-row"><span class="news-label" data-en="Talk">Talk</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Returning to the alma mater in Hsinchu for a high-energy physics seminar.">Returning to the
+                alma mater in Hsinchu for a high-energy physics seminar.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <img src="assets/NTHU_Round_Seal.svg" alt="NTHU seal"
+              style="width:34px;height:34px;flex:0 0 auto;filter:brightness(0) invert(1)">
+            <span style="display:flex;flex-direction:column">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#c884d1"
+                data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
+              <span style="font-size:18px;font-weight:800;color:#fff"
+                data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+            </span>
+          </div>
+          <span style="font-size:13px;line-height:1.7"
+            data-en="Department of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan">Department
+            of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan</span>
+        </div>
+        <div style="display:flex;gap:64px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5)"
+              data-en="SITE">SITE</span>
+            <a href="Research.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Research">Research</a>
+            <a href="People.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Group">Group</a>
+            <a href="Publications.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Publications">Publications</a>
+            <a href="Join.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Join Us">Join Us</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5)"
+              data-en="CONNECT">CONNECT</span>
+            <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="color:rgba(255,255,255,.75)"
+              style-hover="color:#fff">yuan-tang.chou@cern.ch</a>
+            <a href="https://orcid.org/0000-0002-2204-5731" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.75)"
+              style-hover="color:#fff">ORCID</a>
+            <a href="https://atlas.cern" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="ATLAS Experiment">ATLAS Experiment</a>
+            <div style="display:flex;gap:12px;margin-top:2px">
+              <a href="https://www.linkedin.com/in/yuan-tang-chou-293716b3/" target="_blank" rel="noopener noreferrer"
+                aria-label="LinkedIn" style="color:rgba(255,255,255,.75)" style-hover="color:#fff">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.554V9h3.564v11.452z">
+                  </path>
+                </svg>
+              </a>
+              <a href="https://x.com/YuanTangChou" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"
+                style="color:rgba(255,255,255,.75)" style-hover="color:#fff">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1240px;margin:0 auto;padding:0 32px 28px;font-size:12px;color:rgba(255,255,255,.45)"
+        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab">© 2026 NTHU Particle
+        Physics &amp; Fast AI Lab</div>
+    </footer>
+  </x-dc>
+  <script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { activeNewsFilter: 'all' };
+  componentDidMount() {
+    this.applyNewsFilter(this.state.activeNewsFilter);
+  }
+  applyNewsFilter(label) {
+    const target = (label || 'all').toLowerCase();
+    document.querySelectorAll('[data-news-item]').forEach(el => {
+      const labels = (el.getAttribute('data-labels') || '')
+        .split(/[;,|]/)
+        .map(s => s.trim().toLowerCase())
+        .filter(Boolean);
+      const visible = target === 'all' || labels.includes(target);
+      el.style.display = visible ? 'grid' : 'none';
+    });
+    document.querySelectorAll('[data-filter-button]').forEach(btn => {
+      const btnLabel = (btn.getAttribute('data-filter-button') || '').toLowerCase();
+      if (btnLabel === target) btn.classList.add('is-active');
+      else btn.classList.remove('is-active');
+    });
+    this.setState({ activeNewsFilter: target });
+  }
+  renderVals() {
+    return {
+      filterAll: () => this.applyNewsFilter('all'),
+      filterPaper: () => this.applyNewsFilter('paper'),
+      filterTalk: () => this.applyNewsFilter('talk'),
+      filterPoster: () => this.applyNewsFilter('poster'),
+      filterAward: () => this.applyNewsFilter('award'),
+      filterService: () => this.applyNewsFilter('service'),
+      filterEvent: () => this.applyNewsFilter('event')
+    };
+  }
+}
+</script>
+</body>
+
+</html>

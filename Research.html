@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./site.css">
+  <script src="./support.js"></script>
+</head>
+
+<body>
+  <x-dc>
+    <helmet>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+      <style>
+        body {
+          margin: 0;
+          background: #faf9f8;
+          color: #1a181c;
+          font-family: 'Archivo', 'Noto Sans TC', Helvetica, Arial, sans-serif;
+          -webkit-font-smoothing: antialiased
+        }
+
+        a {
+          color: #7d2882;
+          text-decoration: none
+        }
+
+        a:hover {
+          color: #5c1d61
+        }
+      </style>
+    </helmet>
+    <header data-screen-label="Nav"
+      style="position:sticky;top:0;z-index:50;background:rgba(250,249,248,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <a href="Home.html" style="display:flex;align-items:center;gap:10px;color:#1a181c">
+          <img src="assets/NTHU_Round_Seal.svg" alt="NTHU seal" style="width:46px;height:46px;flex:0 0 auto">
+          <span style="display:flex;flex-direction:column;line-height:1.2">
+            <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#7d2882"
+              data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
+            <span style="font-size:18px;font-weight:800;letter-spacing:-.01em"
+              data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+          </span>
+        </a>
+        <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:600">
+          <a href="Research.html" style="color:#7d2882" data-en="Research">Research</a>
+          <a href="People.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Group">Group</a>
+          <a href="Publications.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Publications">Publications</a>
+          <a href="News.html" style="color:#1a181c" style-hover="color:#7d2882" data-en="News">News</a>
+          <a href="Teaching.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Teaching">Teaching</a>
+          <a href="Contact.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Contact">Contact</a>
+          <a href="Join.html" style="background:#7d2882;color:#fff;padding:9px 18px;border-radius:3px"
+            style-hover="background:#5c1d61;color:#fff" data-en="Join Us">Join Us</a>
+        </nav>
+      </div>
+    </header>
+    <section data-screen-label="Page hero" style="background:#1d1721;color:#fff">
+      <div style="max-width:1240px;margin:0 auto;padding:80px 32px 72px;display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#c884d1"
+          data-en="RESEARCH">RESEARCH</span>
+        <h1
+          style="margin:0;font-size:clamp(36px,4.4vw,54px);font-weight:800;letter-spacing:-.02em;line-height:1.06;max-width:820px"
+          data-en="From detector to discovery">From detector to discovery</h1>
+        <p style="margin:0;font-size:18px;line-height:1.65;color:rgba(255,255,255,.82);max-width:720px"
+          data-en="Our work spans physics analysis, machine-learning algorithms, and computing infrastructure — every layer in service of one goal: finding new physics in LHC data.">
+          Our work spans physics analysis, machine-learning algorithms, and computing infrastructure — every layer in
+          service of one goal: finding new physics in LHC data.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;font-weight:600">
+          <a href="#higgs"
+            style="border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 16px"
+            style-hover="background:rgba(255,255,255,.12);color:#fff"
+            data-en="01 Beyond-Standard-Model searches">01 Beyond-Standard-Model searches</a>
+          <a href="#fastml"
+            style="border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 16px"
+            style-hover="background:rgba(255,255,255,.12);color:#fff" data-en="02 Fast ML">02 Fast
+            ML</a>
+          <a href="#tracking"
+            style="border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 16px"
+            style-hover="background:rgba(255,255,255,.12);color:#fff"
+            data-en="03 ML Reconstruction">03
+            ML Reconstruction</a>
+          <a href="#foundation"
+            style="border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 16px"
+            style-hover="background:rgba(255,255,255,.12);color:#fff"
+            data-en="04 Foundation models">04 Foundation models</a>
+          <a href="#sonic"
+            style="border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 16px"
+            style-hover="background:rgba(255,255,255,.12);color:#fff"
+            data-en="05 Inference as a Service">05 Inference as a Service</a>
+        </div>
+      </div>
+    </section>
+    <section id="higgs" data-screen-label="01 Beyond-Standard-Model searches"
+      style="background:#fff;border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center">
+        <div style="position:sticky;top:108px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:13px;font-weight:700;color:#7d2882;letter-spacing:.1em">01</span>
+          <h2 style="margin:0;font-size:clamp(26px,2.8vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.12"
+            data-en="Beyond-Standard-Model searches">Beyond-Standard-Model searches</h2>
+          <img src="assets/MuonSystem.jpeg" alt="ATLAS muon endcap wheel"
+            style="width:100%;height:260px;object-fit:cover;border-radius:2px;display:block;margin-top:8px">
+          <span style="font-size:12px;color:#8a848e" data-en="The ATLAS detector · CERN">The
+            ATLAS detector · CERN</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;font-size:19px;line-height:1.6;font-weight:500;color:#3c3841">
+          <p style="margin:0"
+            data-en="Exploring new physics through innovative searches for rare and challenging collider signatures.">
+            Exploring new physics through innovative searches for rare and challenging collider signatures.</p>
+          <div
+            style="border:1px solid #e6e2df;border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;background:#faf9f8">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8a848e"
+              data-en="SELECTED RESULTS">SELECTED RESULTS</span>
+            <a href="https://doi.org/10.1103/mzld-ldlt" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">Higgs → scalars →
+              4b/6b — Phys. Rev. D 112 (2025) 072005</a>
+            <a href="https://arxiv.org/abs/2503.17254" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">Top-associated
+              pseudoscalar → bb̄ — Eur. Phys. J. C 85 (2025) 886</a>
+            <a href="https://arxiv.org/abs/2005.12236" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">Higgs → aa → 4b (merged)
+              — Phys. Rev. D 102 (2020) 112006</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="fastml" data-screen-label="02 Fast ML" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center">
+        <div style="position:sticky;top:108px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:13px;font-weight:700;color:#7d2882;letter-spacing:.1em">02</span>
+          <h2 style="margin:0;font-size:clamp(26px,2.8vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.12"
+            data-en="Fast ML &amp; real-time AI triggers">Fast ML &amp; real-time AI triggers
+          </h2>
+          <img src="assets/fastml-trigger-collision.gif" alt="ATLAS collision animation"
+            style="width:100%;height:260px;object-fit:cover;border-radius:2px;display:block;margin-top:8px">
+          <a href="https://www.youtube.com/watch?v=pQhbhpU9Wrg" target="_blank" rel="noopener noreferrer"
+            style="font-size:12px;color:#8a848e"
+            data-en="ATLAS collision animation (1:27-1:29) · Source">ATLAS collision animation (1:27-1:29) · Source</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;font-size:19px;line-height:1.6;font-weight:500;color:#3c3841">
+          <p style="margin:0"
+            data-en="Developing fast machine-learning models and AI triggers for real-time decisions.">
+            Developing fast machine-learning models and AI triggers for real-time decisions.</p>
+          <div
+            style="border:1px solid #e6e2df;border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;background:#fff">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8a848e"
+              data-en="SELECTED RESULTS">SELECTED RESULTS</span>
+            <span style="font-size:14.5px;font-weight:600;color:#3c3841"
+              data-en="Level-0 MDT trigger FPGA algorithms for the HL-LHC (2018–2023)">Level-0 MDT trigger FPGA
+              algorithms for the HL-LHC (2018–2023)</span>
+            <span style="font-size:14.5px;font-weight:600;color:#3c3841"
+              data-en="Event Filter tracking (2023–)">Event Filter tracking (2023–)</span>
+            <span style="font-size:14.5px;font-weight:600;color:#3c3841"
+              data-en="b-jet trigger Run 4 R&amp;D (2025–)">b-jet trigger Run 4 R&amp;D (2025–)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="tracking" data-screen-label="03 ML-based Reconstruction"
+      style="background:#fff;border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center">
+        <div style="position:sticky;top:108px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:13px;font-weight:700;color:#7d2882;letter-spacing:.1em">03</span>
+          <h2 style="margin:0;font-size:clamp(26px,2.8vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.12"
+            data-en="ML-based Reconstruction">ML-based Reconstruction</h2>
+          <img src="assets/IDsystem.jpeg" alt="ATLAS inner detector services"
+            style="width:100%;height:260px;object-fit:cover;border-radius:2px;display:block;margin-top:8px">
+          <span style="font-size:12px;color:#8a848e"
+            data-en="ATLAS inner detector services · CERN">ATLAS inner detector services · CERN</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;font-size:19px;line-height:1.6;font-weight:500;color:#3c3841">
+          <p style="margin:0"
+            data-en="Using AI to reconstruct complex collision events with greater speed and precision.">
+            Using AI to reconstruct complex collision events with greater speed and precision.</p>
+          <div
+            style="border:1px solid #e6e2df;border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;background:#faf9f8">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8a848e"
+              data-en="SELECTED RESULTS">SELECTED RESULTS</span>
+            <a href="https://arxiv.org/abs/2510.07594" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">LSH-based Efficient
+              Point
+              Transformer — NeurIPS 2025 ML4PS Workshop · arXiv:2510.07594</a>
+            <a href="https://cds.cern.ch/record/2839913" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">DeXTer: Deep Sets for
+              low-pT X → bb̄ ID — ATL-PHYS-PUB-2022-042</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="foundation" data-screen-label="04 Foundation models"
+      style="background:#faf9f8;border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center">
+        <div style="position:sticky;top:108px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:13px;font-weight:700;color:#7d2882;letter-spacing:.1em">04</span>
+          <h2 style="margin:0;font-size:clamp(26px,2.8vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.12"
+            data-en="Foundation models for science">Foundation models for science
+          </h2>
+          <a href="assets/model-structure.png" target="_blank" rel="noopener noreferrer"
+            aria-label="Open the EveNet foundation-model architecture diagram at full size"
+            style="width:100%;margin-top:8px;padding:8px;background:#fff;border:1px solid #e6e2df;border-radius:2px;display:block">
+            <img src="assets/model-structure.png"
+              alt="EveNet foundation-model architecture for classification, reconstruction, segmentation, and generation tasks"
+              style="width:100%;height:300px;object-fit:contain;display:block">
+          </a>
+          <span style="font-size:12px;color:#8a848e"
+            data-en="EveNet model architecture · Click to enlarge">EveNet model architecture · Click to enlarge</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;font-size:19px;line-height:1.6;font-weight:500;color:#3c3841">
+          <p style="margin:0"
+            data-en="Building general-purpose models to understand and analyze diverse scientific data.">
+            Building general-purpose models to understand and analyze diverse scientific data.</p>
+          <div
+            style="border:1px solid #e6e2df;border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;background:#fff">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8a848e"
+              data-en="SELECTED RESULTS">SELECTED RESULTS</span>
+            <a href="https://arxiv.org/abs/2601.17126" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">EveNet: A Foundation
+              Model for Particle Collision Data Analysis — arXiv:2601.17126</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="sonic" data-screen-label="05 IaaS" style="background:#fff">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center">
+        <div style="position:sticky;top:108px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:13px;font-weight:700;color:#7d2882;letter-spacing:.1em">05</span>
+          <h2 style="margin:0;font-size:clamp(26px,2.8vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.12"
+            data-en="Inference as a Service">Inference as a Service</h2>
+          <a href="https://github.com/fastmachinelearning/SuperSONIC" target="_blank" rel="noopener noreferrer"
+            aria-label="Visit the SuperSONIC project on GitHub"
+            style="width:100%;height:260px;margin-top:8px;padding:36px;background:#1d1721;border-radius:2px;display:flex;align-items:center;justify-content:center">
+            <img src="assets/SuperSONIC_small_light_128.png" alt="SuperSONIC"
+              style="width:180px;height:180px;max-width:100%;object-fit:contain;display:block">
+          </a>
+          <span style="font-size:12px;color:#8a848e"
+            data-en="SuperSONIC · Open-source inference infrastructure">SuperSONIC · Open-source inference
+            infrastructure</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;font-size:19px;line-height:1.6;font-weight:500;color:#3c3841">
+          <p style="margin:0"
+            data-en="Providing scalable, efficient ML inference infrastructure for the scientific community.">
+            Providing scalable, efficient ML inference infrastructure for the scientific community.</p>
+          <div
+            style="border:1px solid #e6e2df;border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;background:#faf9f8">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8a848e"
+              data-en="SELECTED RESULTS">SELECTED RESULTS</span>
+            <a href="https://arxiv.org/abs/2506.20657" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">SuperSONIC: Cloud-Native
+              Infrastructure for ML Inferencing — PEARC25</a>
+            <a href="https://cds.cern.ch/record/2923940" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">AthenaTriton —
+              Proceedings for CHEP 2025, ATL-SOFT-PROC-2025-026</a>
+            <a href="https://arxiv.org/abs/2501.05520" target="_blank" rel="noopener noreferrer" style="font-size:14.5px;font-weight:600">Track Reconstruction as
+              a Service — JINST 20 (2025) P06002</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-screen-label="CTA" style="background:#7d2882;color:#fff">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:56px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <span style="font-size:22px;font-weight:700;letter-spacing:-.01em"
+          data-en="Want to work on one of these?">Want to work on one of these?</span>
+        <a href="Join.html"
+          style="background:#fff;color:#1a181c;font-weight:700;font-size:15px;padding:13px 26px;border-radius:3px"
+          style-hover="background:#ece7e3;color:#1a181c" data-en="Join the lab">Join the lab</a>
+      </div>
+    </section>
+    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <img src="assets/NTHU_Round_Seal.svg" alt="NTHU seal"
+              style="width:34px;height:34px;flex:0 0 auto;filter:brightness(0) invert(1)">
+            <span style="display:flex;flex-direction:column">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#c884d1"
+                data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
+              <span style="font-size:18px;font-weight:800;color:#fff"
+                data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+            </span>
+          </div>
+          <span style="font-size:13px;line-height:1.7"
+            data-en="Department of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan">Department
+            of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan</span>
+        </div>
+        <div style="display:flex;gap:64px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5)"
+              data-en="SITE">SITE</span>
+            <a href="Research.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Research">Research</a>
+            <a href="People.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Group">Group</a>
+            <a href="Publications.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Publications">Publications</a>
+            <a href="Join.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="Join Us">Join Us</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5)"
+              data-en="CONNECT">CONNECT</span>
+            <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="color:rgba(255,255,255,.75)"
+              style-hover="color:#fff">yuan-tang.chou@cern.ch</a>
+            <a href="https://orcid.org/0000-0002-2204-5731" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.75)"
+              style-hover="color:#fff">ORCID</a>
+            <a href="https://atlas.cern" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+              data-en="ATLAS Experiment">ATLAS Experiment</a>
+            <div style="display:flex;gap:12px;margin-top:2px">
+              <a href="https://www.linkedin.com/in/yuan-tang-chou-293716b3/" target="_blank" rel="noopener noreferrer"
+                aria-label="LinkedIn" style="color:rgba(255,255,255,.75)" style-hover="color:#fff">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.554V9h3.564v11.452z">
+                  </path>
+                </svg>
+              </a>
+              <a href="https://x.com/YuanTangChou" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"
+                style="color:rgba(255,255,255,.75)" style-hover="color:#fff">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1240px;margin:0 auto;padding:0 32px 28px;font-size:12px;color:rgba(255,255,255,.45)"
+        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab">© 2026 NTHU Particle
+        Physics &amp; Fast AI Lab</div>
+    </footer>
+  </x-dc>
+  <script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.scrollToHash();
+  }
+  // The page content is rendered client-side by the dc-runtime, which briefly
+  // swaps the static markup for an empty container before React re-renders it.
+  // That can race with the browser's native "jump to #fragment" behavior, so
+  // scroll explicitly once this component (and its section ids) are mounted.
+  scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash) return;
+    let target;
+    try {
+      target = document.querySelector(hash);
+    } catch (_err) {
+      return;
+    }
+    if (!target) return;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}
+</script>
+</body>
+
+</html>

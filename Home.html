@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./site.css">
+  <script src="./support.js"></script>
+</head>
+
+<body>
+  <x-dc>
+    <helmet>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+      <style>
+        body {
+          margin: 0;
+          background: #faf9f8;
+          color: #1a181c;
+          font-family: 'Archivo', 'Noto Sans TC', Helvetica, Arial, sans-serif;
+          -webkit-font-smoothing: antialiased
+        }
+
+        a {
+          color: #7d2882;
+          text-decoration: none
+        }
+
+        a:hover {
+          color: #5c1d61
+        }
+      </style>
+    </helmet>
+    <sc-if value="{{ showAnnouncement }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Announcement"
+        style="background:#7d2882;color:#fff;font-size:13.5px;letter-spacing:.01em;padding:9px 32px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap">
+        <span
+          data-en="Now recruiting postdocs, Ph.D. students, M.S. students, and undergraduates">Now recruiting
+          postdocs, Ph.D. students, M.S. students, and undergraduates</span>
+        <a href="Join.html" style="color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.6)"
+          data-en="Join us →">Join us →</a>
+      </div>
+    </sc-if>
+    <header data-screen-label="Nav"
+      style="position:sticky;top:0;z-index:50;background:rgba(250,249,248,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e6e2df">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <a href="Home.html" style="display:flex;align-items:center;gap:10px;color:#1a181c">
+          <img src="assets/NTHU_Round_Seal.svg" alt="NTHU seal" style="width:46px;height:46px;flex:0 0 auto">
+          <span style="display:flex;flex-direction:column;line-height:1.2">
+            <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#7d2882"
+              data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
+            <span style="font-size:18px;font-weight:800;letter-spacing:-.01em"
+              data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+          </span>
+        </a>
+        <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:600">
+          <a href="Research.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Research">Research</a>
+          <a href="People.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Group">Group</a>
+          <a href="Publications.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Publications">Publications</a>
+          <a href="News.html" style="color:#1a181c" style-hover="color:#7d2882" data-en="News">News</a>
+          <a href="Teaching.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Teaching">Teaching</a>
+          <a href="Contact.html" style="color:#1a181c" style-hover="color:#7d2882"
+            data-en="Contact">Contact</a>
+          <a href="Join.html" style="background:#7d2882;color:#fff;padding:9px 18px;border-radius:3px"
+            style-hover="background:#5c1d61;color:#fff" data-en="Join Us">Join Us</a>
+        </nav>
+      </div>
+    </header>
+    <section data-screen-label="Hero"
+      style="position:relative;min-height:640px;display:flex;align-items:flex-end;background:#141117 url('assets/MuonSystem.jpeg') center 32% / cover no-repeat">
+      <div
+        style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,12,20,.28) 0%,rgba(16,12,20,.28) 40%,rgba(16,12,20,.82) 100%)">
+      </div>
+      <div
+        style="position:relative;max-width:1240px;margin:0 auto;padding:120px 32px 72px;width:100%;box-sizing:border-box">
+        <div style="max-width:780px;display:flex;flex-direction:column;gap:22px">
+          <span
+            style="align-self:flex-start;font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#fff;background:rgba(125,40,130,.85);padding:7px 14px;border-radius:2px"
+            data-en="ATLAS EXPERIMENT · CERN LARGE HADRON COLLIDER">ATLAS EXPERIMENT ·
+            CERN LARGE HADRON COLLIDER</span>
+          <h1
+            style="margin:0;font-size:clamp(40px,5.4vw,64px);line-height:1.04;font-weight:800;letter-spacing:-.02em;color:#fff;text-wrap:balance"
+            data-en="Searching for new physics, in real time">Searching for new physics, in real time
+          </h1>
+          <p style="margin:0;font-size:19px;line-height:1.6;color:rgba(255,255,255,.88);max-width:640px"
+            data-en="We hunt for beyond-the-Standard-Model physics at CERN's ATLAS experiment and build fast machine-learning systems, from FPGA triggers to cloud-scale inference, that let experiments see more of nature.">
+            We hunt for beyond-the-Standard-Model physics at CERN's ATLAS experiment and build fast machine-learning
+            systems, from FPGA triggers to cloud-scale inference, that let experiments see more of nature.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px">
+            <a href="Research.html"
+              style="background:#fff;color:#1a181c;font-weight:700;font-size:15px;padding:14px 26px;border-radius:3px"
+              style-hover="background:#ece7e3;color:#1a181c" data-en="Explore our research">Explore our
+              research</a>
+            <a href="Join.html"
+              style="border:1px solid rgba(255,255,255,.55);color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:3px"
+              style-hover="background:rgba(255,255,255,.12);color:#fff" data-en="Join the lab">Join the
+              lab</a>
+          </div>
+        </div>
+      </div>
+      <span style="position:absolute;right:20px;bottom:14px;font-size:11px;color:rgba(255,255,255,.55)"
+        data-en="ATLAS muon system endcap wheel · CERN">ATLAS muon system endcap wheel ·
+        CERN</span>
+    </section>
+    <section data-screen-label="Stats" style="background:#1d1721;color:#fff">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">2026</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="Lab founded at National Tsing Hua University">Lab founded at National Tsing Hua University</div>
+        </div>
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ presentationCount }}</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="Team member presentations in the last 12 months">Team member presentations in the last 12 months
+          </div>
+        </div>
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ papersCount }}</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="Papers published in the last 12 months">Papers published in the last 12 months</div>
+        </div>
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">10,000</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="NERSC GPU node-hours awarded as PI for AI-driven analysis">NERSC GPU node-hours awarded as PI for
+            AI-driven analysis</div>
+        </div>
+      </div>
+    </section>
+    <section data-screen-label="Research pillars" style="background:#faf9f8">
+      <div style="max-width:1240px;margin:0 auto;padding:96px 32px 88px">
+        <div
+          style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:52px">
+          <div>
+            <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
+              data-en="WHAT WE DO">WHAT WE DO</div>
+            <h2
+              style="margin:0;font-size:clamp(30px,3.4vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.1;max-width:640px"
+              data-en="From detector to discovery, where physics meets AI">From detector to
+              discovery, where physics meets AI</h2>
+          </div>
+          <a href="Research.html" style="font-weight:700;font-size:15px"
+            data-en="All research →">All research →</a>
+        </div>
+        <div
+          style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e6e2df;border:1px solid #e6e2df">
+          <sc-for list="{{ researchCards }}" as="r" hint-placeholder-count="5">
+            <a href="{{ r.href }}"
+              style="background:#fff;padding:32px 28px;display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start;color:#1a181c;min-height:190px"
+              style-hover="background:#f7f2f8;color:#1a181c">
+              <sc-if value="{{ r.icon === 'brain' }}">
+                <img src="assets/foundation_models_option2.png" alt=""
+                  style="width:64px;height:64px;object-fit:contain;display:block">
+              </sc-if>
+              <sc-if value="{{ r.icon !== 'brain' }}">
+              <svg viewBox="0 0 64 64" aria-hidden="true"
+                style="width:64px;height:64px;color:#7d2882;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round">
+                <sc-if value="{{ r.icon === 'search' }}">
+                  <circle cx="27" cy="27" r="16"></circle>
+                  <path d="M38.5 38.5 53 53"></path>
+                  <path d="M27 19v8M23 23h8"></path>
+                  <circle cx="9" cy="39" r="1.5" fill="currentColor" stroke="none"></circle>
+                  <path d="M8 29A21 21 0 0 1 29 8"></path>
+                </sc-if>
+                <sc-if value="{{ r.icon === 'speed' }}">
+                  <circle cx="36" cy="34" r="19"></circle>
+                  <path d="M36 34 47 24M36 15v5M22.5 20.5l3.5 3.5M17 34h5M50 34h5"></path>
+                  <path d="M5 23h11M3 31h10M7 39h9"></path>
+                </sc-if>
+                <sc-if value="{{ r.icon === 'graph' }}">
+                  <path d="M13 18 31 10l20 12-5 24-23 7L9 35Z"></path>
+                  <path d="M13 18 30 31m1-21-1 21m21-9-21 9m16 15-16-15M23 53l7-22M9 35l21-4"></path>
+                  <circle cx="13" cy="18" r="3" fill="#fff"></circle><circle cx="31" cy="10" r="3" fill="#fff"></circle>
+                  <circle cx="51" cy="22" r="3" fill="#fff"></circle><circle cx="46" cy="46" r="3" fill="#fff"></circle>
+                  <circle cx="23" cy="53" r="3" fill="#fff"></circle><circle cx="9" cy="35" r="3" fill="#fff"></circle>
+                  <circle cx="30" cy="31" r="3" fill="#fff"></circle>
+                </sc-if>
+                <sc-if value="{{ r.icon === 'cloud' }}">
+                  <path d="M18 28a13 13 0 0 1 25-4 10 10 0 0 1 2 20H17a8 8 0 0 1 1-16Z"></path>
+                  <rect x="21" y="31" width="24" height="8" rx="1"></rect>
+                  <rect x="21" y="43" width="24" height="8" rx="1"></rect>
+                  <path d="M25 35h1M25 47h1M33 51v7M21 58h24"></path>
+                </sc-if>
+              </svg>
+              </sc-if>
+              <span style="display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.3"
+                  data-en="{{ r.titleEn }}">{{ r.titleEn }}</span>
+                <span style="font-size:14.5px;line-height:1.6;color:#5a555e"
+                  data-en="{{ r.descriptionEn }}">{{ r.descriptionEn }}</span>
+              </span>
+            </a>
+          </sc-for>
+          <div
+            style="background:#7d2882;padding:32px 28px;display:flex;flex-direction:column;justify-content:center;min-height:190px">
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <span style="font-size:19px;font-weight:700;color:#fff;line-height:1.3"
+                data-en="Curious about any of these?">Curious about any of these?</span>
+              <span style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.82)"
+                data-en="We're looking for students eager to solve real-world challenges at the intersection of AI and science.">We're looking for students eager to solve real-world challenges at the intersection of AI and science.</span>
+              <a href="Join.html"
+                style="color:#fff;font-weight:700;font-size:14px;border-bottom:1px solid rgba(255,255,255,.5);align-self:flex-start"
+                data-en="See open positions →">See open positions →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-screen-label="News" style="background:#faf9f8">
+      <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
+        <div
+          style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px">
+          <div>
+            <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
+              data-en="NEWS">NEWS</div>
+            <h2 style="margin:0;font-size:clamp(28px,3vw,38px);font-weight:800;letter-spacing:-.02em"
+              data-en="Latest from the lab">Latest from the lab</h2>
+          </div>
+          <a href="News.html" style="font-weight:700;font-size:15px" data-en="All news →">All news
+            →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+          <sc-for list="{{ latestNews }}" as="n" hint-placeholder-count="4">
+            <article
+              style="display:flex;flex-direction:column;gap:10px;border-top:2px solid {{ n.borderColor }};padding-top:18px">
+              <span style="font-size:12.5px;font-weight:700;color:#8a848e;letter-spacing:.06em"
+                data-en="{{ n.dateEn }}">{{ n.dateEn }}</span>
+              <sc-if value="{{ n.href }}">
+                <a href="{{ n.href }}" target="_blank" rel="noopener noreferrer"
+                  style="font-size:17px;font-weight:700;line-height:1.35;color:#1a181c"
+                  data-en="{{ n.titleEn }}">{{ n.titleEn }}</a>
+              </sc-if>
+              <sc-if value="{{ !n.href }}">
+                <span style="font-size:17px;font-weight:700;line-height:1.35"
+                  data-en="{{ n.titleEn }}">{{ n.titleEn }}</span>
+              </sc-if>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    <section data-screen-label="Team Leader" style="background:#1d1721;color:#fff">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center">
+        <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
+          style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#c884d1"
+            data-en="TEAM LEADER">TEAM LEADER</div>
+          <h2 style="margin:0;font-size:clamp(28px,3vw,38px);font-weight:800;letter-spacing:-.02em"
+            data-en="Yuan-Tang Chou 周圓唐">Yuan-Tang Chou 周圓唐</h2>
+          <p style="margin:0;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.82);max-width:640px"
+            data-en="Assistant Professor of Physics at NTHU from August 2026. Previously a postdoctoral scholar at the University of Washington, the NSF A3D3 Institute and the eScience Institute; Ph.D. from UMass Amherst; B.S. from NTHU. A member of the ATLAS collaboration at CERN since 2016, currently serving as ATLAS b-jet trigger signature coordinator and FastML Foundation co-processor subgroup coordinator.">
+            Assistant Professor of Physics at NTHU from August 2026. Previously a postdoctoral scholar at the University
+            of
+            Washington, the NSF A3D3 Institute and the eScience Institute; Ph.D. from UMass Amherst; B.S. from NTHU. A
+            member of the
+            ATLAS collaboration at CERN since 2016, currently serving as ATLAS b-jet trigger signature coordinator and
+            FastML
+            Foundation co-processor subgroup coordinator.</p>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px">
+            <a href="People.html" style="color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.5)"
+              style-hover="color:#c884d1" data-en="Full bio &amp; group →">Full bio &amp; group
+              →</a>
+            <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="color:rgba(255,255,255,.75);font-weight:600"
+              style-hover="color:#fff">yuan-tang.chou@cern.ch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-screen-label="Join band" style="background:#fff">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.35fr;gap:64px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882"
+            data-en="JOIN US">JOIN US</div>
+          <h2 style="margin:0;font-size:clamp(28px,3vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.12"
+            data-en="Be part of the lab's first cohort">Be part of the lab's first cohort</h2>
+          <p style="margin:0;font-size:16.5px;line-height:1.7;color:#5a555e"
+            data-en="We're recruiting postdoctoral scholars, Ph.D. students, M.S. students, and undergraduates excited about particle physics, machine learning, or scientific computing. No prior HEP background required — curiosity and a willingness to code matter most.">
+            We're recruiting postdoctoral scholars, Ph.D. students, M.S. students, and undergraduates excited about
+            particle physics, machine learning, or scientific computing. No prior HEP background required — curiosity
+            and a willingness to code matter most.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span style="border:1px solid #d9d3ce;border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600"
+              data-en="Postdoctoral scholars">Postdoctoral scholars</span>
+            <span style="border:1px solid #d9d3ce;border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600"
+              data-en="Ph.D. students">Ph.D. students</span>
+            <span style="border:1px solid #d9d3ce;border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600"
+              data-en="M.S. students">M.S. students</span>
+            <span style="border:1px solid #d9d3ce;border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600"
+              data-en="Undergraduates">Undergraduates</span>
+          </div>
+          <a href="Join.html"
+            style="align-self:flex-start;background:#7d2882;color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:3px;margin-top:6px"
+            style-hover="background:#5c1d61;color:#fff" data-en="See how to apply">See how to apply</a>
+        </div>
+        <div style="min-width:0">
+          <img src="assets/group-photo.jpeg" alt="Group celebration at CERN"
+            style="width:100%;height:420px;object-fit:cover;display:block;border-radius:2px">
+          <div style="font-size:12px;color:#8a848e;margin-top:10px"
+            data-en="Celebrating with ATLAS colleagues at CERN">Celebrating with ATLAS colleagues at CERN</div>
+        </div>
+      </div>
+    </section>
+    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:64px 32px 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <img src="assets/NTHU_Round_Seal.svg" alt="NTHU seal"
+              style="width:34px;height:34px;flex:0 0 auto;filter:brightness(0) invert(1)">
+            <span style="display:flex;flex-direction:column">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#c884d1"
+                data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
+              <span style="font-size:19px;font-weight:800;color:#fff"
+                data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+            </span>
+          </div>
+          <span style="font-size:13.5px;line-height:1.7"
+            data-en="Department of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan">Department
+            of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+          <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5);margin-bottom:4px"
+            data-en="SITE">SITE</span>
+          <a href="Research.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+            data-en="Research">Research</a>
+          <a href="People.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+            data-en="Group">Group</a>
+          <a href="Publications.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+            data-en="Publications">Publications</a>
+          <a href="Join.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+            data-en="Join Us">Join Us</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+          <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5);margin-bottom:4px"
+            data-en="CONNECT">CONNECT</span>
+          <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="color:rgba(255,255,255,.75)"
+            style-hover="color:#fff">yuan-tang.chou@cern.ch</a>
+          <a href="https://orcid.org/0000-0002-2204-5731" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.75)"
+            style-hover="color:#fff">ORCID</a>
+          <a href="https://atlas.cern" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.75)" style-hover="color:#fff"
+            data-en="ATLAS Experiment">ATLAS Experiment</a>
+          <div style="display:flex;gap:12px;margin-top:2px">
+            <a href="https://www.linkedin.com/in/yuan-tang-chou-293716b3/" target="_blank" rel="noopener noreferrer"
+              aria-label="LinkedIn" style="color:rgba(255,255,255,.75)" style-hover="color:#fff">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.554V9h3.564v11.452z">
+                </path>
+              </svg>
+            </a>
+            <a href="https://x.com/YuanTangChou" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"
+              style="color:rgba(255,255,255,.75)" style-hover="color:#fff">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z">
+                </path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1240px;margin:0 auto;padding:0 32px 32px;font-size:12px;color:rgba(255,255,255,.45)"
+        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab">© 2026 NTHU Particle
+        Physics &amp; Fast AI Lab</div>
+    </footer>
+  </x-dc>
+  <script type="text/x-dc" data-dc-script
+    data-props="{&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;}}">
+class Component extends DCLogic {
+  state = {
+    presentationCount: this.fallbackPresentationCount(),
+    papersCount: this.fallbackPapersCount(),
+    latestNews: this.fallbackLatestNews(),
+    researchCards: this.fallbackResearchCards()
+  };
+  fallbackResearchCards() {
+    return [
+      {
+        id: 'higgs', icon: 'search',
+        href: 'Research.html#higgs',
+        titleEn: 'Beyond-Standard-Model searches',
+        descriptionEn: 'Exploring new physics through innovative searches for rare and challenging collider signatures.'
+      },
+      {
+        id: 'fastml', icon: 'speed',
+        href: 'Research.html#fastml',
+        titleEn: 'Fast ML & real-time AI triggers',
+        descriptionEn: 'Developing fast machine-learning models and AI triggers for real-time decisions.'
+      },
+      {
+        id: 'tracking', icon: 'graph',
+        href: 'Research.html#tracking',
+        titleEn: 'ML-based Reconstruction',
+        descriptionEn: 'Using AI to reconstruct complex collision events with greater speed and precision.'
+      },
+      {
+        id: 'foundation', icon: 'brain',
+        href: 'Research.html#foundation',
+        titleEn: 'Foundation models for science',
+        descriptionEn: 'Building general-purpose models to understand and analyze diverse scientific data.'
+      },
+      {
+        id: 'sonic', icon: 'cloud',
+        href: 'Research.html#sonic',
+        titleEn: 'Inference as a Service',
+        descriptionEn: 'Providing scalable, efficient ML inference infrastructure for the scientific community.'
+      }
+    ];
+  }
+  fallbackLatestNews() {
+    // This mirrors the first four entries in News.html and keeps the home page
+    // useful in local-file previews where browsers block cross-page requests.
+    return [
+      {
+        dateEn: 'AUG 2026',
+        titleEn: 'The Particle Physics & Fast AI Lab opens at NTHU',
+        href: '', borderColor: '#7d2882'
+      },
+      {
+        dateEn: 'JUL 2026',
+        titleEn: 'Yi-Ren Wu presents preference-optimized generative inference at BOOST 2026',
+        href: 'https://indico.cern.ch/event/1574970/timetable/?view=standard#34-preference-optimized-genera',
+        borderColor: '#e6e2df'
+      },
+      {
+        dateEn: 'JAN 2026',
+        titleEn: 'EveNet: A Foundation Model for Particle Collision Data Analysis',
+        href: 'https://arxiv.org/abs/2601.17126', borderColor: '#e6e2df'
+      },
+      {
+        dateEn: 'NOV 2025',
+        titleEn: 'Efficient Point Transformer tracking presented at Connecting The Dots 2025',
+        href: '', borderColor: '#e6e2df'
+      }
+    ];
+  }
+  fallbackPresentationCount() {
+    // Browsers block cross-page reads when these static files are opened directly,
+    // and some isolated preview environments do not expose sibling pages. Keep a
+    // date-aware copy of the News presentation metadata so the metric still works.
+    const presentations = [
+      { labels: ['poster'], date: '2026-07-13' },
+      { labels: ['talk'], date: '2025-11-01' },
+      { labels: ['talk'], date: '2025-09-01' },
+      { labels: ['talk'], date: '2025-05-01' },
+      { labels: ['talk'], date: '2025-02-01' },
+      { labels: ['talk'], date: '2024-12-01' }
+    ];
+    const now = new Date();
+    const since = new Date(now);
+    since.setMonth(since.getMonth() - 12);
+    return presentations.filter(item => {
+      const dt = new Date(item.date);
+      return item.labels.some(label => label === 'talk' || label === 'poster') && dt >= since && dt <= now;
+    }).length;
+  }
+  // Journal-publication years mirror the "Journal pubs" section in Publications.html.
+  // Only a year is tracked there (same granularity Publications.html itself uses for its
+  // "older than 5 years" toggle), so "last 12 months" is approximated as the current year and
+  // the one preceding it.
+  isRecentPublicationYear(year) {
+    return Number.isFinite(year) && (new Date().getFullYear() - year) <= 1;
+  }
+  fallbackPapersCount() {
+    const journalPublicationYears = [2025, 2026, 2025, 2025, 2025, 2025, 2025, 2024, 2024, 2020, 2017];
+    return journalPublicationYears.filter(year => this.isRecentPublicationYear(year)).length;
+  }
+  componentDidMount() {
+    this.updatePresentationCount();
+    this.updatePapersCount();
+    this.updateLatestNews();
+    this.updateResearchCards();
+  }
+  async loadPageHtml(file) {
+    const targets = [file, new URL(file, window.location.href).href];
+    for (const target of targets) {
+      try {
+        const res = await fetch(target, { cache: 'no-store' });
+        if (res.ok) return await res.text();
+      } catch (_err) {
+      }
+    }
+    // Fallback for environments where fetch from local files is restricted.
+    try {
+      const abs = new URL(file, window.location.href).href;
+      return await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', abs, true);
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState !== 4) return;
+          if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 0) {
+            resolve(xhr.responseText || '');
+          } else {
+            reject(new Error(`XHR failed: ${xhr.status}`));
+          }
+        };
+        xhr.onerror = () => reject(new Error('XHR network error'));
+        xhr.send();
+      });
+    } catch (_err) {
+      return '';
+    }
+  }
+  async updatePresentationCount() {
+    const now = new Date();
+    const since = new Date(now);
+    since.setMonth(since.getMonth() - 12);
+    let count = this.fallbackPresentationCount();
+    const presentationLabels = new Set(['talk', 'poster']);
+    const normalize = token => token.trim().toLowerCase();
+    try {
+      const html = await this.loadPageHtml('News.html');
+      if (!html) throw new Error('News page returned no content');
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const newsItems = doc.querySelectorAll('[data-news-item][data-labels][data-date]');
+      if (!newsItems.length) throw new Error('News entries were not available in this preview');
+      let newsCount = 0;
+      newsItems.forEach(el => {
+        const labels = (el.getAttribute('data-labels') || '')
+          .split(/[;,|]/)
+          .map(normalize)
+          .filter(Boolean);
+        if (!labels.some(label => presentationLabels.has(label))) return;
+        const dt = new Date(el.getAttribute('data-date'));
+        if (Number.isNaN(dt.getTime())) return;
+        if (dt >= since && dt <= now) newsCount += 1;
+      });
+      count = newsCount;
+    } catch (_err) {
+      console.warn('Failed to count talks and posters from News.html', _err);
+    }
+    this.setState({ presentationCount: count });
+  }
+  async updatePapersCount() {
+    let count = this.fallbackPapersCount();
+    try {
+      const html = await this.loadPageHtml('Publications.html');
+      if (!html) throw new Error('Publications page returned no content');
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const journalSection = Array.from(doc.querySelectorAll('section[data-screen-label]'))
+        .find(el => el.getAttribute('data-screen-label') === 'Journal pubs');
+      if (!journalSection) throw new Error('Journal publications section was not available in this preview');
+      const entries = journalSection.querySelectorAll('[data-pub-entry][data-year]');
+      if (!entries.length) throw new Error('No journal publication entries were found');
+      let papersCount = 0;
+      entries.forEach(el => {
+        const year = Number(el.getAttribute('data-year'));
+        if (this.isRecentPublicationYear(year)) papersCount += 1;
+      });
+      count = papersCount;
+    } catch (_err) {
+      console.warn('Failed to count recent papers from Publications.html', _err);
+    }
+    this.setState({ papersCount: count });
+  }
+  async updateLatestNews() {
+    try {
+      const html = await this.loadPageHtml('News.html');
+      if (!html) throw new Error('News page returned no content');
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const entries = Array.from(doc.querySelectorAll('[data-news-item][data-date]')).slice(0, 4);
+      if (entries.length < 4) throw new Error('Fewer than four News entries were available');
+      const textEn = el => (el && (el.getAttribute('data-en') || el.textContent.trim())) || '';
+      const latestNews = entries.map((entry, index) => {
+        const dateEl = entry.children[0];
+        const body = entry.children[1];
+        const titleEl = body ? body.children[0] : null;
+        if (!dateEl || !titleEl) {
+          throw new Error('A News entry is missing its date or title');
+        }
+        return {
+          dateEn: textEn(dateEl),
+          titleEn: textEn(titleEl),
+          href: titleEl.tagName === 'A' ? (titleEl.getAttribute('href') || '') : '',
+          borderColor: index === 0 ? '#7d2882' : '#e6e2df'
+        };
+      });
+      this.setState({ latestNews });
+    } catch (_err) {
+      console.warn('Failed to synchronize latest items from News.html', _err);
+    }
+  }
+  async updateResearchCards() {
+    try {
+      const html = await this.loadPageHtml('Research.html');
+      if (!html) throw new Error('Research page returned no content');
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const ids = ['higgs', 'fastml', 'tracking', 'foundation', 'sonic'];
+      const homeOnlyDetails = new Map(this.fallbackResearchCards().map(card => [card.id, card]));
+      const textEn = el => (el && (el.getAttribute('data-en') || el.textContent.trim())) || '';
+      const researchCards = ids.map(id => {
+        const section = doc.getElementById(id);
+        const title = section && section.querySelector('h2[data-en]');
+        const homeDetails = homeOnlyDetails.get(id);
+        if (!section || !title || !homeDetails) {
+          throw new Error(`Research section #${id} is missing its title`);
+        }
+        return {
+          ...homeDetails,
+          titleEn: textEn(title)
+        };
+      });
+      this.setState({ researchCards });
+    } catch (_err) {
+      console.warn('Failed to synchronize cards from Research.html', _err);
+    }
+  }
+  renderVals() {
+    return {
+      showAnnouncement: this.props.showAnnouncement ?? true,
+      presentationCount: this.state.presentationCount,
+      papersCount: this.state.papersCount,
+      latestNews: this.state.latestNews,
+      researchCards: this.state.researchCards
+    };
+  }
+}
+</script>
+</body>
+
+</html>

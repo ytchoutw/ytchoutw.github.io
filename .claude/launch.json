@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Jekyll site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/jekyll-serve.js"],
+      "port": 4000
+    }
+  ]
+}

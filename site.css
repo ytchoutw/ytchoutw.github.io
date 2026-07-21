@@ -1,0 +1,137 @@
+/* Shared responsive behavior for the generated static pages. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+iframe {
+  max-width: 100%;
+}
+
+/* Keep anchor-linked sections clear of the sticky 76px header when a
+   #fragment link (e.g. a Home page research card) scrolls to them. */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
+a[href^="https://orcid.org/"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38em;
+}
+
+a[href^="https://orcid.org/"]::before,
+.orcid-text::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 1em;
+  background: url("./assets/orcid.svg") center / contain no-repeat;
+}
+
+.orcid-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  white-space: nowrap;
+}
+
+a[data-icon="mail"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42em;
+}
+
+a[data-icon="mail"]::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='m22 6-10 7L2 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='m22 6-10 7L2 6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+@media (max-width: 900px) {
+  header > div {
+    height: auto !important;
+    min-height: 76px;
+    padding: 14px 24px !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  header nav {
+    width: 100%;
+    padding-bottom: 4px;
+    gap: 18px !important;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    white-space: nowrap;
+  }
+
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  [style*="grid-template-columns:340px 1fr"],
+  [style*="grid-template-columns:272px 1fr"],
+  [style*="grid-template-columns:1fr 1.1fr"],
+  [style*="grid-template-columns:1fr 1.35fr"],
+  [style*="grid-template-columns:1.1fr 1fr"],
+  [style*="grid-template-columns:1fr 1.2fr"],
+  [style*="grid-template-columns:1.4fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+
+  /* Once a "sticky sidebar beside long copy" layout collapses to one column,
+     sticky positioning just pins the image awkwardly mid-scroll — turn it off. */
+  [style*="position:sticky;top:108px"] {
+    position: static !important;
+  }
+}
+
+@media (max-width: 640px) {
+  header > div {
+    padding-inline: 20px !important;
+  }
+
+  [data-screen-label="Announcement"] {
+    padding-inline: 20px !important;
+    text-align: center;
+  }
+
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns:repeat(3,1fr)"],
+  [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [data-labels][data-date] {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  section > [style*="padding:88px 32px"],
+  section > [style*="padding:80px 32px"],
+  section > [style*="padding:96px 32px"],
+  footer > [style*="padding:56px 32px"] {
+    padding: 56px 20px !important;
+  }
+
+  [data-screen-label="Hero"] {
+    min-height: 540px !important;
+  }
+}
