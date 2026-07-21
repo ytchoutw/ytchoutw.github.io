@@ -71,7 +71,7 @@
       </div>
     </section>
     <section data-screen-label="Team Leader" style="background:#fff;border-bottom:1px solid #e6e2df">
-      <div
+      <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:272px 1fr;gap:64px;align-items:start">
         <div>
           <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
@@ -111,7 +111,7 @@
             collaboration at CERN since 2016, his work spans exotic Higgs searches, real-time trigger systems, and AI
             infrastructure for science. He currently serves as ATLAS b-jet trigger signature coordinator and Fast ML
             foundation coprocessor subgroup coordinator.</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px">
+          <div data-grid-collapse style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px">
             <div style="display:flex;flex-direction:column;gap:12px">
               <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8a848e"
                 data-en="APPOINTMENTS">APPOINTMENTS</span>
@@ -209,7 +209,7 @@
         <sc-if value="{{ postdocs.length }}">
           <h3 style="margin:0 0 20px;font-size:14px;font-weight:700;letter-spacing:.1em;color:#8a848e"
             data-en="POSTDOCTORAL RESEARCHERS">POSTDOCTORAL RESEARCHERS</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,340px));gap:24px;margin-bottom:48px">
             <sc-for list="{{ postdocs }}" as="p">
               <div
                 style="background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px">
@@ -232,7 +232,7 @@
         </sc-if>
         <h3 style="margin:0 0 20px;font-size:14px;font-weight:700;letter-spacing:.1em;color:#8a848e"
           data-en="PH.D. STUDENTS">PH.D. STUDENTS</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,340px));gap:24px;margin-bottom:48px">
           <sc-for list="{{ phd }}" as="p" hint-placeholder-count="4">
             <div
               style="background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px">
@@ -254,7 +254,7 @@
         </div>
         <h3 style="margin:0 0 20px;font-size:14px;font-weight:700;letter-spacing:.1em;color:#8a848e"
           data-en="UNDERGRADUATE STUDENTS">UNDERGRADUATE STUDENTS</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,340px));gap:24px">
           <sc-for list="{{ undergrad }}" as="p" hint-placeholder-count="1">
             <div
               style="background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px">
@@ -276,7 +276,7 @@
         </div>
         <h3 style="margin:48px 0 20px;font-size:14px;font-weight:700;letter-spacing:.1em;color:#8a848e"
           data-en="ALUMNI">ALUMNI</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,340px));gap:24px">
           <div
             style="background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px">
             <div
@@ -361,7 +361,7 @@
           <h2 style="margin:0;font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.02em"
             data-en="Home-Lab Team">Home-Lab Team</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,340px));gap:24px">
           <div
             style="background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px">
             <img src="assets/niffler.jpeg" alt="Niffler"

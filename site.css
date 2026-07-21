@@ -80,25 +80,18 @@ a[data-icon="mail"]::before {
     white-space: nowrap;
   }
 
-  [style*="grid-template-columns:repeat(4,1fr)"],
-  [style*="grid-template-columns:repeat(3,1fr)"] {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-
-  [style*="grid-template-columns:340px 1fr"],
-  [style*="grid-template-columns:272px 1fr"],
-  [style*="grid-template-columns:1fr 1.1fr"],
-  [style*="grid-template-columns:1fr 1.35fr"],
-  [style*="grid-template-columns:1.1fr 1fr"],
-  [style*="grid-template-columns:1fr 1.2fr"],
-  [style*="grid-template-columns:1.4fr 1fr 1fr"] {
+  /* Marker attributes, not [style*=] substring matches: the dc-runtime renders
+     inline styles through the CSSOM, which normalizes the serialized style
+     attribute (adds spaces, converts colors to rgb()) so exact-text style
+     selectors never match post-hydration. */
+  [data-grid-collapse] {
     grid-template-columns: 1fr !important;
     gap: 36px !important;
   }
 
   /* Once a "sticky sidebar beside long copy" layout collapses to one column,
      sticky positioning just pins the image awkwardly mid-scroll — turn it off. */
-  [style*="position:sticky;top:108px"] {
+  [data-sticky-sidebar] {
     position: static !important;
   }
 }
@@ -111,12 +104,6 @@ a[data-icon="mail"]::before {
   [data-screen-label="Announcement"] {
     padding-inline: 20px !important;
     text-align: center;
-  }
-
-  [style*="grid-template-columns:repeat(4,1fr)"],
-  [style*="grid-template-columns:repeat(3,1fr)"],
-  [style*="grid-template-columns:1fr 1fr"] {
-    grid-template-columns: 1fr !important;
   }
 
   [data-labels][data-date] {

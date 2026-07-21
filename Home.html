@@ -270,7 +270,7 @@
     </section>
     <section data-screen-label="Stats" style="background:#1d1721;color:#fff">
       <div
-        style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+        style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px">
         <div style="border-left:2px solid #7d2882;padding-left:18px">
           <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">2026</div>
           <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
@@ -310,7 +310,7 @@
           <a href="Research.html" style="font-weight:700;font-size:15px" data-en="All research →">All research →</a>
         </div>
         <div
-          style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e6e2df;border:1px solid #e6e2df">
+          style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:#e6e2df;border:1px solid #e6e2df">
           <sc-for list="{{ researchCards }}" as="r" hint-placeholder-count="5">
             <a href="{{ r.href }}"
               style="background:#fff;padding:32px 28px;display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start;color:#1a181c;min-height:190px"
@@ -390,7 +390,7 @@
           <a href="News.html" style="font-weight:700;font-size:15px" data-en="All news →">All news
             →</a>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px">
           <sc-for list="{{ latestNews }}" as="n" hint-placeholder-count="4">
             <article
               style="display:flex;flex-direction:column;gap:10px;border-top:2px solid {{ n.borderColor }};padding-top:18px">
@@ -411,7 +411,7 @@
       </div>
     </section>
     <section data-screen-label="Team Leader" style="background:#1d1721;color:#fff">
-      <div
+      <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center">
         <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
           style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block">
@@ -440,7 +440,7 @@
       </div>
     </section>
     <section data-screen-label="Join band" style="background:#fff">
-      <div
+      <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.35fr;gap:64px;align-items:center">
         <div style="display:flex;flex-direction:column;gap:18px">
           <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882" data-en="JOIN US">JOIN US
@@ -475,7 +475,7 @@
       </div>
     </section>
     <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
-      <div
+      <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:64px 32px 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px">
         <div style="display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;align-items:center;gap:10px">
