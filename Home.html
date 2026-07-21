@@ -532,8 +532,8 @@
         </div>
       </div>
       <div style="max-width:1240px;margin:0 auto;padding:0 32px 32px;font-size:12px;color:rgba(255,255,255,.45)"
-        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab">© 2026 NTHU Particle
-        Physics &amp; Fast AI Lab</div>
+        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab · Last updated {{ lastUpdated }}">© 2026 NTHU Particle
+        Physics &amp; Fast AI Lab · Last updated {{ lastUpdated }}</div>
     </footer>
   </x-dc>
   <script type="text/x-dc" data-dc-script
@@ -777,13 +777,19 @@ class Component extends DCLogic {
       console.warn('Failed to synchronize cards from Research.html', _err);
     }
   }
+  formatLastUpdated() {
+    const d = new Date(document.lastModified);
+    if (Number.isNaN(d.getTime())) return '';
+    return `${d.getDate()} ${d.toLocaleDateString('en-US', { month: 'short' })} ${d.getFullYear()}`;
+  }
   renderVals() {
     return {
       showAnnouncement: this.props.showAnnouncement ?? true,
       presentationCount: this.state.presentationCount,
       papersCount: this.state.papersCount,
       latestNews: this.state.latestNews,
-      researchCards: this.state.researchCards
+      researchCards: this.state.researchCards,
+      lastUpdated: this.formatLastUpdated()
     };
   }
 }

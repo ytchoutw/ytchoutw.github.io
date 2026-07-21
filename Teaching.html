@@ -266,8 +266,9 @@
         </div>
       </div>
       <div style="max-width:1240px;margin:0 auto;padding:0 32px 28px;font-size:12px;color:rgba(255,255,255,.45)"
-        data-zh="© 2026 清大粒子物理與快速人工智慧實驗室" data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab">© 2026 NTHU Particle
-        Physics &amp; Fast AI Lab</div>
+        data-zh="© 2026 清大粒子物理與快速人工智慧實驗室 · 最後更新 {{ lastUpdated }}"
+        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab · Last updated {{ lastUpdated }}">© 2026 NTHU Particle
+        Physics &amp; Fast AI Lab · Last updated {{ lastUpdated }}</div>
     </footer>
   </x-dc>
   <script type="text/x-dc" data-dc-script>
@@ -293,10 +294,16 @@ class Component extends DCLogic {
     } catch (_err) {
     }
   }
+  formatLastUpdated() {
+    const d = new Date(document.lastModified);
+    if (Number.isNaN(d.getTime())) return '';
+    return `${d.getDate()} ${d.toLocaleDateString('en-US', { month: 'short' })} ${d.getFullYear()}`;
+  }
   renderVals() {
     return {
       langLabel: this.state.lang === 'zh' ? 'EN' : '中文',
-      toggleLang: () => this.applyLang(this.state.lang === 'zh' ? 'en' : 'zh')
+      toggleLang: () => this.applyLang(this.state.lang === 'zh' ? 'en' : 'zh'),
+      lastUpdated: this.formatLastUpdated()
     };
   }
 }
