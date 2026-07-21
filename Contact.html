@@ -13,14 +13,14 @@
     <helmet>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
         rel="stylesheet">
       <style>
         body {
           margin: 0;
           background: #faf9f8;
           color: #1a181c;
-          font-family: 'Archivo', 'Noto Sans TC', Helvetica, Arial, sans-serif;
+          font-family: 'Plus Jakarta Sans', 'Noto Sans TC', Helvetica, Arial, sans-serif;
           -webkit-font-smoothing: antialiased
         }
 
@@ -44,7 +44,7 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#7d2882" data-zh="國立清華大學物理系"
               data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
             <span style="font-size:18px;font-weight:800;letter-spacing:-.01em" data-zh="粒子物理與快速人工智慧實驗室"
-              data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+              data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle Physics Lab</span>
           </span>
         </a>
         <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:600">
@@ -61,7 +61,7 @@
           <a href="Join.html" style="background:#7d2882;color:#fff;padding:9px 18px;border-radius:3px"
             style-hover="background:#5c1d61;color:#fff" data-zh="加入我們" data-en="Join Us">Join Us</a>
           <button onClick="{{ toggleLang }}"
-            style="border:1px solid #cfc9c4;background:transparent;border-radius:3px;padding:7px 12px;font:600 12.5px 'Archivo','Noto Sans TC',sans-serif;color:#5a555e;cursor:pointer"
+            style="border:1px solid #cfc9c4;background:transparent;border-radius:3px;padding:7px 12px;font:600 12.5px 'Plus Jakarta Sans','Noto Sans TC',sans-serif;color:#5a555e;cursor:pointer"
             title="Switch language">{{ langLabel }}</button>
         </nav>
       </div>
@@ -158,14 +158,14 @@
               <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#c884d1" data-zh="國立清華大學物理系"
                 data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
               <span style="font-size:18px;font-weight:800;color:#fff" data-zh="粒子物理與快速人工智慧實驗室"
-                data-en="Particle Physics &amp; Fast AI Lab">Particle Physics &amp; Fast AI Lab</span>
+                data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle Physics Lab</span>
             </span>
           </div>
           <span style="font-size:13px;line-height:1.7" data-zh="300044 新竹市光復路二段 101 號 國立清華大學物理系"
             data-en="Department of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan">Department
             of Physics, National Tsing Hua University, 101, Sec. 2, Guangfu Rd., Hsinchu 300044, Taiwan</span>
         </div>
-        <div style="display:flex;gap:64px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;gap:64px;flex-wrap:wrap">
           <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
             <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5)" data-zh="網站"
               data-en="SITE">SITE</span>
@@ -178,32 +178,37 @@
             <a href="Join.html" style="color:rgba(255,255,255,.75)" style-hover="color:#fff" data-zh="加入我們"
               data-en="Join Us">Join Us</a>
           </div>
-          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-            <a href="https://www.nthu.edu.tw/" target="_blank" rel="noopener noreferrer"
-              aria-label="National Tsing Hua University">
-              <img src="assets/NTHU_Round_Seal.svg" alt="NTHU" style="height:76.8px;width:auto;object-fit:contain;display:block">
-            </a>
-            <a href="https://phys.site.nthu.edu.tw/index.php?Lang=en" target="_blank" rel="noopener noreferrer"
-              aria-label="NTHU Department of Physics">
-              <img src="assets/nthu_phy_logo_transparent.png" alt="NTHU Physics"
-                style="height:76.8px;width:auto;object-fit:contain;display:block">
-            </a>
-            <a href="https://english.moe.gov.tw/" target="_blank" rel="noopener noreferrer"
-              aria-label="Ministry of Education, R.O.C.">
-              <img src="assets/ROC_Ministry_of_Education_Seal.svg.webp" alt="Ministry of Education"
-                style="height:76.8px;width:auto;object-fit:contain;display:block">
-            </a>
-            <a href="https://www.nstc.gov.tw/?l=en" target="_blank" rel="noopener noreferrer"
-              aria-label="National Science and Technology Council">
-              <img src="assets/nstc_logo_transparent.png" alt="NSTC" style="height:76.8px;width:auto;object-fit:contain;display:block">
-            </a>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.5)" data-zh="支持單位"
+              data-en="SUPPORTED BY">SUPPORTED BY</span>
+            <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+              <a href="https://www.nthu.edu.tw/" target="_blank" rel="noopener noreferrer"
+                aria-label="National Tsing Hua University">
+                <img src="assets/NTHU_Round_Seal.svg" alt="NTHU" style="height:76.8px;width:auto;object-fit:contain;display:block">
+              </a>
+              <a href="https://phys.site.nthu.edu.tw/index.php?Lang=en" target="_blank" rel="noopener noreferrer"
+                aria-label="NTHU Department of Physics">
+                <img src="assets/nthu_phy_logo_transparent.png" alt="NTHU Physics"
+                  style="height:76.8px;width:auto;object-fit:contain;display:block">
+              </a>
+              <a href="https://english.moe.gov.tw/" target="_blank" rel="noopener noreferrer"
+                aria-label="Ministry of Education, R.O.C.">
+                <img src="assets/ROC_Ministry_of_Education_Seal.svg.webp" alt="Ministry of Education"
+                  style="height:76.8px;width:auto;object-fit:contain;display:block">
+              </a>
+              <a href="https://www.nstc.gov.tw/?l=en" target="_blank" rel="noopener noreferrer"
+                aria-label="National Science and Technology Council">
+                <img src="assets/nstc_logo_transparent.png" alt="NSTC"
+                  style="height:84.48px;width:auto;object-fit:contain;display:block">
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <div style="max-width:1240px;margin:0 auto;padding:0 32px 28px;font-size:12px;color:rgba(255,255,255,.45)"
         data-zh="© 2026 清大粒子物理與快速人工智慧實驗室 · 最後更新 {{ lastUpdated }}"
-        data-en="© 2026 NTHU Particle Physics &amp; Fast AI Lab · Last updated {{ lastUpdated }}">© 2026 NTHU Particle
-        Physics &amp; Fast AI Lab · Last updated {{ lastUpdated }}</div>
+        data-en="© 2026 NTHU Accelerated Intelligence &amp; Particle Physics Lab · Last updated {{ lastUpdated }}">© 2026 NTHU Accelerated Intelligence &amp;
+        Particle Physics Lab · Last updated {{ lastUpdated }}</div>
     </footer>
   </x-dc>
   <script type="text/x-dc" data-dc-script>
