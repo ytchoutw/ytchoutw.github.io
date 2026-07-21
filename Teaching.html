@@ -79,7 +79,7 @@
           teaching experience, and public tutorials.</p>
       </div>
     </section>
-    <section data-screen-label="NTHU courses" style="background:#fff;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="NTHU courses" style="background:#fff;border-bottom:1px solid #e6e2df">
       <div style="max-width:1240px;margin:0 auto;padding:80px 32px">
         <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
           data-zh="清華大學" data-en="AT NTHU">AT NTHU</div>
@@ -104,7 +104,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Past teaching" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Past teaching" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
       <div style="max-width:1240px;margin:0 auto;padding:80px 32px">
         <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
           data-zh="教學經歷" data-en="EXPERIENCE">EXPERIENCE</div>
@@ -112,7 +112,7 @@
           data-zh="過往教學" data-en="Prior teaching">Prior teaching</h2>
         <div data-grid-collapse style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
           <div
-            style="background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:28px;display:flex;flex-direction:column;gap:8px">
+            style="grid-column:1 / -1;background:#fff;border:1px solid #e6e2df;border-radius:2px;padding:28px;display:flex;flex-direction:column;gap:8px">
             <span style="font-size:12px;font-weight:700;letter-spacing:.1em;color:#8a848e" data-zh="公開教學"
               data-en="PUBLIC TUTORIALS">PUBLIC TUTORIALS</span>
             <span style="font-size:18px;font-weight:700" data-zh="SONIC 與 GPU 實作教學"
@@ -178,7 +178,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Outreach" style="background:#fff">
+    <section data-reveal data-screen-label="Outreach" style="background:#fff">
       <div
         data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center">
@@ -205,7 +205,7 @@
         </div>
       </div>
     </section>
-    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+    <footer data-reveal data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
@@ -280,6 +280,24 @@ class Component extends DCLogic {
     } catch (_err) {
     }
     this.applyLang(saved);
+    this.setupScrollReveal();
+  }
+  setupScrollReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    els.forEach(el => io.observe(el));
   }
   applyLang(lang) {
     document.querySelectorAll('[data-zh]').forEach(el => {

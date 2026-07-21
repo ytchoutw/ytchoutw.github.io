@@ -74,7 +74,7 @@
           olderPubsLabel }}</button>
       </div>
     </section>
-    <section data-screen-label="Journal pubs" style="background:#fff;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Journal pubs" style="background:#fff;border-bottom:1px solid #e6e2df">
       <div style="max-width:1240px;margin:0 auto;padding:80px 32px">
         <h2 style="margin:0 0 8px;font-size:clamp(24px,2.6vw,32px);font-weight:800;letter-spacing:-.02em"
           data-en="Journal publications">Journal
@@ -403,7 +403,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Proceedings" style="background:#fff">
+    <section data-reveal data-screen-label="Proceedings" style="background:#fff">
       <div style="max-width:1240px;margin:0 auto;padding:80px 32px">
         <h2 style="margin:0 0 8px;font-size:clamp(24px,2.6vw,32px);font-weight:800;letter-spacing:-.02em"
           data-en="Whitepapers, proceedings and public notes">Whitepapers, proceedings and
@@ -552,7 +552,7 @@
         </div>
       </div>
     </section>
-    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+    <footer data-reveal data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
@@ -620,6 +620,24 @@ class Component extends DCLogic {
   state = { showOlderPubs: false };
   componentDidMount() {
     this.applyPublicationVisibility(this.state.showOlderPubs);
+    this.setupScrollReveal();
+  }
+  setupScrollReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    els.forEach(el => io.observe(el));
   }
   isOlderPublication(year) {
     return Number.isFinite(year) && (new Date().getFullYear() - year > 5);

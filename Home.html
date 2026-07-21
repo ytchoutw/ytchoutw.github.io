@@ -268,7 +268,7 @@
         data-en="ATLAS muon system endcap wheel · CERN">ATLAS muon system endcap wheel ·
         CERN</span>
     </section>
-    <section data-screen-label="Stats" style="background:#1d1721;color:#fff">
+    <section data-reveal data-screen-label="Stats" style="background:#1d1721;color:#fff">
       <div
         style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px">
         <div style="border-left:2px solid #7d2882;padding-left:18px">
@@ -295,7 +295,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Research pillars" style="background:#faf9f8">
+    <section data-reveal data-screen-label="Research pillars" style="background:#faf9f8">
       <div style="max-width:1240px;margin:0 auto;padding:96px 32px 88px">
         <div
           style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:52px">
@@ -377,7 +377,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="News" style="background:#faf9f8">
+    <section data-reveal data-screen-label="News" style="background:#faf9f8">
       <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
         <div
           style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px">
@@ -410,7 +410,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Team Leader" style="background:#1d1721;color:#fff">
+    <section data-reveal data-screen-label="Team Leader" style="background:#1d1721;color:#fff">
       <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center">
         <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
@@ -439,7 +439,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Join band" style="background:#fff">
+    <section data-reveal data-screen-label="Join band" style="background:#fff">
       <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1.35fr;gap:64px;align-items:center">
         <div style="display:flex;flex-direction:column;gap:18px">
@@ -474,7 +474,7 @@
         </div>
       </div>
     </section>
-    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+    <footer data-reveal data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
       <div
         style="max-width:1240px;margin:0 auto;padding:64px 32px 40px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:12px;max-width:420px">
@@ -586,7 +586,7 @@ class Component extends DCLogic {
     return [
       {
         dateEn: 'AUG 2026',
-        titleEn: 'The Accelerated Intelligence &amp; Particle Physics Lab opens at NTHU',
+        titleEn: 'The Accelerated Intelligence & Particle Physics Lab opens at NTHU',
         href: '', borderColor: '#7d2882'
       },
       {
@@ -643,6 +643,24 @@ class Component extends DCLogic {
     this.updatePapersCount();
     this.updateLatestNews();
     this.updateResearchCards();
+    this.setupScrollReveal();
+  }
+  setupScrollReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    els.forEach(el => io.observe(el));
   }
   async loadPageHtml(file) {
     const targets = [file, new URL(file, window.location.href).href];

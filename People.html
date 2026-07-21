@@ -66,11 +66,11 @@
         <h1 style="margin:0;font-size:clamp(36px,4.4vw,54px);font-weight:800;letter-spacing:-.02em;line-height:1.06"
           data-en="Our group">Our group</h1>
         <p style="margin:0;font-size:18px;line-height:1.65;color:rgba(255,255,255,.82);max-width:720px"
-          data-en="We built new algorthms to accelerate the discovery of new physics.">We built new algorthms to
+          data-en="We built new algorithms to accelerate the discovery of new physics.">We built new algorithms to
           accelerate the discovery of new physics.</p>
       </div>
     </section>
-    <section data-screen-label="Team Leader" style="background:#fff;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Team Leader" style="background:#fff;border-bottom:1px solid #e6e2df">
       <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:272px 1fr;gap:64px;align-items:start">
         <div>
@@ -196,11 +196,11 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="First cohort" style="background:#7d2882;color:#fff">
+    <section data-reveal data-screen-label="First cohort" style="background:#7d2882;color:#fff">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:8px">
-          <span style="font-size:22px;font-weight:700;letter-spacing:-.01em" data-en="Recruiting! ">Recruiting!</span>
+          <span style="font-size:22px;font-weight:700;letter-spacing:-.01em" data-en="Recruiting!">Recruiting!</span>
           <span style="font-size:15px;color:rgba(255,255,255,.85)"
             data-en="Recruiting the founding cohort of Ph.D., M.S., and undergraduate students for 2026.">Recruiting the
             founding cohort of Ph.D., M.S., and undergraduate students for 2026.</span>
@@ -210,7 +210,7 @@
           style-hover="background:#ece7e3;color:#1a181c" data-en="How to apply">How to apply</a>
       </div>
     </section>
-    <section data-screen-label="Students" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Students" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
       <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
         <div style="margin-bottom:44px">
           <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
@@ -380,7 +380,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="Home-Lab Team" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Home-Lab Team" style="background:#faf9f8;border-bottom:1px solid #e6e2df">
       <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
         <div style="margin-bottom:32px">
           <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
@@ -404,7 +404,7 @@
         </div>
       </div>
     </section>
-    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+    <footer data-reveal data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
@@ -472,6 +472,26 @@ class Component extends DCLogic {
     showNiffler: false,
     revealedMember: null
   };
+  componentDidMount() {
+    this.setupScrollReveal();
+  }
+  setupScrollReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    els.forEach(el => io.observe(el));
+  }
   formatLastUpdated() {
     const d = new Date(document.lastModified);
     if (Number.isNaN(d.getTime())) return '';

@@ -82,11 +82,11 @@
           next generation tools for scientific discovery</h1>
         <p style="margin:0;font-size:18px;line-height:1.65;color:rgba(255,255,255,.88);max-width:700px"
           data-zh="我們正在招募對粒子物理、機器學習或科學計算有熱情的學生。"
-          data-en="We're recruiting students excited about particle physics, machine learning, or scientific computing. ">
+          data-en="We're recruiting students excited about particle physics, machine learning, or scientific computing.">
           We're recruiting students excited about particle physics, machine learning, or scientific computing.</p>
       </div>
     </section>
-    <section data-screen-label="Openings" style="background:#fff;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Openings" style="background:#fff;border-bottom:1px solid #e6e2df">
       <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
         <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#7d2882;margin-bottom:12px"
           data-zh="開放職位" data-en="OPEN POSITIONS">OPEN POSITIONS</div>
@@ -137,7 +137,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="How to apply" style="background:#7d2882;color:#fff">
+    <section data-reveal data-screen-label="How to apply" style="background:#7d2882;color:#fff">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:8px;max-width:680px">
@@ -162,7 +162,7 @@
         </div>
       </div>
     </section>
-    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+    <footer data-reveal data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
@@ -237,6 +237,24 @@ class Component extends DCLogic {
     } catch (_err) {
     }
     this.applyLang(saved);
+    this.setupScrollReveal();
+  }
+  setupScrollReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    els.forEach(el => io.observe(el));
   }
   applyLang(lang) {
     document.querySelectorAll('[data-zh]').forEach(el => {

@@ -78,7 +78,7 @@
           Whether it's research collaboration, a speaking invitation, or joining the lab — write to us.</p>
       </div>
     </section>
-    <section data-screen-label="Contact info" style="background:#fff;border-bottom:1px solid #e6e2df">
+    <section data-reveal data-screen-label="Contact info" style="background:#fff;border-bottom:1px solid #e6e2df">
       <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
         <div style="display:flex;flex-direction:column;gap:36px">
@@ -136,7 +136,7 @@
         </div>
       </div>
     </section>
-    <section data-screen-label="CTA" style="background:#7d2882;color:#fff">
+    <section data-reveal data-screen-label="CTA" style="background:#7d2882;color:#fff">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
         <span style="font-size:22px;font-weight:700;letter-spacing:-.01em" data-zh="想加入實驗室？"
@@ -147,7 +147,7 @@
           positions</a>
       </div>
     </section>
-    <footer data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
+    <footer data-reveal data-screen-label="Footer" style="background:#141117;color:rgba(255,255,255,.75)">
       <div
         style="max-width:1240px;margin:0 auto;padding:56px 32px 32px;display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
@@ -222,6 +222,24 @@ class Component extends DCLogic {
     } catch (_err) {
     }
     this.applyLang(saved);
+    this.setupScrollReveal();
+  }
+  setupScrollReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    els.forEach(el => io.observe(el));
   }
   applyLang(lang) {
     document.querySelectorAll('[data-zh]').forEach(el => {
