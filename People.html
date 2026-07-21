@@ -74,8 +74,11 @@
       <div data-grid-collapse
         style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:272px 1fr;gap:64px;align-items:start">
         <div>
-          <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
-            style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block">
+          <button onClick="{{ togglePhoto }}" aria-label="Yuan-Tang Chou (click for a surprise)"
+            style="border:none;padding:0;margin:0;background:transparent;cursor:pointer;display:block;width:100%">
+            <img src="{{ profilePhoto }}" alt="Yuan-Tang Chou"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block">
+          </button>
           <div style="display:flex;flex-direction:column;gap:6px;margin-top:18px;font-size:14px;color:#5a555e">
             <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="font-weight:600">yuan-tang.chou@cern.ch</a>
             <a href="https://orcid.org/0000-0002-2204-5731" target="_blank" rel="noopener noreferrer"
@@ -467,6 +470,9 @@
   </x-dc>
   <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  state = {
+    showNiffler: false
+  };
   formatLastUpdated() {
     const d = new Date(document.lastModified);
     if (Number.isNaN(d.getTime())) return '';
@@ -475,6 +481,8 @@ class Component extends DCLogic {
   renderVals() {
     return {
       lastUpdated: this.formatLastUpdated(),
+      profilePhoto: this.state.showNiffler ? 'assets/profile-niffler.jpg' : 'assets/profile.jpg',
+      togglePhoto: () => this.setState({ showNiffler: !this.state.showNiffler }),
       // Add photo: 'assets/person-name.jpg' to show a portrait; initials are used when it is omitted.
       postdocs: [],
       phd: [
