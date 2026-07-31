@@ -11,14 +11,14 @@ From the repository root, start any static HTTP server. For example:
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000/Home.html>.
+Then open <http://localhost:8000/>.
 
 Do not open the pages directly with a `file://` URL: the home-page metrics fetch
 the News and Research pages and therefore require an HTTP origin.
 
 ## Structure
 
-- `Home.html` — landing page
+- `index.html` — landing page (served at the site root)
 - `Research.html`, `People.html`, `Publications.html`, `News.html`,
   `Teaching.html`, `Contact.html`, `Join.html` — section pages
 - `site.css` — shared responsive behavior
