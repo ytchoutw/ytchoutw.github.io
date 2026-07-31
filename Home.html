@@ -33,13 +33,13 @@
           color: #5c1d61
         }
 
-        #hero-title {
+        .hero-glitch {
           position: relative;
-          animation: heroGlitchBase 8s infinite;
+          animation: heroGlitchBase 6s infinite;
         }
 
-        #hero-title::before,
-        #hero-title::after {
+        .hero-glitch::before,
+        .hero-glitch::after {
           content: attr(data-en);
           position: absolute;
           inset: 0;
@@ -48,14 +48,14 @@
           pointer-events: none;
         }
 
-        #hero-title::before {
+        .hero-glitch::before {
           color: #00e5ff;
-          animation: heroGlitchCyan 8s infinite;
+          animation: heroGlitchCyan 6s infinite;
         }
 
-        #hero-title::after {
+        .hero-glitch::after {
           color: #ff1fb5;
-          animation: heroGlitchMagenta 8s infinite;
+          animation: heroGlitchMagenta 6s infinite;
         }
 
         @keyframes heroGlitchBase {
@@ -216,7 +216,8 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#7d2882"
               data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
             <span style="font-size:18px;font-weight:800;letter-spacing:-.01em"
-              data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle Physics Lab</span>
+              data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle
+              Physics Lab</span>
           </span>
         </a>
         <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:600">
@@ -233,18 +234,18 @@
       </div>
     </header>
     <section data-screen-label="Hero"
-      style="position:relative;min-height:640px;display:flex;align-items:flex-end;background:#141117 url('assets/MuonSystem.jpeg') center 32% / cover no-repeat">
+      style="position:relative;min-height:450px;display:flex;align-items:flex-end;background:#141117 url('assets/MuonSystem.jpeg') center 32% / cover no-repeat">
       <div
         style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,12,20,.28) 0%,rgba(16,12,20,.28) 40%,rgba(16,12,20,.82) 100%)">
       </div>
       <div
         style="position:relative;max-width:1240px;margin:0 auto;padding:120px 32px 72px;width:100%;box-sizing:border-box">
         <div style="max-width:780px;display:flex;flex-direction:column;gap:22px">
-          <span
+          <span class="hero-glitch"
             style="align-self:flex-start;font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#fff;background:rgba(125,40,130,.85);padding:7px 14px;border-radius:2px"
             data-en="ATLAS EXPERIMENT · CERN LARGE HADRON COLLIDER">ATLAS EXPERIMENT ·
             CERN LARGE HADRON COLLIDER</span>
-          <h1 id="hero-title"
+          <h1 class="hero-glitch"
             style="margin:0;font-size:clamp(40px,5.4vw,64px);line-height:1.04;font-weight:800;letter-spacing:-.02em;color:#fff;text-wrap:balance"
             data-en="Searching for new physics, in real time">Searching for new physics, in real time
           </h1>
@@ -268,30 +269,31 @@
         data-en="ATLAS muon system endcap wheel · CERN">ATLAS muon system endcap wheel ·
         CERN</span>
     </section>
-    <section data-reveal data-screen-label="Stats" style="background:#1d1721;color:#fff">
-      <div
-        style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px">
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">2026</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="Lab founded at National Tsing Hua University">Lab founded at National Tsing Hua University</div>
-        </div>
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ presentationCount }}</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="Team member presentations in the last 12 months">Team member presentations in the last 12 months
+    <section data-reveal data-screen-label="Team Leader" style="background:#1d1721;color:#fff">
+      <div data-grid-collapse
+        style="max-width:1240px;margin:0 auto;padding:48px 32px;display:grid;grid-template-columns:255px 1fr;gap:64px;align-items:center">
+        <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
+          style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <h2 style="margin:0;font-size:clamp(28px,3vw,38px);font-weight:800;letter-spacing:-.02em"
+            data-en="Yuan-Tang Chou 周圓唐">Yuan-Tang Chou 周圓唐</h2>
+          <p style="margin:0;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.82);max-width:640px"
+            data-en="Assistant Professor of Physics at NTHU from August 2026. Previously a postdoctoral scholar at the University of Washington, the NSF A3D3 Institute and the eScience Institute; Ph.D. from UMass Amherst; B.S. from NTHU. A member of the ATLAS collaboration at CERN since 2016, currently serving as ATLAS b-jet trigger signature coordinator and FastML Foundation co-processor subgroup coordinator.">
+            I'm Yuan-Tang, an Assistant Professor of Physics at NTHU from August 2026. Previously a postdoctoral scholar
+            at the University
+            of
+            Washington, the NSF A3D3 Institute and the eScience Institute; Ph.D. from UMass Amherst; B.S. from NTHU. A
+            member of the
+            ATLAS collaboration at CERN since 2016, currently serving as ATLAS b-jet trigger signature coordinator and
+            FastML
+            Foundation co-processor subgroup coordinator.</p>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px">
+            <a href="People.html" style="color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.5)"
+              style-hover="color:#c884d1" data-en="Full bio and group →">Full bio and group
+              →</a>
+            <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="color:rgba(255,255,255,.75);font-weight:600"
+              style-hover="color:#fff">yuan-tang.chou@cern.ch</a>
           </div>
-        </div>
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ papersCount }}</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="Papers published in the last 12 months">Papers published in the last 12 months</div>
-        </div>
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">10,000</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="NERSC GPU node-hours awarded for AI-driven analysis">NERSC GPU node-hours awarded for
-            AI-driven analysis</div>
         </div>
       </div>
     </section>
@@ -377,6 +379,33 @@
         </div>
       </div>
     </section>
+    <section data-reveal data-screen-label="Stats" style="background:#1d1721;color:#fff">
+      <div
+        style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px">
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">2026</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="Lab founded at National Tsing Hua University">Lab founded at National Tsing Hua University</div>
+        </div>
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ presentationCount }}</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="Team member presentations in the last 12 months">Team member presentations in the last 12 months
+          </div>
+        </div>
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ papersCount }}</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="Papers published in the last 12 months">Papers published in the last 12 months</div>
+        </div>
+        <div style="border-left:2px solid #7d2882;padding-left:18px">
+          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">10,000</div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
+            data-en="NERSC GPU node-hours awarded for AI-driven analysis">NERSC GPU node-hours awarded for
+            AI-driven analysis</div>
+        </div>
+      </div>
+    </section>
     <section data-reveal data-screen-label="News" style="background:#faf9f8">
       <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
         <div
@@ -407,35 +436,6 @@
               </sc-if>
             </article>
           </sc-for>
-        </div>
-      </div>
-    </section>
-    <section data-reveal data-screen-label="Team Leader" style="background:#1d1721;color:#fff">
-      <div data-grid-collapse
-        style="max-width:1240px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center">
-        <img src="assets/profile.jpg" alt="Yuan-Tang Chou"
-          style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block">
-        <div style="display:flex;flex-direction:column;gap:16px">
-          <div style="font-size:12.5px;font-weight:700;letter-spacing:.16em;color:#c884d1" data-en="TEAM LEADER">TEAM
-            LEADER</div>
-          <h2 style="margin:0;font-size:clamp(28px,3vw,38px);font-weight:800;letter-spacing:-.02em"
-            data-en="Yuan-Tang Chou 周圓唐">Yuan-Tang Chou 周圓唐</h2>
-          <p style="margin:0;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.82);max-width:640px"
-            data-en="Assistant Professor of Physics at NTHU from August 2026. Previously a postdoctoral scholar at the University of Washington, the NSF A3D3 Institute and the eScience Institute; Ph.D. from UMass Amherst; B.S. from NTHU. A member of the ATLAS collaboration at CERN since 2016, currently serving as ATLAS b-jet trigger signature coordinator and FastML Foundation co-processor subgroup coordinator.">
-            Assistant Professor of Physics at NTHU from August 2026. Previously a postdoctoral scholar at the University
-            of
-            Washington, the NSF A3D3 Institute and the eScience Institute; Ph.D. from UMass Amherst; B.S. from NTHU. A
-            member of the
-            ATLAS collaboration at CERN since 2016, currently serving as ATLAS b-jet trigger signature coordinator and
-            FastML
-            Foundation co-processor subgroup coordinator.</p>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px">
-            <a href="People.html" style="color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.5)"
-              style-hover="color:#c884d1" data-en="Full bio and group →">Full bio and group
-              →</a>
-            <a href="mailto:yuan-tang.chou@cern.ch" data-icon="mail" style="color:rgba(255,255,255,.75);font-weight:600"
-              style-hover="color:#fff">yuan-tang.chou@cern.ch</a>
-          </div>
         </div>
       </div>
     </section>
@@ -485,7 +485,8 @@
               <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#c884d1"
                 data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
               <span style="font-size:19px;font-weight:800;color:#fff"
-                data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle Physics Lab</span>
+                data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle
+                Physics Lab</span>
             </span>
           </div>
           <span style="font-size:13.5px;line-height:1.7"
@@ -533,7 +534,8 @@
         </div>
       </div>
       <div style="max-width:1240px;margin:0 auto;padding:0 32px 32px;font-size:12px;color:rgba(255,255,255,.45)"
-        data-en="© 2026 NTHU Accelerated Intelligence &amp; Particle Physics Lab · Last updated {{ lastUpdated }}">© 2026 NTHU Accelerated Intelligence &amp;
+        data-en="© 2026 NTHU Accelerated Intelligence &amp; Particle Physics Lab · Last updated {{ lastUpdated }}">©
+        2026 NTHU Accelerated Intelligence &amp;
         Particle Physics Lab · Last updated {{ lastUpdated }}</div>
     </footer>
   </x-dc>
