@@ -1,0 +1,14 @@
+# Accelerated Intelligence & Particle Physics Lab
+
+> NTHU Department of Physics research group led by Yuan-Tang Chou, searching for beyond-the-Standard-Model physics at CERN's ATLAS experiment and building fast machine-learning systems — from FPGA triggers to cloud-scale inference — for collider physics.
+
+## Pages
+
+- [Home](https://ytchoutw.github.io/index.html): Lab overview, mission, and research highlights.
+- [Research](https://ytchoutw.github.io/Research.html): Beyond-Standard-Model searches, Fast ML, ML reconstruction, foundation models, and Inference as a Service.
+- [People](https://ytchoutw.github.io/People.html): PI Yuan-Tang Chou, current Ph.D./M.S./undergraduate researchers, and alumni.
+- [Publications](https://ytchoutw.github.io/Publications.html): Journal publications, conference proceedings, and preprints.
+- [News](https://ytchoutw.github.io/News.html): Papers, talks, posters, awards, and lab milestones.
+- [Teaching](https://ytchoutw.github.io/Teaching.html): NTHU courses, prior teaching, and public tutorials.
+- [Contact](https://ytchoutw.github.io/Contact.html): Email, phone, and office location.
+- [Join](https://ytchoutw.github.io/Join.html): Open positions for postdocs, Ph.D./M.S. students, and undergraduates.
