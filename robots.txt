@@ -26,4 +26,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://ytchoutw.github.io/sitemap.xml
+Sitemap: https://yuantangchou.com/sitemap.xml
