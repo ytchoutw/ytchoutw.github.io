@@ -75,6 +75,32 @@
           text-transform: uppercase
         }
 
+        /* Optional photo slot for a news item. Add the <a class="news-photo">
+           figure plus a .news-photo-caption line inside the item body; items
+           without a photo simply omit both. */
+        .news-photo {
+          display: block;
+          width: 100%;
+          max-width: 440px;
+          margin-top: 6px;
+          padding: 6px;
+          background: #fff;
+          border: 1px solid #e6e2df;
+          border-radius: 2px
+        }
+
+        .news-photo img {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 1px
+        }
+
+        .news-photo-caption {
+          font-size: 12px;
+          color: #8a848e
+        }
+
         .news-filter-btn {
           display: inline-flex;
           align-items: center;
@@ -106,7 +132,8 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#7d2882"
               data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
             <span style="font-size:18px;font-weight:800;letter-spacing:-.01em"
-              data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle Physics Lab</span>
+              data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle
+              Physics Lab</span>
           </span>
         </a>
         <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:600">
@@ -148,14 +175,38 @@
             data-en="Event">Event</button>
         </div>
         <div style="display:flex;flex-direction:column">
+          <div data-news-item data-labels="award" data-date="2026-09-01"
+            style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#8a848e" data-en="SEP 2026">SEP
+              2026</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:19px;font-weight:700;line-height:1.35"
+                data-en="Yuan-Tang Chou receives the Yushan Young Fellowship from Taiwan&apos;s Ministry of Education">Yuan-Tang
+                Chou receives the Yushan Young Fellowship from Taiwan&apos;s Ministry of Education</span>
+              <div class="news-label-row"><span class="news-label" data-en="Award">Award</span></div>
+              <span style="font-size:15px;line-height:1.65;color:#5a555e"
+                data-en="Awarded the title of Yushan Young Fellow under the Ministry of Education&apos;s Yushan Fellow Program, which provides five years of support for early-career researchers.">Awarded
+                the title of Yushan Young Fellow under the Ministry of Education&apos;s Yushan Fellow Program, which
+                provides five years of support for early-career researchers.</span>
+              <a class="news-photo" href="assets/yushan-award-ceremony.jpg" target="_blank" rel="noopener noreferrer"
+                aria-label="Open the Yushan Fellow Program award ceremony photo at full size">
+                <img src="assets/yushan-award-ceremony.jpg"
+                  alt="Yuan-Tang Chou receiving the Yushan Young Fellow certificate from the Ministry of Education at the Yushan Fellow Program award and networking ceremony">
+              </a>
+              <span class="news-photo-caption"
+                data-en="Receiving the Yushan Young Fellow certificate at the ceremony in Taipei · Click to enlarge">Receiving
+                the Yushan Young Fellow certificate at the ceremony in Taipei · Click to enlarge</span>
+            </div>
+          </div>
           <div data-news-item data-labels="milestone,recruitment" data-date="2026-08-01"
             style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid #eee9e5">
             <span style="font-size:14px;font-weight:700;color:#7d2882" data-en="AUG 2026">AUG
               2026</span>
             <div style="display:flex;flex-direction:column;gap:8px">
               <span style="font-size:19px;font-weight:700;line-height:1.35"
-                data-en="The Accelerated Intelligence &amp; Particle Physics Lab opens at NTHU">The Accelerated Intelligence &amp; Particle Physics Lab
-                opens at NTHU</span>
+                data-en="The Accelerated Intelligence &amp; Particle Physics Lab launches at NTHU">The Accelerated
+                Intelligence &amp; Particle Physics Lab
+                launches at NTHU</span>
               <div class="news-label-row">
                 <span class="news-label" data-en="Milestone">Milestone</span>
                 <span class="news-label" data-en="Recruitment">Recruitment</span>
@@ -363,7 +414,8 @@
               <span style="font-size:11px;font-weight:700;letter-spacing:.14em;color:#c884d1"
                 data-en="NTHU · DEPARTMENT OF PHYSICS">NTHU · DEPARTMENT OF PHYSICS</span>
               <span style="font-size:18px;font-weight:800;color:#fff"
-                data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle Physics Lab</span>
+                data-en="Accelerated Intelligence &amp; Particle Physics Lab">Accelerated Intelligence &amp; Particle
+                Physics Lab</span>
             </span>
           </div>
           <span style="font-size:13px;line-height:1.7"
@@ -411,7 +463,8 @@
         </div>
       </div>
       <div style="max-width:1240px;margin:0 auto;padding:0 32px 28px;font-size:12px;color:rgba(255,255,255,.45)"
-        data-en="© 2026 NTHU Accelerated Intelligence &amp; Particle Physics Lab · Last updated {{ lastUpdated }}">© 2026 NTHU Accelerated Intelligence &amp;
+        data-en="© 2026 NTHU Accelerated Intelligence &amp; Particle Physics Lab · Last updated {{ lastUpdated }}">©
+        2026 NTHU Accelerated Intelligence &amp;
         Particle Physics Lab · Last updated {{ lastUpdated }}</div>
     </footer>
   </x-dc>
