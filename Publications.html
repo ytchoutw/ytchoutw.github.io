@@ -107,10 +107,53 @@
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
             <span style="font-size:14px;font-weight:700;color:#c9c2bd">01</span>
             <div style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:17px;font-weight:700;line-height:1.4">HEPTv2: End-to-End Efficient Point
+                Transformer for Charged Particle Reconstruction</span>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">Corresponding author</span>
+              <span style="font-size:14px;color:#5a555e">S. Miao, S. Govil, J. P. Rodgers, M. Liu, J. Duarte, S.-C.
+                Hsu, <strong>Y.-T. Chou</strong><sup style="font-size:11px">*</sup>, P. Li<sup style="font-size:11px">*</sup></span>
+              <a href="https://arxiv.org/abs/2606.20437" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">arXiv:2606.20437</a>
+              <details>
+                <summary style="cursor:pointer;font-size:13px;font-weight:700;color:#7d2882"
+                  data-en="Abstract">Abstract</summary>
+                <p style="margin:8px 0 0;font-size:14px;line-height:1.6;color:#5a555e">Charged-particle tracking &mdash;
+                  reconstructing trajectories from sparse detector measurements &mdash; is a fundamental
+                  high-energy-physics inference problem and a canonical example of learning under extreme combinatorial
+                  ambiguity. At the High-Luminosity Large Hadron Collider (HL-LHC), tracking must remain accurate and
+                  efficient despite unprecedented collision densities. Graph neural networks perform strongly, but incur
+                  substantial costs from graph construction and processing, while transformer-based approaches rely on
+                  auxiliary stages that prevent end-to-end optimization. To address this, we present HEPTv2, an
+                  end-to-end point-transformer architecture that reconstructs tracks from detector hits in one trainable
+                  pipeline. HEPTv2 combines a locality-aware point encoder with a track decoder that predicts complete
+                  trajectories without graph-building, clustering, or filtering. The encoder uses locality-sensitive
+                  hashing in detector coordinate space to preserve tracking-relevant geometry while enabling efficient
+                  local attention. The decoder resolves ambiguities through sectorized decoding and direct hit-to-track
+                  prediction under joint encoder-decoder supervision, allowing the full pipeline to be optimized
+                  end-to-end. On TrackML, HEPTv2 achieves 98.6% double-majority tracking efficiency at a 0.8% fake rate,
+                  while requiring only $\sim$15~ms inference time and 0.4~GB peak memory per event on a NVIDIA A100 GPU.
+                  Latency and memory scale approximately linearly for events with up to $5\times10^5$ hits. HEPTv2
+                  establishes a new state of the art in the accuracy-latency trade-off, improving efficiency by 4.5%
+                  over the strongest prior transformer and by 1.1--2.2% over optimized graph-based pipelines, while
+                  reducing latency by factors of 7 and 38--52, respectively. These results show end-to-end transformers
+                  can deliver the accuracy and efficiency required for real-time particle reconstruction at the HL-LHC.
+                </p>
+              </details>
+            </div>
+          </div>
+          <div data-pub-entry data-year="2026"
+            style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">02</span>
+            <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">EveNet: A Foundation Model for Particle
                 Collision Data Analysis</span>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">Corresponding author</span>
               <span style="font-size:14px;color:#5a555e">T.-H. Hsu, B.-H. Zhou, Q. Liu, Y. Xu, S. Li, G. W.-S. Hou,
-                B. Nachman, S.-C. Hsu, V. Mikuni, <strong>Y.-T. Chou</strong>, Y. Zhang</span>
+                B. Nachman, S.-C. Hsu, V. Mikuni<sup style="font-size:11px">*</sup>, <strong>Y.-T. Chou</strong><sup style="font-size:11px">*</sup>, Y.
+                Zhang<sup style="font-size:11px">*</sup></span>
+              <span style="font-size:13.5px;color:#5a555e">Accepted for publication in Nature Machine
+                Intelligence</span>
               <a href="https://arxiv.org/abs/2601.17126" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">arXiv:2601.17126</a>
               <details>
                 <summary style="cursor:pointer;font-size:13px;font-weight:700;color:#7d2882"
@@ -133,12 +176,14 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">02</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">03</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Locality-Sensitive Hashing-Based Efficient
                 Point Transformer for Charged Particle Reconstruction</span>
-              <span style="font-size:14px;color:#5a555e">S. Govil, J. P. Rodgers, <strong>Y.-T. Chou</strong>, S. Miao,
-                A. Saha, A. Anand, K. Lieret, G. DeZoort, M. Liu, J. Duarte, P. Li, S.-C. Hsu</span>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">Corresponding author</span>
+              <span style="font-size:14px;color:#5a555e">S. Govil, J. P. Rodgers, <strong>Y.-T. Chou</strong><sup style="font-size:11px">*</sup>, S.
+                Miao<sup style="font-size:11px">*</sup>, A. Saha, A. Anand, K. Lieret, G. DeZoort, M. Liu, J. Duarte, P. Li, S.-C. Hsu</span>
               <span style="font-size:13.5px;color:#5a555e">NeurIPS 2025 · Machine Learning and the Physical Sciences
                 Workshop</span>
               <a href="https://arxiv.org/abs/2510.07594" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">Accepted workshop
@@ -169,11 +214,13 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #e8e2de">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">03</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">04</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Search for decays of the Higgs boson into
                 scalar particles decaying into four or six b-quarks using pp collisions at √s = 13 TeV with the ATLAS
                 detector</span>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">Analysis contact</span>
               <span style="font-size:14px;color:#5a555e" data-en="ATLAS Collaboration">ATLAS
                 Collaboration</span>
               <span style="font-size:13.5px;color:#5a555e">Phys. Rev. D 112 (2025) 072005</span>
@@ -205,7 +252,7 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #e8e2de">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">04</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">05</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Search for a new pseudoscalar decaying into a
                 pair of bottom and antibottom quarks in top-associated production</span>
@@ -233,12 +280,13 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">05</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">06</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Elevating Citizen Science Opportunities to
                 Advance Machine Learning: A Case Study in Anomaly Detection</span>
               <span style="font-size:14px;color:#5a555e">E. Campolongo, <strong>Y.-T. Chou</strong>, E. Govorkova, W.
                 Bhimji, W.-L. Chao, C. Harris, S.-C. Hsu et al.</span>
+              <span style="font-size:13.5px;color:#5a555e">Under review at Nature Communications</span>
               <a href="https://arxiv.org/abs/2503.02112" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">arXiv:2503.02112</a>
               <details>
                 <summary style="cursor:pointer;font-size:13px;font-weight:700;color:#7d2882"
@@ -263,12 +311,14 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">06</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">07</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Track Reconstruction as a Service for
                 Collider Physics</span>
-              <span style="font-size:14px;color:#5a555e">H. Zhao, <strong>Y.-T. Chou</strong>, Y. Yao, X. Ju, Y. Feng et
-                al.</span>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">Corresponding author</span>
+              <span style="font-size:14px;color:#5a555e">H. Zhao, <strong>Y.-T. Chou</strong><sup
+                  style="font-size:11px">*</sup>, Y. Yao, X. Ju, Y. Feng et al.</span>
               <a href="https://arxiv.org/abs/2501.05520" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">JINST 20 (2025) 06,
                 P06002 · arXiv:2501.05520</a>
               <details>
@@ -293,7 +343,7 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #e8e2de">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">07</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">08</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Combination of searches for singly and doubly
                 charged Higgs bosons produced via vector-boson fusion</span>
@@ -318,7 +368,7 @@
           </div>
           <div data-pub-entry data-year="2024"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #e8e2de">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">08</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">09</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Search for decays of the Higgs boson into a
                 pair of pseudoscalar particles decaying into bb̄τ⁺τ⁻</span>
@@ -343,7 +393,7 @@
           </div>
           <div data-pub-entry data-year="2024"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #e8e2de">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">09</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">10</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Calibration of a soft secondary vertex tagger
                 using proton–proton collisions at √s = 13 TeV</span>
@@ -373,7 +423,7 @@
           </div>
           <div data-pub-entry data-year="2020"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #e8e2de">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">10</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">11</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Search for Higgs boson decays into two new
                 low-mass spin-0 particles in the 4b channel</span>
@@ -401,7 +451,7 @@
           </div>
           <div data-pub-entry data-year="2017"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">11</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">12</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Search for Dark Matter produced in
                 association with a Higgs boson decaying to bb̄</span>
@@ -434,7 +484,7 @@
         <div style="display:flex;flex-direction:column">
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">12</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">13</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">SuperSONIC: Cloud-Native Infrastructure for
                 ML Inferencing</span>
@@ -467,14 +517,21 @@
           </div>
           <div data-pub-entry data-year="2025"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">13</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">14</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">AthenaTriton: A Tool for running Machine
                 Learning Inference as a Service in Athena</span>
-              <span style="font-size:14px;color:#5a555e" data-en="ATLAS Collaboration">ATLAS
-                Collaboration</span>
-              <a href="https://cds.cern.ch/record/2923940/" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">Proceedings for
-                CHEP 2025 · ATL-SOFT-PROC-2025-026</a>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">First author</span>
+              <span style="font-size:14px;color:#5a555e"><strong>Y.-T. Chou</strong>, X. Ju, H. Zhao, A.
+                Krasznahorkay, J. Elmsheuser et al.</span>
+              <span style="font-size:13.5px;color:#5a555e">EPJ Web Conf. 337 (2025) 01358 · Proceedings for CHEP
+                2024</span>
+              <div style="display:flex;gap:14px;flex-wrap:wrap">
+                <a href="https://doi.org/10.1051/epjconf/202533701358" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">Published article ·
+                  DOI: 10.1051/epjconf/202533701358</a>
+                <a href="https://cds.cern.ch/record/2923940/" target="_blank" rel="noopener noreferrer" style="font-size:13.5px;font-weight:600">ATL-SOFT-PROC-2025-026</a>
+              </div>
               <details>
                 <summary style="cursor:pointer;font-size:13px;font-weight:700;color:#7d2882"
                   data-en="Abstract">Abstract</summary>
@@ -487,7 +544,7 @@
           </div>
           <div data-pub-entry data-year="2024"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">14</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">15</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">FAIR Universe HiggsML Uncertainty Challenge
                 Competition</span>
@@ -518,10 +575,12 @@
           </div>
           <div data-pub-entry data-year="2022"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #eee9e5">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">15</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">16</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">DeXTer: Deep Sets based Neural Networks for
                 Low-pT X → bb̄ Identification in ATLAS</span>
+              <span
+                style="align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7d2882;background:#f6eef6;border:1px solid #e6d5e7;border-radius:3px;padding:3px 8px">Analysis contact</span>
               <span style="font-size:14px;color:#5a555e" data-en="ATLAS Collaboration">ATLAS
                 Collaboration</span>
               <a href="https://inspirehep.net/literature/2151251" target="_blank" rel="noopener noreferrer"
@@ -545,7 +604,7 @@
           </div>
           <div data-pub-entry data-year="2017"
             style="display:grid;grid-template-columns:44px 1fr;gap:20px;padding:22px 0">
-            <span style="font-size:14px;font-weight:700;color:#c9c2bd">16</span>
+            <span style="font-size:14px;font-weight:700;color:#c9c2bd">17</span>
             <div style="display:flex;flex-direction:column;gap:6px">
               <span style="font-size:17px;font-weight:700;line-height:1.4">Search for Dark Matter Produced in
                 Association with a Higgs Boson Decaying to bb̄ at √s = 13 TeV</span>
