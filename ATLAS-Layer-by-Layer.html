@@ -1,0 +1,805 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ATLAS, Layer by Layer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400&family=B612+Mono&family=Saira+Extra+Condensed:wght@500;700;800&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --stage:#0e0e0d; --panel:rgba(17,17,15,.8); --ink:#e8e2d6; --ink-2:#aaa396; --ink-3:#777166; --line:rgba(232,226,214,.13); --line-2:rgba(232,226,214,.26);
+  --amber:#f2b33d; --lar:#4fc082; --tile:#e45a4b; --muon:#5b94e8; --coil:#8b857c;
+  --ele:#8ff0c6; --mu:#ff8b4b; --gam:#fff08a; --met:#ff5a5a; --hot:#fff3d4;
+  --f-disp:"Saira Extra Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"B612",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"B612 Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --gut:clamp(16px,2.6vw,36px); --bar-h:46px;
+  --screens:13.8;
+}
+html,body{background:var(--stage);color:var(--ink)}
+body{margin:0;font:15px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+.story{position:relative;height:calc(var(--screens) * 100vh);height:calc(var(--screens) * 100svh)}
+.stage{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;height:calc(100svh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow:hidden;background:var(--stage)}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hud{position:absolute;inset:0;pointer-events:none}
+.hud .live{pointer-events:auto}
+.shadowed{text-shadow:0 0 18px var(--stage),0 0 6px var(--stage),0 1px 2px var(--stage)}
+
+.hero{position:absolute;left:var(--gut);top:calc(var(--gut) + 4px);width:min(400px,calc(100% - 2 * var(--gut)));display:flex;flex-direction:column;gap:14px}
+.kicker{margin:0;font:12px/1.45 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--amber)}
+.wm{margin:0;display:flex;flex-direction:column;font-weight:400}
+.wm-main{font:800 clamp(86px,9.4vw,150px)/.8 var(--f-disp);letter-spacing:.005em;color:var(--ink);white-space:nowrap}
+.wm-main span{display:inline-block}
+.wm-sub{font:500 clamp(30px,3.1vw,46px)/1 var(--f-disp);letter-spacing:.03em;color:var(--ink-2);margin-top:.3em}
+.lede{margin:0;max-width:34ch;font-size:15px;line-height:1.6;color:var(--ink-2);text-wrap:pretty}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{font:12px/1 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink);background:rgba(232,226,214,.05);border:1px solid var(--line-2);border-radius:999px;padding:11px 16px;cursor:pointer;transition:border-color .2s,color .2s,background-color .2s}
+.btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(242,179,61,.07)}
+.btn.small{padding:8px 12px;font-size:11px}
+.hint{font:12px/1 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+
+.card{position:absolute;left:var(--gut);top:var(--gut);width:min(360px,calc(100% - 2 * var(--gut)));box-sizing:border-box;padding:18px 18px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(10px);visibility:hidden}
+.c-step{display:flex;align-items:baseline;gap:8px;font:12px/1 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.c-step b{color:var(--amber);font-weight:400}
+.c-name{margin:0;font:800 clamp(36px,3.4vw,48px)/.92 var(--f-disp);letter-spacing:.01em;text-wrap:balance;color:var(--ink)}
+.c-name span{display:inline-block}
+.c-saw{margin:0;font-size:14px;line-height:1.55;color:var(--ink)}
+.c-saw .k,.c-specs .k{display:block;font:11px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.c-specs{margin:0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.c-dims{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0;padding:0;list-style:none}
+.c-dims li{font:11.5px/1 var(--f-mono);color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-variant-numeric:tabular-nums}
+
+.outro{position:absolute;left:var(--gut);top:calc(var(--gut) + 4px);width:min(390px,calc(100% - 2 * var(--gut)));display:flex;flex-direction:column;gap:14px;opacity:0;visibility:hidden}
+.outro h2{margin:0;font:800 clamp(52px,5.4vw,84px)/.86 var(--f-disp);color:var(--ink)}
+.outro p{margin:0;max-width:34ch;color:var(--ink-2);text-wrap:pretty}
+
+.readout{position:absolute;right:var(--gut);top:var(--gut);margin:0;display:grid;grid-template-columns:auto auto;align-items:center;gap:6px 14px;font:12px/1.3 var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+.readout dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.readout dd{margin:0;color:var(--ink)}
+.scale{display:inline-flex;align-items:center;gap:8px;justify-content:flex-end}
+.scale i{display:inline-block;height:6px;box-sizing:border-box;border:1px solid var(--ink);border-top:0;width:60px}
+.readout .again{grid-column:1 / -1;justify-self:end;margin-top:4px}
+
+.caption{position:absolute;left:var(--gut);bottom:calc(var(--bar-h) + 30px);display:flex;flex-direction:column;gap:4px;max-width:min(560px,calc(100% - 2 * var(--gut)))}
+.cap-proc{font:700 clamp(26px,2.4vw,34px)/1 var(--f-disp);letter-spacing:.02em;color:var(--ink)}
+.cap-meta{font:12px/1.45 var(--f-mono);color:var(--ink-2)}
+.ov{text-decoration:overline;text-decoration-thickness:1px}
+
+.bar{position:absolute;left:var(--gut);right:var(--gut);bottom:calc(14px + env(safe-area-inset-bottom,0px));height:var(--bar-h);display:flex;align-items:flex-end;gap:12px}
+.play{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:rgba(232,226,214,.05);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,color .2s}
+.play:hover{border-color:var(--amber);color:var(--amber)}
+.play svg{width:14px;height:14px;fill:currentColor}
+.strip{position:relative;flex:1;min-width:0;height:100%}
+.marks{position:absolute;left:0;right:0;top:0;height:16px}
+.mark{position:absolute;top:0;padding:2px 4px;margin-left:-4px;background:none;border:0;font:10.5px/1 var(--f-mono);letter-spacing:.04em;color:var(--ink-3);cursor:pointer;white-space:nowrap;transition:color .2s}
+.mark:hover,.mark.on{color:var(--amber)}
+#stripCv{position:absolute;left:0;bottom:0;width:100%;height:24px;cursor:pointer;touch-action:none;border-radius:12px}
+
+.noscript{position:absolute;left:var(--gut);bottom:120px;color:var(--ink-2)}
+
+.colophon{padding-block:76px 96px;padding-inline:var(--gut);border-top:1px solid var(--line);background:var(--stage)}
+.col-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:56px}
+.colophon h2{margin:0 0 18px;font:800 clamp(40px,4vw,56px)/.92 var(--f-disp);text-wrap:balance}
+.colophon p{margin:0 0 14px;max-width:62ch;color:var(--ink-2)}
+.colophon .fine{font:12px/1.5 var(--f-mono);color:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 22px;padding:0;list-style:none;font:12px/1.4 var(--f-mono);color:var(--ink-2)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:-1px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+caption{text-align:left;font:11px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-bottom:10px}
+th,td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:11px/1.3 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+td{color:var(--ink-2)}
+td:first-child{color:var(--ink)}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+
+@media (max-width:899px){
+  .hero{gap:10px}
+  .wm-main{font-size:clamp(66px,17vw,112px)}
+  .wm-sub{font-size:clamp(26px,6vw,38px)}
+  .lede{font-size:14px;max-width:46ch}
+  .readout{top:auto;bottom:calc(var(--bar-h) + 30px);gap:4px 10px}
+  .caption{max-width:calc(100% - 2 * var(--gut) - 150px)}
+  .card{width:calc(100% - 2 * var(--gut));padding:14px 14px 12px;gap:8px}
+  .c-name{font-size:clamp(30px,8vw,40px)}
+  .col-grid{grid-template-columns:1fr;gap:36px}
+}
+@media (max-width:599px){
+  .c-specs{display:none}
+  .mark .nm{display:none}
+  .lede{font-size:13.5px}
+  .cap-meta{font-size:11px}
+}
+@media (max-height:700px) and (min-width:900px){ .c-specs{display:none} }
+@media (prefers-reduced-motion:reduce){ .btn,.play,.mark{transition:none} }
+</style>
+
+<main>
+<section class="story" id="story" aria-label="The ATLAS detector: a collision, then the detector taken apart layer by layer">
+  <div class="stage" id="stage">
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <noscript><p class="noscript">This page draws the detector with JavaScript.</p></noscript>
+    <div class="hud">
+      <header class="hero shadowed" id="hero">
+        <p class="kicker">LHC Run 3 · proton–proton · √s = 13.6 TeV</p>
+        <h1 class="wm"><span class="wm-main" id="wm">ATLAS</span><span class="wm-sub">layer by layer</span></h1>
+        <p class="lede">Two bunches of protons cross at the centre of a 25-metre detector. Whatever comes out leaves hits in every layer it passes through. Scroll to take the detector apart, from the outside in.</p>
+        <div class="actions live"><button class="btn" id="btnNew" type="button">New collision</button><span class="hint" aria-hidden="true">Scroll ↓</span></div>
+      </header>
+
+      <aside class="card live" id="card" aria-live="polite">
+        <div class="c-step"><b id="cNum">01</b><span>/ 08</span><span aria-hidden="true">·</span><span>outside → in</span></div>
+        <h2 class="c-name" id="cName">Muon spectrometer</h2>
+        <p class="c-saw"><span class="k">In this event</span><span id="cSaw"></span></p>
+        <p class="c-specs"><span class="k">The layer</span><span id="cSpec"></span></p>
+        <ul class="c-dims" id="cDims"></ul>
+      </aside>
+
+      <div class="outro shadowed live" id="outro">
+        <h2>Back together</h2>
+        <p>Every layer you just took apart does this for 40 million bunch crossings a second.</p>
+        <div class="actions"><button class="btn" id="btnNew2" type="button">New collision</button><button class="btn" id="btnTop" type="button">Back to the top</button></div>
+      </div>
+
+      <dl class="readout shadowed live" id="readout">
+        <dt>t</dt><dd id="roT">0.0 ns</dd>
+        <dt>scale</dt><dd class="scale"><i id="roBar"></i><span id="roScale">10 m</span></dd>
+        <dd class="again"><button class="btn small" id="btnNew3" type="button">New collision</button></dd>
+      </dl>
+
+      <div class="caption shadowed" id="caption">
+        <span class="cap-proc" id="capProc"></span>
+        <span class="cap-meta" id="capMeta"></span>
+      </div>
+
+      <nav class="bar live" id="bar" aria-label="Tour">
+        <button class="play" id="btnPlay" type="button" aria-label="Play the tour"><svg viewBox="0 0 14 14" aria-hidden="true"><path id="playGlyph" d="M3 1.5L12.5 7L3 12.5Z"/></svg></button>
+        <div class="strip" id="strip">
+          <div class="marks" id="marks"></div>
+          <canvas id="stripCv" aria-label="Tour progress, one tick per 25 ns bunch slot. Click or drag to jump." role="img"></canvas>
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<footer class="colophon" id="about">
+  <div class="col-grid">
+    <div>
+      <h2>How this is drawn</h2>
+      <p>The detector is drawn to scale from published ATLAS dimensions: barrel radii and lengths, module counts and layer positions. As the layers come off, the camera zooms from 25 metres down to a few millimetres instead of squeezing the radius.</p>
+      <p>The collisions are toy simulations made for illustration, not ATLAS data. Each replay draws a new process with proper decay kinematics, about 60 pile-up collisions in the same crossing (thinned to tracks above 0.4 GeV), a 2 T solenoid curving every charged track, and hits and calorimeter deposits where those particles would leave them.</p>
+      <ul class="legend">
+        <li><span class="sw" style="background:#e8e2d6"></span>tracker, solenoid</li>
+        <li><span class="sw" style="background:#4fc082"></span>LAr calorimeter</li>
+        <li><span class="sw" style="background:#e45a4b"></span>Tile calorimeter</li>
+        <li><span class="sw" style="background:#5b94e8"></span>muon chambers</li>
+        <li><span class="sw" style="background:#8b857c"></span>toroid coils</li>
+        <li><span class="sw" style="background:#f2b33d"></span>charged tracks</li>
+        <li><span class="sw" style="background:#8ff0c6"></span>electrons</li>
+        <li><span class="sw" style="background:#fff08a"></span>photons</li>
+        <li><span class="sw" style="background:#ff8b4b"></span>muons</li>
+        <li><span class="sw" style="background:#ff5a5a"></span>missing E<sub>T</sub></li>
+      </ul>
+      <p class="fine">Motion by anime.js 4.5 (MIT). Drawn on a 2D canvas, no WebGL.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <caption>The layers, outside in</caption>
+        <thead><tr><th scope="col">Layer</th><th scope="col">Radius</th><th scope="col">Half-length</th><th scope="col">What it is</th></tr></thead>
+        <tbody>
+          <tr><td>Muon spectrometer</td><td class="num">4.5–12 m</td><td class="num">22 m</td><td>Drift tubes (MDT) for precision, RPC and TGC chambers for the trigger, New Small Wheels since Run 3</td></tr>
+          <tr><td>Toroid magnets</td><td class="num">4.9–10.1 m</td><td class="num">12.65 m</td><td>8 air-core superconducting barrel coils plus two endcap toroids, about 0.5–1 T</td></tr>
+          <tr><td>Tile calorimeter</td><td class="num">2.28–4.25 m</td><td class="num">6.1 m</td><td>Steel and scintillating tiles, 64 modules around the beam</td></tr>
+          <tr><td>LAr calorimeter</td><td class="num">1.40–1.97 m</td><td class="num">3.2 m</td><td>Lead and liquid argon in an accordion, over 22 radiation lengths</td></tr>
+          <tr><td>Solenoid</td><td class="num">1.23–1.28 m</td><td class="num">2.9 m</td><td>2 T along the beam, about 0.66 radiation lengths thick</td></tr>
+          <tr><td>TRT</td><td class="num">0.55–1.08 m</td><td class="num">0.71 m</td><td>About 300,000 straw tubes, 4 mm across</td></tr>
+          <tr><td>SCT</td><td class="num">0.30–0.51 m</td><td class="num">0.75 m</td><td>Silicon strips, 4 barrel layers and 9 discs per side</td></tr>
+          <tr><td>Pixels + IBL</td><td class="num">33–123 mm</td><td class="num">0.40 m</td><td>Silicon pixels, about 92 million channels</td></tr>
+          <tr><td>Beam pipe</td><td class="num">23.5 mm</td><td class="num">—</td><td>Beryllium, around the interaction point</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@4.5.0/dist/bundles/anime.umd.min.js"></script>
+<script>
+(() => {
+'use strict';
+const A = (window.anime && window.anime.createTimeline) ? window.anime : null;
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TAU = Math.PI * 2, DEG = Math.PI / 180, C_LIGHT = 0.299792458; // metres per nanosecond
+const clamp = (x, a, b) => x < a ? a : x > b ? b : x;
+const lerp = (a, b, t) => a + (b - a) * t;
+const seg = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+const EZ = {
+  outQuad: t => t * (2 - t), inQuad: t => t * t,
+  inOutQuad: t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2,
+  inOutCubic: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  inOutSine: t => -(Math.cos(Math.PI * t) - 1) / 2,
+  outBack: t => { const s = 1.9; return 1 + (s + 1) * Math.pow(t - 1, 3) + s * Math.pow(t - 1, 2); }
+};
+const NODASH = [], DASH_BACK = [3, 4];
+
+/* ---------------- random numbers ---------------- */
+function RNG(seed) {
+  let a = (seed >>> 0) || 1;
+  const u = () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  return {
+    raw: u, u: (x = 0, y = 1) => x + (y - x) * u(),
+    g: () => { let p = 0, q = 0; while (p === 0) p = u(); while (q === 0) q = u(); return Math.sqrt(-2 * Math.log(p)) * Math.cos(TAU * q); },
+    exp: m => -m * Math.log(1 - u()), int: (x, y) => Math.floor(x + (y - x + 1) * u()),
+    pois: m => { const L = Math.exp(-m); let k = 0, p = 1; do { k++; p *= u(); } while (p > L); return k - 1; },
+    bw: (m, w) => m + (w / 2) * Math.tan(Math.PI * (u() - .5))
+  };
+}
+
+/* ---------------- colours ---------------- */
+const COL = { ink:'#e8e2d6', ink2:'#aaa396', stage:'#0e0e0d', amber:'#f2b33d', lar:'#4fc082', tile:'#e45a4b', muon:'#5b94e8', coil:'#8b857c',
+  ele:'#8ff0c6', mu:'#ff8b4b', gam:'#fff08a', met:'#ff5a5a', hot:'#fff3d4', b1:'#cfe2ff', b2:'#ffe0c2', pu:'#a8813a', ue:'#d19b3d', had:'#f2b33d', jet:'#f5d56b', field:'#9fc3d9' };
+function hexRgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+function mix(h1, h2, t) { const a = hexRgb(h1), b = hexRgb(h2); return 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',') + ')'; }
+const larColor = E => mix('#1d6641', '#d4ffe8', clamp(Math.log(E / .25) / Math.log(320), 0, 1));
+const tileColor = E => { const u = clamp(Math.log(E / .4) / Math.log(220), 0, 1); return u < .5 ? mix('#7c2b22', '#e45a4b', u * 2) : mix('#e45a4b', '#ffd66b', (u - .5) * 2); };
+
+/* ---------------- detector geometry (metres) ---------------- */
+const L_ORDER = ['mu', 'tor', 'tile', 'lar', 'sol', 'trt', 'sct', 'pix', 'ibl', 'bp'];
+const STEP_LAYERS = [['mu'], ['tor'], ['tile'], ['lar'], ['sol'], ['trt', 'sct'], ['pix', 'ibl'], ['bp']];
+const STEP_OF = {}; STEP_LAYERS.forEach((ls, i) => ls.forEach(id => STEP_OF[id] = i));
+const LCOL = { mu:COL.muon, tor:COL.coil, tile:COL.tile, lar:COL.lar, sol:COL.ink, trt:'#d7d0c2', sct:'#d7d0c2', pix:COL.ink, ibl:'#f2d38a', bp:COL.ink2 };
+const OCT_C = Math.cos(Math.PI / 8);
+const GEO = { mu: [], tor: [], tile: [], lar: [], sol: [], trt: [], sct: [], pix: [], ibl: [], bp: [] };
+[[4.95, 7.0, 6], [7.4, 9.6, 8], [9.9, 12.3, 10]].forEach(([ap, L, n]) => GEO.mu.push({ t:'oct', R: ap / OCT_C, z0: -L, z1: L, seams: n }));
+[[7.2, 4.6, .9, true, 1], [13.8, 11.9, 2.0, false, 1], [21.5, 12.0, 2.4, false, .55]].forEach(([z, ro, ri, round, a]) => { GEO.mu.push({ t:'wheel', z, rOut: ro, rIn: ri, round, a }); GEO.mu.push({ t:'wheel', z: -z, rOut: ro, rIn: ri, round, a }); });
+for (let k = 0; k < 8; k++) GEO.tor.push({ t:'coil', phi: Math.PI / 8 + k * Math.PI / 4, r0: 4.9, r1: 10.05, z0: -12.65, z1: 12.65, rc: 1.1 });
+GEO.tor.push({ t:'cyl', r:5.35, rin:1.65, z0:8.2, z1:13.2, a:.8 }, { t:'cyl', r:5.35, rin:1.65, z0:-13.2, z1:-8.2, a:.8 });
+GEO.tile.push({ t:'cyl', r:4.25, rin:2.28, z0:-2.82, z1:2.82, rings:[3.82], mods:64, seams:16 },
+  { t:'cyl', r:4.25, rin:2.28, z0:3.2, z1:6.1, rings:[3.82], mods:64, seams:16 },
+  { t:'cyl', r:4.25, rin:2.28, z0:-6.1, z1:-3.2, rings:[3.82], seams:16, a:.85 });
+GEO.lar.push({ t:'cyl', r:1.97, rin:1.40, z0:-3.2, z1:3.2, zig:[1.47, 1.92, 170] },
+  { t:'cyl', r:2.1, rin:.3, z0:3.6, z1:6.4, rings:[.45], a:.7 }, { t:'cyl', r:2.1, rin:.3, z0:-6.4, z1:-3.6, rings:[.45], a:.7 });
+GEO.sol.push({ t:'cyl', r:1.28, rin:1.23, z0:-2.9, z1:2.9, zrings:[-1.9, -.95, 0, .95, 1.9] });
+GEO.trt.push({ t:'cyl', r:1.082, rin:.554, z0:-.712, z1:.712, rings:[.694, .859], mods:32, seams:36 },
+  { t:'cyl', r:1.0, rin:.64, z0:.848, z1:2.71, zrings:[1.3, 1.78, 2.25], a:.75 }, { t:'cyl', r:1.0, rin:.64, z0:-2.71, z1:-.848, zrings:[-2.25, -1.78, -1.3], a:.75 });
+[.299, .371, .443, .514].forEach((r, i) => GEO.sct.push({ t:'cyl', r, rin:0, z0:-.749, z1:.749, a: .55 + .15 * i }));
+[.853, .934, 1.091, 1.299, 1.399, 1.771, 2.115, 2.505, 2.72].forEach(z => { GEO.sct.push({ t:'disc', z, r0:.275, r1:.56, a:.45 }, { t:'disc', z:-z, r0:.275, r1:.56, a:.45 }); });
+[.0505, .0885, .1225].forEach(r => GEO.pix.push({ t:'cyl', r, rin:0, z0:-.4005, z1:.4005 }));
+[.495, .58, .65].forEach(z => { GEO.pix.push({ t:'disc', z, r0:.0888, r1:.1496, a:.6 }, { t:'disc', z:-z, r0:.0888, r1:.1496, a:.6 }); });
+GEO.ibl.push({ t:'cyl', r:.033, rin:0, z0:-.332, z1:.332, seams:14 });
+GEO.bp.push({ t:'tube', r:.0235, zrings:[-.3, -.2, -.1, .1, .2, .3] });
+const COIL_RZ = (() => { const r0 = 4.9, r1 = 10.05, z0 = -12.65, z1 = 12.65, c = 1.1, pts = [];
+  const corner = (cr, cz, a0) => { for (let i = 0; i <= 6; i++) { const a = a0 + i / 6 * Math.PI / 2; pts.push([cr + c * Math.cos(a), cz + c * Math.sin(a)]); } };
+  corner(r1 - c, z1 - c, 0); corner(r0 + c, z1 - c, Math.PI / 2); corner(r0 + c, z0 + c, Math.PI); corner(r1 - c, z0 + c, 1.5 * Math.PI); pts.push(pts[0]); return pts; })();
+
+// envelope of what remains once the steps before index i have come off: [r, |z|]
+const ENV = [[12.5, 22.5], [10.2, 13.4], [4.3, 6.2], [2.15, 6.5], [1.3, 2.95], [1.09, 2.75], [.16, .66], [.16, .66]];
+// fit volume for each camera step: [r, |z|]
+const FIT_BOX = [[11.2, 12.8], [10.1, 13.2], [4.25, 6.1], [2.1, 6.4], [1.28, 2.9], [1.082, 2.72], [.15, .65], [.03, .13]];
+
+/* ---------------- card copy ---------------- */
+const STEP_INFO = [
+  { name:'Muon spectrometer', anchor:[0, 9.9, 12.3], spec:'Precision drift tubes (MDT) plus fast trigger chambers (RPC in the barrel, TGC in the endcaps) in three stations at r ≈ 5, 7.5 and 10 m. New Small Wheels have covered the inner endcaps since Run 3.', dims:['r 4.5–12 m', '|z| < 22 m', '~1,150 MDT chambers'] },
+  { name:'Toroid magnets', anchor:[10.05 * Math.cos(5 * Math.PI / 8), 10.05 * Math.sin(5 * Math.PI / 8), 12.65], spec:'Eight air-core superconducting coils, 25.3 m long, make a toroidal field of about 0.5 T around the beam; two endcap toroids reach about 1 T.', dims:['8 barrel coils', '25.3 × 20.1 m', '~0.5–1 T'] },
+  { name:'Tile calorimeter', anchor:[0, 4.25, 6.1], spec:'Steel absorber interleaved with scintillating tiles and read out through wavelength-shifting fibres. It stops and measures hadrons: 64 wedges around the beam, three samplings in depth.', dims:['r 2.28–4.25 m', '64 modules', '|η| < 1.7'] },
+  { name:'LAr calorimeter', anchor:[0, 1.97, 3.2], spec:'Lead absorbers folded into an accordion and bathed in liquid argon at 88 K. Three samplings in depth plus a presampler measure electron and photon showers.', dims:['r 1.40–1.97 m', '> 22 X₀', 'three samplings'] },
+  { name:'Solenoid', anchor:[0, 1.28, 2.9], spec:'A thin superconducting solenoid making 2 T along the beam. It is only about 0.66 radiation lengths thick, so electrons and photons still reach the calorimeter.', dims:['r 1.23–1.28 m', '5.8 m long', '2 T'] },
+  { name:'TRT + SCT', anchor:[0, 1.082, .712], spec:'The SCT has four barrel layers and nine discs per side of silicon strips, paired at a 40 mrad stereo angle. Around it, about 300,000 straw tubes (TRT) add ~30 hits per track and tell electrons from pions.', dims:['SCT r 0.30–0.51 m', 'TRT r 0.56–1.08 m', '80 µm strips'] },
+  { name:'Pixels + IBL', anchor:[0, .1225, .4005], spec:'Silicon pixels closest to the beam: the IBL at 33 mm with 50 × 250 µm pixels, then three layers at 50.5, 88.5 and 122.5 mm with 50 × 400 µm pixels, plus three discs per side.', dims:['~92 M channels', 'r 33–123 mm', '~10 µm hits'] },
+  { name:'Interaction point', anchor:[0, 0, 0], spec:'A beryllium beam pipe 23.5 mm in radius. Bunches of about 10¹¹ protons cross here every 25 ns, and the collisions spread along a luminous region a few centimetres long.', dims:['r 23.5 mm', '25 ns spacing', '~60 collisions per crossing'] }
+];
+const MARK_NAMES = ['Muon', 'Toroid', 'Tile', 'LAr', 'Solenoid', 'TRT·SCT', 'Pixels', 'IP'];
+
+/* ---------------- kinematics ---------------- */
+const mk4 = (pt, eta, phi) => [pt * Math.cosh(eta), pt * Math.cos(phi), pt * Math.sin(phi), pt * Math.sinh(eta)];
+function kin(p) { const pt = Math.hypot(p[1], p[2]), pa = Math.hypot(pt, p[3]); return { pt, eta: .5 * Math.log((pa + p[3] + 1e-9) / (pa - p[3] + 1e-9)), phi: Math.atan2(p[2], p[1]) }; }
+function boost(p, b) { const b2 = b[0] * b[0] + b[1] * b[1] + b[2] * b[2]; if (b2 < 1e-14) return p.slice(); const g = 1 / Math.sqrt(1 - b2), bp = b[0] * p[1] + b[1] * p[2] + b[2] * p[3], g2 = (g - 1) / b2;
+  return [g * (p[0] + bp), p[1] + g2 * bp * b[0] + g * b[0] * p[0], p[2] + g2 * bp * b[1] + g * b[1] * p[0], p[3] + g2 * bp * b[2] + g * b[2] * p[0]]; }
+function decay2(P, M, m1, m2, R) { const ps = Math.sqrt(Math.max(0, (M * M - (m1 + m2) ** 2) * (M * M - (m1 - m2) ** 2))) / (2 * M), ct = R.u(-1, 1), st = Math.sqrt(1 - ct * ct), ph = R.u(0, TAU);
+  const d = [ps * st * Math.cos(ph), ps * st * Math.sin(ph), ps * ct], bv = [P[1] / P[0], P[2] / P[0], P[3] / P[0]];
+  return [boost([Math.hypot(ps, m1), d[0], d[1], d[2]], bv), boost([Math.hypot(ps, m2), -d[0], -d[1], -d[2]], bv)]; }
+function parent(M, R, ptm, ys) { const pt = R.exp(ptm), y = R.g() * ys, ph = R.u(0, TAU), mt = Math.hypot(M, pt); return [mt * Math.cosh(y), pt * Math.cos(ph), pt * Math.sin(ph), mt * Math.sinh(y)]; }
+function mass(ps) { let E = 0, x = 0, y = 0, z = 0; for (const p of ps) { E += p[0]; x += p[1]; y += p[2]; z += p[3]; } return Math.sqrt(Math.max(0, E * E - x * x - y * y - z * z)); }
+function O(kind, p, q, b) { const k = kin(p); return { kind, pt: k.pt, eta: k.eta, phi: k.phi, q: q || 0, b: !!b, p }; }
+const ACC = { e: o => o.pt > 7 && Math.abs(o.eta) < 1.37, gam: o => o.pt > 10 && Math.abs(o.eta) < 1.37, mu: o => o.pt > 5 && Math.abs(o.eta) < 2.4, jet: o => o.pt > 25 && Math.abs(o.eta) < 1.5 };
+const acc = o => ACC[o.kind](o);
+function recoil(P, R) { const pt = Math.hypot(P[1], P[2]) * R.u(.85, 1.1), ph = Math.atan2(P[2], P[1]) + Math.PI + R.g() * .2; return O('jet', mk4(pt, R.u(-1.3, 1.3), ph)); }
+function tryGen(f) { for (let i = 0; i < 120; i++) { const r = f(); if (r) return r; } return null; }
+function tops(R) { const M = 350 + R.exp(160), P = parent(M, R, 25, .9), [t1, t2] = decay2(P, M, 172.5, 172.5, R), [W1, b1] = decay2(t1, 172.5, 80.4, 4.8, R), [W2, b2] = decay2(t2, 172.5, 80.4, 4.8, R); return { W1, W2, b1, b2 }; }
+const PROCS = [
+  { key:'hgg', name:'H → γγ', gen: R => tryGen(() => { const M = 125.1, P = parent(M, R, 18, 1), [a, b] = decay2(P, M, 0, 0, R), g1 = O('gam', a), g2 = O('gam', b);
+      if (!(acc(g1) && acc(g2) && Math.max(g1.pt, g2.pt) > 35 && Math.min(g1.pt, g2.pt) > 25)) return null; const objs = [g1, g2];
+      if (Math.hypot(P[1], P[2]) > 30) { const j = recoil(P, R); if (acc(j)) objs.push(j); } return { objs, nus: [], meta: `Higgs boson to two photons · m(γγ) = ${mass([a, b]).toFixed(1)} GeV` }; }) },
+  { key:'h4l', name:'H → ZZ* → 2e2μ', gen: R => tryGen(() => { const M = 125.1, P = parent(M, R, 15, 1), m1 = clamp(R.bw(91.19, 2.5), 84, 98), m2 = R.u(14, Math.min(52, M - m1 - 2)), [Z1, Z2] = decay2(P, M, m1, m2, R), [a, b] = decay2(Z1, m1, 0, 0, R), [c, d] = decay2(Z2, m2, 0, 0, R), ee = R.u() < .5;
+      const L = (p, q, isE) => O(isE ? 'e' : 'mu', p, q), objs = [L(a, -1, ee), L(b, 1, ee), L(c, -1, !ee), L(d, 1, !ee)];
+      if (!objs.every(acc) || objs.filter(o => o.pt > 20).length < 2) return null; return { objs, nus: [], meta: `Higgs boson to four leptons · m(4ℓ) = ${mass([a, b, c, d]).toFixed(1)} GeV` }; }) },
+  { key:'zmm', name:'Z → μμ', gen: R => tryGen(() => { const M = clamp(R.bw(91.19, 2.5), 82, 100), P = parent(M, R, 12, 1.1), [a, b] = decay2(P, M, 0, 0, R), m1 = O('mu', a, -1), m2 = O('mu', b, 1);
+      if (!(acc(m1) && acc(m2) && m1.pt > 15 && m2.pt > 15)) return null; const objs = [m1, m2]; if (Math.hypot(P[1], P[2]) > 25) { const j = recoil(P, R); if (acc(j)) objs.push(j); }
+      return { objs, nus: [], meta: `Z boson to a muon pair · m(μμ) = ${mass([a, b]).toFixed(1)} GeV` }; }) },
+  { key:'wen', name:'W → eν', gen: R => tryGen(() => { const M = clamp(R.bw(80.37, 2.1), 72, 88), P = parent(M, R, 10, 1), [a, n] = decay2(P, M, 0, 0, R), e = O('e', a, R.u() < .5 ? -1 : 1);
+      if (!(acc(e) && e.pt > 20)) return null; const objs = [e]; if (Math.hypot(P[1], P[2]) > 25) { const j = recoil(P, R); if (acc(j)) objs.push(j); }
+      const kn = kin(n), mT = Math.sqrt(2 * e.pt * kn.pt * (1 - Math.cos(e.phi - kn.phi))); return { objs, nus: [n], meta: `W boson to an electron and a neutrino · m<sub>T</sub> = ${mT.toFixed(0)} GeV` }; }) },
+  { key:'ttdil', name:'t<span class="ov">t</span> → eμ + 2b', gen: R => tryGen(() => { const T = tops(R), [l1, n1] = decay2(T.W1, 80.4, 0, 0, R), [l2, n2] = decay2(T.W2, 80.4, 0, 0, R), eF = R.u() < .5;
+      const objs = [O(eF ? 'e' : 'mu', l1, 1), O(eF ? 'mu' : 'e', l2, -1), O('jet', T.b1, 0, true), O('jet', T.b2, 0, true)];
+      if (!objs.every(acc) || objs[0].pt < 20 || objs[1].pt < 20) return null; return { objs, nus: [n1, n2], meta: 'Top-quark pair, dilepton channel · two neutrinos carry off missing E<sub>T</sub>' }; }) },
+  { key:'ttlj', name:'t<span class="ov">t</span> → μ + jets', gen: R => tryGen(() => { const T = tops(R), [l1, n1] = decay2(T.W1, 80.4, 0, 0, R), [q1, q2] = decay2(T.W2, 80.4, 0, 0, R);
+      const mu = O('mu', l1, 1), B1 = O('jet', T.b1, 0, true), B2 = O('jet', T.b2, 0, true), lj = [O('jet', q1), O('jet', q2)].filter(acc);
+      if (!acc(mu) || mu.pt < 20 || !acc(B1) || !acc(B2) || lj.length < 1) return null; return { objs: [mu, B1, B2].concat(lj), nus: [n1], meta: `Top-quark pair, muon + jets · ${2 + lj.length} jets, two from b-quarks` }; }) },
+  { key:'jj', name:'Dijet', gen: R => tryGen(() => { const M = 900 + R.exp(700), P = parent(M, R, 30, .6), [a, b] = decay2(P, M, 0, 0, R), j1 = O('jet', a), j2 = O('jet', b);
+      if (!(acc(j1) && acc(j2) && j1.pt > 200 && j2.pt > 200)) return null; return { objs: [j1, j2], nus: [], meta: `Two high-energy jets back to back · m(jj) = ${(M / 1000).toFixed(2)} TeV` }; }) },
+  { key:'zpbb', name:'Z′ → b<span class="ov">b</span>', gen: R => tryGen(() => { const M = clamp(2000 + R.g() * 60, 1850, 2150), P = parent(M, R, 25, .5), [a, b] = decay2(P, M, 4.8, 4.8, R), j1 = O('jet', a, 0, true), j2 = O('jet', b, 0, true);
+      if (!(acc(j1) && acc(j2))) return null; return { objs: [j1, j2], nus: [], meta: `Hypothetical heavy boson to two b-jets · m(b<span class="ov">b</span>) = ${(M / 1000).toFixed(2)} TeV · a search target` }; }) }
+];
+
+/* ---------------- tracks, hits, deposits ---------------- */
+function makeTrack(kind, pt, eta, phi, q, v, stopR, stopZ, color, w) {
+  const out = []; let x = v[0], y = v[1], z = v[2], ph = phi, s = 0, turn = 0;
+  const sh = Math.sinh(eta), ch = Math.cosh(eta), Rc = pt / .6, kc = -q / Rc;
+  out.push(x, y, z, 0);
+  for (let i = 0; i < 3000; i++) {
+    const r = Math.hypot(x, y); if (r >= stopR || Math.abs(z) >= stopZ) break;
+    const inS = r < 1.15 && Math.abs(z) < 2.9, ds = inS ? clamp(.06 * Rc, .004, .05) : .25;
+    if (inS) { ph += kc * ds; turn += Math.abs(kc * ds); }
+    x += Math.cos(ph) * ds; y += Math.sin(ph) * ds; z += sh * ds; s += ds * ch; out.push(x, y, z, s);
+    if (turn > 1.75 * Math.PI) break;
+  }
+  const n = out.length / 4;
+  if (n >= 2) { const i = (n - 1) * 4, j = (n - 2) * 4, r1 = Math.hypot(out[i], out[i + 1]), z1 = Math.abs(out[i + 2]);
+    if (r1 > stopR || z1 > stopZ) { const r0 = Math.hypot(out[j], out[j + 1]), z0 = Math.abs(out[j + 2]); let f = 1;
+      if (r1 > stopR) f = Math.min(f, (stopR - r0) / (r1 - r0)); if (z1 > stopZ) f = Math.min(f, (stopZ - z0) / (z1 - z0)); f = clamp(f, 0, 1);
+      for (let c = 0; c < 4; c++) out[i + c] = out[j + c] + (out[i + c] - out[j + c]) * f; } }
+  return { kind, pt, eta, phi, q, color, w, pts: new Float32Array(out), n };
+}
+function crossR(p, n, Rr) { for (let i = 1; i < n; i++) { const a = (i - 1) * 4, b = i * 4, r0 = Math.hypot(p[a], p[a + 1]), r1 = Math.hypot(p[b], p[b + 1]);
+    if (r0 < Rr && r1 >= Rr) { const f = (Rr - r0) / (r1 - r0); return [p[a] + (p[b] - p[a]) * f, p[a + 1] + (p[b + 1] - p[a + 1]) * f, p[a + 2] + (p[b + 2] - p[a + 2]) * f, p[a + 3] + (p[b + 3] - p[a + 3]) * f]; } } return null; }
+function crossZ(p, n, Z) { for (let i = 1; i < n; i++) { const a = (i - 1) * 4, b = i * 4, z0 = p[a + 2], z1 = p[b + 2];
+    if ((z0 - Z) * (z1 - Z) <= 0 && z0 !== z1) { const f = (Z - z0) / (z1 - z0); return [p[a] + (p[b] - p[a]) * f, p[a + 1] + (p[b + 1] - p[a + 1]) * f, Z, p[a + 3] + (p[b + 3] - p[a + 3]) * f]; } } return null; }
+const PIX_R = [[.033, .332, 'ibl'], [.0505, .4005, 'pix'], [.0885, .4005, 'pix'], [.1225, .4005, 'pix']];
+const SCT_R = [.299, .371, .443, .514], SCT_D = [.853, .934, 1.091, 1.299, 1.399, 1.771, 2.115, 2.505, 2.72];
+function trackHits(ev, tr, ht, R) {
+  const p = tr.pts, n = tr.n, add = (h, layer, kind) => ev.hits.push({ x: h[0], y: h[1], z: h[2], t: h[3] / C_LIGHT, layer, kind, tk: tr.kind, color: tr.color });
+  PIX_R.forEach(([Rr, L, layer]) => { const h = crossR(p, n, Rr); if (h && Math.abs(h[2]) <= L) add(h, layer, 'pix'); });
+  [.495, .58, .65].forEach(Z => [Z, -Z].forEach(zz => { const h = crossZ(p, n, zz); if (h) { const r = Math.hypot(h[0], h[1]); if (r >= .0888 && r <= .1496) add(h, 'pix', 'pix'); } }));
+  SCT_R.forEach(Rr => { const h = crossR(p, n, Rr); if (h && Math.abs(h[2]) <= .749) add(h, 'sct', 'sct'); });
+  SCT_D.forEach(Z => [Z, -Z].forEach(zz => { const h = crossZ(p, n, zz); if (h) { const r = Math.hypot(h[0], h[1]); if (r >= .275 && r <= .56) add(h, 'sct', 'sct'); } }));
+  for (let Rr = .563; Rr < 1.066; Rr += .0145) { const h = crossR(p, n, Rr); if (h && Math.abs(h[2]) <= .712) add(h, 'trt', R.raw() < ht ? 'ht' : 'trt'); }
+  for (let Z = .87; Z < 2.7; Z += .045) [Z, -Z].forEach(zz => { const h = crossZ(p, n, zz); if (h) { const r = Math.hypot(h[0], h[1]); if (r >= .64 && r <= 1.0) add(h, 'trt', R.raw() < ht ? 'ht' : 'trt'); } });
+}
+const SAMP = {
+  L1: { layer:'lar', r0:1.47, r1:1.58, de:.025, dp:.1 }, L2: { layer:'lar', r0:1.58, r1:1.85, de:.05, dp:.05 }, L3: { layer:'lar', r0:1.85, r1:1.97, de:.1, dp:.05 },
+  TA: { layer:'tile', r0:2.30, r1:2.60, de:.1, dp:TAU / 64 }, TB: { layer:'tile', r0:2.60, r1:3.44, de:.1, dp:TAU / 64 }, TD: { layer:'tile', r0:3.44, r1:3.82, de:.2, dp:TAU / 64 }
+};
+function deposit(map, sk, eta, phi, E, sig) {
+  const sp = SAMP[sk], ph0 = ((phi % TAU) + TAU) % TAU, NP = Math.round(TAU / sp.dp), ie0 = Math.floor(eta / sp.de), ip0 = Math.floor(ph0 / sp.dp);
+  const ne = Math.max(1, Math.ceil(3 * sig / sp.de)), np = Math.max(1, Math.ceil(3 * sig / sp.dp)), tmp = []; let ws = 0;
+  for (let a = -ne; a <= ne; a++) for (let b = -np; b <= np; b++) { const ie = ie0 + a, ip = ((ip0 + b) % NP + NP) % NP, ce = (ie + .5) * sp.de, cp = (ip + .5) * sp.dp;
+    let dp = cp - ph0; dp = Math.atan2(Math.sin(dp), Math.cos(dp)); const de = ce - eta, w = Math.exp(-(de * de + dp * dp) / (2 * sig * sig)); if (w > 1e-3) { tmp.push([ie, ip, w]); ws += w; } }
+  if (ws <= 0) { tmp.push([ie0, ip0, 1]); ws = 1; }
+  for (const [ie, ip, w] of tmp) { const key = sk + ':' + ie + ':' + ip; map.set(key, (map.get(key) || 0) + E * w / ws); }
+}
+
+function buildEvent(seed) {
+  const R = RNG(Math.imul(seed, 2654435761) >>> 0), proc = PROCS[seed % PROCS.length];
+  let g = proc.gen(R);
+  if (!g) g = { objs: [O('jet', mk4(300, .3, 1), 0), O('jet', mk4(290, -.4, 1 + Math.PI), 0)], nus: [], meta: 'Two jets back to back' };
+  const ev = { seed, proc, name: proc.name, meta: g.meta, objs: g.objs, tracks: [], hits: [], cells: [], mhits: [], photons: [], svs: [], tags: [] };
+  ev.hsz = R.g() * .035; ev.bcid = R.int(1, 3500); ev.pu = [];
+  for (let i = 0; i < 59; i++) ev.pu.push(R.g() * .042);
+  let mx = 0, my = 0; g.nus.forEach(nu => { mx += nu[1]; my += nu[2]; }); mx += R.g() * 4; my += R.g() * 4;
+  ev.met = { pt: Math.hypot(mx, my), phi: Math.atan2(my, mx) };
+  const V = [0, 0, ev.hsz], cmap = new Map();
+  const phiAt = (tr, r) => { const h = crossR(tr.pts, tr.n, r); if (h) return Math.atan2(h[1], h[0]); const b = (tr.n - 1) * 4; return Math.atan2(tr.pts[b + 1], tr.pts[b]); };
+  for (const o of ev.objs) {
+    o.eLar = 0; o.eTile = 0; const E = o.pt * Math.cosh(o.eta);
+    if (o.kind === 'e') {
+      const tr = makeTrack('e', o.pt, o.eta, o.phi, o.q, V, 1.45, 3.3, COL.ele, 1.8); ev.tracks.push(tr); trackHits(ev, tr, .22, R);
+      const ph = phiAt(tr, 1.44);
+      [['L1', .28], ['L2', .66], ['L3', .05]].forEach(([s, f]) => deposit(cmap, s, o.eta, ph, E * f, .011)); o.eLar = E * .99;
+      o.anchor = [1.97 * Math.cos(ph), 1.97 * Math.sin(ph), 1.97 * Math.sinh(o.eta)];
+    } else if (o.kind === 'gam') {
+      [['L1', .27], ['L2', .67], ['L3', .05]].forEach(([s, f]) => deposit(cmap, s, o.eta, o.phi, E * f, .011)); o.eLar = E * .99;
+      const end = [1.47 * Math.cos(o.phi), 1.47 * Math.sin(o.phi), ev.hsz + 1.47 * Math.sinh(o.eta)];
+      ev.photons.push({ a: V, b: end, t: 1.47 * Math.cosh(o.eta) / C_LIGHT });
+      o.anchor = [1.97 * Math.cos(o.phi), 1.97 * Math.sin(o.phi), 1.97 * Math.sinh(o.eta)];
+    } else if (o.kind === 'mu') {
+      const tr = makeTrack('mu', o.pt, o.eta, o.phi, o.q, V, 11.3, 21.8, COL.mu, 1.8); ev.tracks.push(tr); trackHits(ev, tr, .04, R);
+      [['TA', .7, 2.45], ['TB', 1.3, 3.02], ['TD', .5, 3.63]].forEach(([s, e, r]) => deposit(cmap, s, o.eta, phiAt(tr, r), e * R.u(.7, 1.4), .004)); o.eTile = 2.5;
+      deposit(cmap, 'L2', o.eta, phiAt(tr, 1.7), .3, .004);
+      const p = tr.pts, n = tr.n, addM = (h, barrel) => ev.mhits.push({ x: h[0], y: h[1], z: h[2], t: h[3] / C_LIGHT, barrel });
+      [[5.2, 7.0], [7.65, 9.6], [10.15, 12.3]].forEach(([Rr, L]) => { const h = crossR(p, n, Rr); if (h && Math.abs(h[2]) <= L) addM(h, true); });
+      [[7.2, .9, 4.6], [13.8, 2.0, 11.5], [21.5, 2.4, 11.8]].forEach(([Z, r0, r1]) => [Z, -Z].forEach(zz => { const h = crossZ(p, n, zz); if (h) { const r = Math.hypot(h[0], h[1]); if (r >= r0 && r <= r1) addM(h, false); } }));
+      const b = (n - 1) * 4; o.anchor = [p[b], p[b + 1], p[b + 2]];
+    } else if (o.kind === 'jet') {
+      const nch = clamp(Math.round(3 + 1.1 * Math.pow(o.pt, .35) + R.g()), 3, 16), sig = clamp(.1 * Math.pow(50 / o.pt, .3), .035, .12);
+      let sv = null;
+      if (o.b) { const bg = .7 * E / 5.28, L = clamp(R.exp(bg * .46e-3), .0006, .03), ch = Math.cosh(o.eta);
+        sv = [V[0] + L * Math.cos(o.phi) / ch, V[1] + L * Math.sin(o.phi) / ch, V[2] + L * Math.tanh(o.eta)]; ev.svs.push({ x: sv[0], y: sv[1], z: sv[2], L: L * 1000 }); }
+      const ws = []; for (let i = 0; i < nch; i++) ws.push(R.exp(1)); const wsum = ws.reduce((a, b) => a + b, 0);
+      ws.forEach((w, i) => { const pt = .62 * o.pt * w / wsum; if (pt < .5) return; const fromSV = sv && i < Math.max(2, Math.round(.45 * nch));
+        const tr = makeTrack('had', pt, o.eta + R.g() * sig, o.phi + R.g() * sig, R.raw() < .5 ? -1 : 1, fromSV ? sv : V, 1.08, 2.72, COL.had, 1.1); ev.tracks.push(tr); trackHits(ev, tr, .04, R); });
+      const fem = R.u(.25, .5), Eem = fem * E, Eh = (1 - fem) * E * R.u(.75, .9);
+      [['L1', .18], ['L2', .62], ['L3', .2]].forEach(([s, f]) => deposit(cmap, s, o.eta, o.phi, Eem * f, sig));
+      [['TA', .33], ['TB', .52], ['TD', .15]].forEach(([s, f]) => deposit(cmap, s, o.eta, o.phi, Eh * f, sig * 1.4));
+      o.eLar = Eem; o.eTile = Eh; o.anchor = [3.9 * Math.cos(o.phi), 3.9 * Math.sin(o.phi), 3.9 * Math.sinh(o.eta)];
+    }
+  }
+  const soft = (v, pt, eta, phi, q, kind, col, w) => { const tr = makeTrack(kind, pt, eta, phi, q, v, 1.08, 2.72, col, w); ev.tracks.push(tr); trackHits(ev, tr, .04, R); };
+  for (let i = 0; i < 6; i++) soft(V, .5 + R.exp(.8), R.u(-2.4, 2.4), R.u(0, TAU), R.raw() < .5 ? -1 : 1, 'ue', COL.ue, .9);
+  ev.pu.forEach(z => { const k = R.pois(1.15); for (let i = 0; i < k; i++) soft([0, 0, z], .4 + R.exp(.65), R.u(-2.5, 2.5), R.u(0, TAU), R.raw() < .5 ? -1 : 1, 'pu', COL.pu, .8); });
+  for (let i = 0; i < 3; i++) soft([0, 0, ev.pu[i]], R.u(.18, .3), R.u(-1, 1), R.u(0, TAU), R.raw() < .5 ? -1 : 1, 'pu', COL.pu, .8);
+  for (const [key, E] of cmap) { const [sk, ie, ip] = key.split(':'), sp = SAMP[sk]; if (E < (sp.layer === 'lar' ? .25 : .4)) continue;
+    const e0 = (+ie) * sp.de, e1 = e0 + sp.de, p0 = (+ip) * sp.dp, p1 = p0 + sp.dp, rm = (sp.r0 + sp.r1) / 2;
+    ev.cells.push({ layer: sp.layer, E, rm, c0: Math.cos(p0), s0: Math.sin(p0), c1: Math.cos(p1), s1: Math.sin(p1), z0: rm * Math.sinh(e0), z1: rm * Math.sinh(e1), t: rm * Math.cosh((e0 + e1) / 2) / C_LIGHT, col: sp.layer === 'lar' ? larColor(E) : tileColor(E), a: clamp(.35 + .2 * Math.log10(E + 1), .35, 1) }); }
+  ev.cells.sort((a, b) => a.E - b.E);
+  const sup = q => q < 0 ? '⁻' : '⁺';
+  ev.objs.forEach(o => { let label = '';
+    if (o.kind === 'e') label = 'e' + sup(o.q) + ' ' + Math.round(o.pt) + ' GeV'; else if (o.kind === 'mu') label = 'μ' + sup(o.q) + ' ' + Math.round(o.pt) + ' GeV';
+    else if (o.kind === 'gam') label = 'γ ' + Math.round(o.pt) + ' GeV'; else label = (o.b ? 'b-jet ' : 'jet ') + Math.round(o.pt) + ' GeV';
+    ev.tags.push({ p: o.anchor, text: label, color: o.kind === 'e' ? COL.ele : o.kind === 'mu' ? COL.mu : o.kind === 'gam' ? COL.gam : COL.jet, kind: o.kind }); });
+  ev.nH = ev.hits.length; ev.revH = new Float64Array(ev.nH); ev.revM = new Float64Array(ev.mhits.length); ev.revC = new Float64Array(ev.cells.length);
+  ev.saw = sawTexts(ev);
+  return ev;
+}
+
+function sawTexts(ev) {
+  const f = x => Math.round(x), list = a => a.length <= 1 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+  const of = k => ev.objs.filter(o => o.kind === k), mus = of('mu'), es = of('e'), gs = of('gam'), js = of('jet'), bs = js.filter(o => o.b), s = n => n > 1 ? 's' : '';
+  const S = [];
+  const nMH = ev.mhits.length;
+  S[0] = !mus.length ? 'Nothing. This event has no muons, and apart from invisible neutrinos only muons get out this far.'
+    : mus.length === 1 ? `The ${f(mus[0].pt)} GeV muon left ${nMH} hits across the stations. It is the only particle that gets this far.`
+    : `${mus.length} muons (${list(mus.map(m => f(m.pt)))} GeV) left ${nMH} hits between them. Nothing else gets this far.`;
+  S[1] = mus.length ? `No hits of its own. Its field bends the muon${s(mus.length)} in the r–z plane, and the chambers measure that bend to get the momentum.`
+    : 'No hits of its own. Its field would bend any muon in the r–z plane; this event has none.';
+  const eT = ev.cells.filter(c => c.layer === 'tile').reduce((a, c) => a + c.E, 0);
+  S[2] = js.length ? `${f(eT)} GeV of hadronic showers from ${js.length === 1 ? 'the jet' : js.length + ' jets'}${mus.length ? `, plus the thin trail of the muon${s(mus.length)}` : ''}.`
+    : mus.length ? `Only the thin trail of the muon${s(mus.length)}, about ${eT.toFixed(1)} GeV. Muons lose little here and keep going.` : 'Almost nothing above threshold. There are no jets in this event.';
+  const parts = [];
+  if (es.length) parts.push(es.length === 1 ? `a ${f(es[0].pt)} GeV electron shower` : `${es.length} electron showers (${list(es.map(e => f(e.pt)))} GeV)`);
+  if (gs.length) parts.push(gs.length === 1 ? `a ${f(gs[0].pt)} GeV photon shower` : `${gs.length} photon showers (${list(gs.map(g => f(g.pt)))} GeV)`);
+  if (js.length) parts.push(`the electromagnetic part of ${js.length === 1 ? 'the jet' : js.length + ' jets'} (${f(js.reduce((a, j) => a + j.eLar, 0))} GeV)`);
+  S[3] = parts.length ? list(parts).replace(/^./, c => c.toUpperCase()) + '.' : 'Almost nothing. Muons pass straight through.';
+  const ch = es.concat(mus).sort((a, b) => b.pt - a.pt)[0], rad = pt => { const r = pt / .6; return r >= 1000 ? (r / 1000).toFixed(1) + ' km' : f(r) + ' m'; };
+  S[4] = `No hits of its own. Its 2 T field is why tracks curve, with radius p<sub>T</sub>/(0.3·B): 1.7 m for a 1 GeV track` + (ch ? ` and ${rad(ch.pt)} for the ${f(ch.pt)} GeV ${ch.kind === 'e' ? 'electron' : 'muon'}.` : '.');
+  const nTrk = ev.tracks.length, nS = ev.hits.filter(h => h.layer === 'sct').length, nT = ev.hits.filter(h => h.layer === 'trt').length, nHT = ev.hits.filter(h => h.kind === 'ht' && h.tk === 'e').length;
+  S[5] = `${nTrk} tracks above 0.4 GeV left ${nS} SCT space points and ${nT} straw hits.` + (es.length ? ` The electron${s(es.length)} lit ${nHT} high-threshold straws: transition radiation, the electron's signature.` : ' With no electrons, the high-threshold straws stay mostly dark.');
+  const nP = ev.hits.filter(h => h.layer === 'pix' || h.layer === 'ibl').length;
+  S[6] = `${nP} pixel hits, about four per track.` + (bs.length ? ` ${bs.length === 1 ? 'The b-jet points' : 'Both b-jets point'} back to displaced vertices ${list(ev.svs.map(v => v.L.toFixed(1)))} mm from the collision. Finding those is b-tagging.` : ' No b-jets this time, so every track points back to a collision vertex.');
+  const spread = Math.round(Math.max(...ev.pu.map(Math.abs)) * 100);
+  S[7] = `One hard-scatter vertex and ${ev.pu.length} pile-up vertices in this single crossing, spread over about ±${spread} cm. The hard scatter is the vertex with the largest Σp<sub>T</sub><sup>2</sup>.`;
+  return S;
+}
+
+/* ---------------- DOM ---------------- */
+const $ = id => document.getElementById(id);
+const story = $('story'), stage = $('stage'), cv = $('cv'), ctx = cv.getContext('2d');
+const hero = $('hero'), card = $('card'), outro = $('outro'), caption = $('caption'), readout = $('readout');
+const cNum = $('cNum'), cName = $('cName'), cSaw = $('cSaw'), cSpec = $('cSpec'), cDims = $('cDims');
+const roT = $('roT'), roBar = $('roBar'), roScale = $('roScale');
+const capProc = $('capProc'), capMeta = $('capMeta'), stripCv = $('stripCv'), sctx = stripCv.getContext('2d'), marks = $('marks'), btnPlay = $('btnPlay'), playGlyph = $('playGlyph');
+
+/* ---------------- story timeline (scroll units: 1000 = one screen) ---------------- */
+const T0 = 1000, STEP = 1300, NSTEP = 8, OUT = T0 + NSTEP * STEP, TOTAL = OUT + 1400;
+const ST = { hero: 1, card: 0, tags: 1, met: 1, ip: 0, outro: 0, k: 0, step: 0, focus: new Float32Array(8), peel: new Float32Array(8) };
+function storyState(t) {
+  ST.hero = 1 - EZ.inOutQuad(seg(t, 0, 650));
+  ST.card = seg(t, T0 - 260, T0 + 120) * (1 - seg(t, OUT, OUT + 350));
+  ST.tags = (1 - seg(t, 120, 700)) + seg(t, OUT + 900, OUT + 1300);
+  let k = 0;
+  for (let i = 0; i < NSTEP; i++) {
+    const S = T0 + i * STEP;
+    let f = EZ.outQuad(seg(t, S - 200, S + 250)), p = 0;
+    if (i < NSTEP - 1) { p = EZ.inOutCubic(seg(t, S + 760, S + STEP)); k += EZ.inOutSine(seg(t, S + 760, S + STEP));
+      const j = (NSTEP - 2) - i, u = seg(t, OUT + 150 + 95 * j, OUT + 850 + 95 * j); if (u > 0) p = 1 - EZ.outBack(u); }
+    ST.focus[i] = f * (1 - seg(t, OUT, OUT + 400)); ST.peel[i] = p;
+  }
+  ST.k = k * (1 - EZ.inOutQuad(seg(t, OUT, OUT + 1150)));
+  ST.met = (1 - seg(t, T0 + 4 * STEP + 700, T0 + 5 * STEP)) + seg(t, OUT + 900, OUT + 1300);
+  ST.ip = seg(t, T0 + 7 * STEP - 300, T0 + 7 * STEP + 200) * (1 - seg(t, OUT, OUT + 300));
+  ST.outro = seg(t, OUT + 1000, OUT + 1400);
+  ST.step = clamp(Math.floor((t - T0 + 220) / STEP), 0, 7);
+}
+
+/* ---------------- camera ---------------- */
+let W = 0, DPR = 1, REG = { x0: 0, x1: 0, y0: 0, y1: 0, w: 1, h: 1, cx: 0, cy: 0 }, FITS = FIT_BOX.map(() => 1);
+let cyw = 1, syw = 0, cpt = 1, spt = 0, crl = 1, srl = 0, S = 1, OX = 0, OY = 0, VX = 0, VY = 0, PHIS = 0, PX = 0, PY = 0, PD = 0;
+function proj(x, y, z) { const X = x * cyw + z * syw, Zd = -x * syw + z * cyw, Y = y * cpt - Zd * spt; PD = y * spt + Zd * cpt; PX = OX + S * (X * crl - Y * srl); PY = OY - S * (X * srl + Y * crl); }
+const orient = k => [(55 - 2.4 * k) * DEG, (16 + 1.3 * k) * DEG, 18 * DEG];
+function computeFits() {
+  FITS = FIT_BOX.map(([r, z], k) => { const [yw, pt, rl] = orient(k), a = Math.cos(yw), b = Math.sin(yw), c = Math.cos(pt), d = Math.sin(pt), e = Math.cos(rl), g = Math.sin(rl); let mx = 1e-6, my = 1e-6;
+    for (let i = 0; i < 48; i++) { const an = i / 48 * TAU, x = r * Math.cos(an), y = r * Math.sin(an); for (const zz of [-z, z]) { const X = x * a + zz * b, Zd = -x * b + zz * a, Y = y * c - Zd * d; mx = Math.max(mx, Math.abs(X * e - Y * g)); my = Math.max(my, Math.abs(X * g + Y * e)); } }
+    return Math.min(REG.w / 2 / mx, REG.h / 2 / my); });
+}
+function setCamera(k, now) {
+  const kk = clamp(k, 0, 7), i0 = Math.floor(kk), i1 = Math.min(7, i0 + 1), f = kk - i0, [yw, pt, rl] = orient(kk), dr = reduced ? 0 : 1;
+  const yaw = yw + dr * 2.0 * DEG * Math.sin(now / 7000), pitch = pt + dr * .7 * DEG * Math.sin(now / 9100 + 1.3);
+  cyw = Math.cos(yaw); syw = Math.sin(yaw); cpt = Math.cos(pitch); spt = Math.sin(pitch); crl = Math.cos(rl); srl = Math.sin(rl);
+  S = Math.exp(lerp(Math.log(FITS[i0]), Math.log(FITS[i1]), f)); OX = REG.cx; OY = REG.cy;
+  VX = -syw * cpt; VY = spt; PHIS = Math.atan2(syw * cpt, spt);
+}
+
+/* ---------------- structure drawing ---------------- */
+const NC = 72, COS = [], SIN = []; for (let i = 0; i <= NC; i++) { COS.push(Math.cos(i / NC * TAU)); SIN.push(Math.sin(i / NC * TAU)); }
+const OCTA = []; for (let j = 0; j <= 8; j++) OCTA.push(Math.PI / 8 + j * Math.PI / 4);
+function stroke(col, a, w, dash) { ctx.strokeStyle = col; ctx.globalAlpha = clamp(a, 0, 1); ctx.lineWidth = w; ctx.setLineDash(dash || NODASH); }
+function circ(r, z, k) { for (let i = 0; i <= NC; i++) { proj(k * r * COS[i], k * r * SIN[i], z); if (i) ctx.lineTo(PX, PY); else ctx.moveTo(PX, PY); } }
+function octPath(R, z) { for (let j = 0; j <= 8; j++) { proj(R * Math.cos(OCTA[j]), R * Math.sin(OCTA[j]), z); if (j) ctx.lineTo(PX, PY); else ctx.moveTo(PX, PY); } }
+function partial(e, len) { return e < 1 ? [Math.max(.01, e * len), len * 2 + 10] : null; }
+function drawPrim(p, col, a, w, k, e) {
+  const A = a * (p.a === undefined ? 1 : p.a); if (A < .004) return;
+  if (p.t === 'cyl') {
+    const r = p.r, rin = p.rin || 0, len = TAU * r * k * S;
+    stroke(col, A * .42, w * .85, DASH_BACK); ctx.beginPath(); circ(r, p.z0, k); if (rin) circ(rin, p.z0, k); ctx.stroke();
+    stroke(col, A, w, partial(e, len)); ctx.beginPath(); circ(r, p.z1, k); if (rin) circ(rin, p.z1, k); (p.rings || []).forEach(rr => circ(rr, p.z1, k));
+    for (const ph of [PHIS, PHIS + Math.PI]) { const c = Math.cos(ph) * r * k, s = Math.sin(ph) * r * k; proj(c, s, p.z0); ctx.moveTo(PX, PY); proj(c, s, p.z1); ctx.lineTo(PX, PY); }
+    ctx.stroke();
+    if (p.mods) { stroke(col, A * .5, w * .55); ctx.beginPath(); for (let m = 0; m < p.mods; m++) { const ph = m / p.mods * TAU, c = Math.cos(ph), s = Math.sin(ph); proj(rin * k * c, rin * k * s, p.z1); ctx.moveTo(PX, PY); proj(r * k * c, r * k * s, p.z1); ctx.lineTo(PX, PY); } ctx.stroke(); }
+    if (p.seams) { for (const front of [true, false]) { stroke(col, A * (front ? .3 : .1), w * .55); ctx.beginPath();
+        for (let m = 0; m < p.seams; m++) { const ph = m / p.seams * TAU, c = Math.cos(ph), s = Math.sin(ph); if ((c * VX + s * VY > 0) !== front) continue; proj(r * k * c, r * k * s, p.z0); ctx.moveTo(PX, PY); proj(r * k * c, r * k * s, p.z1); ctx.lineTo(PX, PY); }
+        ctx.stroke(); } }
+    if (p.zig) { const [ra, rb, n] = p.zig; stroke(col, A * .6, w * .55); ctx.beginPath(); for (let i = 0; i <= 2 * n; i++) { const ph = i / (2 * n) * TAU, rr = (i % 2 ? rb : ra) * k; proj(rr * Math.cos(ph), rr * Math.sin(ph), p.z1); if (i) ctx.lineTo(PX, PY); else ctx.moveTo(PX, PY); } ctx.stroke(); }
+    if (p.zrings) { stroke(col, A * .28, w * .55); ctx.beginPath(); p.zrings.forEach(zz => circ(r, zz, k)); ctx.stroke(); }
+  } else if (p.t === 'oct') {
+    const R = p.R * k, len = 8 * R * .77 * S;
+    stroke(col, A * .42, w * .85, DASH_BACK); ctx.beginPath(); octPath(R, p.z0); ctx.stroke();
+    stroke(col, A, w, partial(e, len)); ctx.beginPath(); octPath(R, p.z1); ctx.stroke();
+    for (const vis of [true, false]) { stroke(col, A * (vis ? .8 : .28), w * .8, vis ? null : DASH_BACK); ctx.beginPath();
+      for (let j = 0; j < 8; j++) { const th = OCTA[j], f1 = Math.cos(th - Math.PI / 8) * VX + Math.sin(th - Math.PI / 8) * VY > 0, f2 = Math.cos(th + Math.PI / 8) * VX + Math.sin(th + Math.PI / 8) * VY > 0; if ((f1 || f2) !== vis) continue;
+        proj(R * Math.cos(th), R * Math.sin(th), p.z0); ctx.moveTo(PX, PY); proj(R * Math.cos(th), R * Math.sin(th), p.z1); ctx.lineTo(PX, PY); }
+      ctx.stroke(); }
+    if (p.seams) { stroke(col, A * .2, w * .55); ctx.beginPath(); for (let s = 1; s < p.seams; s++) octPath(R, p.z0 + (p.z1 - p.z0) * s / p.seams); ctx.stroke(); }
+  } else if (p.t === 'wheel') {
+    stroke(col, A * .75, w * .85, partial(e, TAU * p.rOut * k * S)); ctx.beginPath(); if (p.round) circ(p.rOut, p.z, k); else octPath(p.rOut * k, p.z); circ(p.rIn, p.z, k); ctx.stroke();
+    stroke(col, A * .3, w * .55); ctx.beginPath(); const ro = (p.round ? p.rOut : p.rOut * OCT_C) * k, ri = p.rIn * k;
+    for (let s = 0; s < 16; s++) { const ph = s / 16 * TAU + Math.PI / 16, c = Math.cos(ph), sn = Math.sin(ph); proj(ri * c, ri * sn, p.z); ctx.moveTo(PX, PY); proj(ro * c, ro * sn, p.z); ctx.lineTo(PX, PY); }
+    ctx.stroke();
+  } else if (p.t === 'coil') {
+    const c = Math.cos(p.phi), s = Math.sin(p.phi); stroke(col, A * .9, w, partial(e, 60 * S)); ctx.beginPath();
+    COIL_RZ.forEach(([r, z], i) => { proj(k * r * c, k * r * s, z); if (i) ctx.lineTo(PX, PY); else ctx.moveTo(PX, PY); }); ctx.stroke();
+  } else if (p.t === 'disc') {
+    stroke(col, A, w * .8, partial(e, TAU * p.r1 * k * S)); ctx.beginPath(); circ(p.r0, p.z, k); circ(p.r1, p.z, k); ctx.stroke();
+  } else if (p.t === 'tube') {
+    const zl = Math.min(30, 1.6 * (W + H_) / S), r = p.r * k; stroke(col, A, w); ctx.beginPath();
+    for (const ph of [PHIS, PHIS + Math.PI]) { const c = Math.cos(ph) * r, s = Math.sin(ph) * r; proj(c, s, -zl); ctx.moveTo(PX, PY); proj(c, s, zl); ctx.lineTo(PX, PY); } ctx.stroke();
+    stroke(col, A * .35, w * .6); ctx.beginPath(); p.zrings.forEach(zz => circ(p.r, zz, k)); ctx.stroke();
+  }
+}
+const GLW = {}; L_ORDER.forEach(id => GLW[id] = { d: reduced || !A ? 1 : 0 });
+function layerVis(id) {
+  const si = STEP_OF[id], p = ST.peel[si] || 0, f = ST.focus[si] || 0, inS = ST.card;
+  const base = lerp(.55, .22 + .74 * f, inS), g = GLW[id].d;
+  return { a: base * Math.pow(clamp(1 - p, 0, 1), 1.15) * (.28 + .72 * g), k: 1 + (p > 0 ? .6 * p : .35 * p), w: 1 + .5 * f * inS, f, p, e: g };
+}
+function hitVis(id) { const si = STEP_OF[id], p = ST.peel[si] || 0, f = ST.focus[si] || 0; return { a: lerp(.95, .45 + .55 * f, ST.card) * clamp(1 - p, 0, 1), k: 1 + (p > 0 ? .6 * p : .35 * p) }; }
+function drawStructure() { for (const id of L_ORDER) { const v = layerVis(id); if (v.a < .004) continue; const col = LCOL[id], w = 1.05 * v.w; for (const p of GEO[id]) drawPrim(p, col, v.a, w, v.k, v.e); } }
+
+/* ---------------- event drawing ---------------- */
+const H = { t: 0, bz: 26, bOp: 0, flash: 0, met: 0, tags: 0, old: 0 };
+let EV = null, EVold = null;
+const BUNCH = (() => { const R = RNG(99), a = []; for (let i = 0; i < 220; i++) a.push([R.g(), R.g(), R.g()]); return a; })();
+function drawEvent(ev, am, T, now) {
+  if (!ev || am < .004) return;
+  let iS = 0; while (iS < 7 && ST.peel[iS] >= .999) iS++;
+  const pCur = clamp(ST.peel[iS], 0, 1), envOut = ENV[iS], envIn = ENV[Math.min(7, iS + 1)];
+  const cellV = { lar: hitVis('lar'), tile: hitVis('tile') };
+  for (let i = 0; i < ev.cells.length; i++) { const c = ev.cells[i]; if (c.t > T) continue; const v = cellV[c.layer], a = v.a * am * c.a; if (a < .01) continue;
+    if (!ev.revC[i]) ev.revC[i] = now; const fl = clamp(1 - (now - ev.revC[i]) / 500, 0, 1), r = c.rm * v.k;
+    ctx.globalAlpha = clamp(a + .5 * fl, 0, 1); ctx.fillStyle = fl > .6 ? COL.hot : c.col; ctx.beginPath();
+    proj(r * c.c0, r * c.s0, c.z0); ctx.moveTo(PX, PY); proj(r * c.c1, r * c.s1, c.z0); ctx.lineTo(PX, PY); proj(r * c.c1, r * c.s1, c.z1); ctx.lineTo(PX, PY); proj(r * c.c0, r * c.s0, c.z1); ctx.lineTo(PX, PY); ctx.closePath(); ctx.fill(); }
+  const mv = hitVis('mu');
+  for (let i = 0; i < ev.mhits.length; i++) { const h = ev.mhits[i]; if (h.t > T) continue; const a = mv.a * am; if (a < .01) continue; if (!ev.revM[i]) ev.revM[i] = now;
+    const fl = clamp(1 - (now - ev.revM[i]) / 700, 0, 1), phi = Math.atan2(h.y, h.x), r = Math.hypot(h.x, h.y) * mv.k, dp = .04, dz = .32;
+    ctx.globalAlpha = clamp(a, 0, 1); ctx.fillStyle = COL.hot; ctx.beginPath();
+    if (h.barrel) { proj(r * Math.cos(phi - dp), r * Math.sin(phi - dp), h.z - dz); ctx.moveTo(PX, PY); proj(r * Math.cos(phi + dp), r * Math.sin(phi + dp), h.z - dz); ctx.lineTo(PX, PY); proj(r * Math.cos(phi + dp), r * Math.sin(phi + dp), h.z + dz); ctx.lineTo(PX, PY); proj(r * Math.cos(phi - dp), r * Math.sin(phi - dp), h.z + dz); ctx.lineTo(PX, PY); }
+    else { const r0 = r - .35, r1 = r + .35; proj(r0 * Math.cos(phi - dp), r0 * Math.sin(phi - dp), h.z); ctx.moveTo(PX, PY); proj(r0 * Math.cos(phi + dp), r0 * Math.sin(phi + dp), h.z); ctx.lineTo(PX, PY); proj(r1 * Math.cos(phi + dp), r1 * Math.sin(phi + dp), h.z); ctx.lineTo(PX, PY); proj(r1 * Math.cos(phi - dp), r1 * Math.sin(phi - dp), h.z); ctx.lineTo(PX, PY); }
+    ctx.closePath(); ctx.fill();
+    if (fl > 0) { proj(h.x * mv.k, h.y * mv.k, h.z); ctx.globalAlpha = fl * .8 * am; ctx.strokeStyle = COL.hot; ctx.lineWidth = 1.2; ctx.setLineDash(NODASH); ctx.beginPath(); ctx.arc(PX, PY, 4 + 16 * (1 - fl), 0, TAU); ctx.stroke(); } }
+  const step = ST.step, inS = ST.card;
+  const weight = kind => { if (inS < .01) return 1; let w = 1; if (step <= 1) w = kind === 'mu' ? 1 : .28; else if (step === 2) w = (kind === 'mu' || kind === 'had') ? 1 : .45; else if (step === 3) w = (kind === 'e' || kind === 'had') ? 1 : .45; return lerp(1, w, inS); };
+  const lv = hitVis('lar'), phW = weight('e');
+  for (const ph of ev.photons) drawPhoton(ph, T < ph.t ? clamp(T / ph.t, 0, 1) : 1, am * phW * lv.a);
+  const sMax = T * C_LIGHT;
+  for (const tr of ev.tracks) {
+    const A = am * weight(tr.kind) * (tr.kind === 'pu' ? .5 : tr.kind === 'ue' ? .7 : 1) * (1 - .65 * ST.ip); if (A < .01) continue;
+    const p = tr.pts, n = tr.n; ctx.strokeStyle = tr.color; ctx.lineWidth = tr.w; ctx.setLineDash(NODASH); ctx.globalAlpha = clamp(A, 0, 1); ctx.beginPath();
+    let zone = 0, started = false;
+    for (let j = 0; j < n; j++) { const b = j * 4; let x = p[b], y = p[b + 1], z = p[b + 2], last = false;
+      if (p[b + 3] > sMax) { if (j === 0) break; const a0 = b - 4, f = (sMax - p[a0 + 3]) / (p[b + 3] - p[a0 + 3]); x = p[a0] + (x - p[a0]) * f; y = p[a0 + 1] + (y - p[a0 + 1]) * f; z = p[a0 + 2] + (z - p[a0 + 2]) * f; last = true; }
+      const r = Math.hypot(x, y), az = Math.abs(z), zn = (r <= envIn[0] && az <= envIn[1]) ? 0 : (r <= envOut[0] && az <= envOut[1]) ? 1 : 2;
+      if (zn === 2) break; proj(x, y, z);
+      if (!started) { ctx.moveTo(PX, PY); started = true; }
+      else if (zn !== zone) { ctx.lineTo(PX, PY); ctx.stroke(); ctx.globalAlpha = clamp(A * (1 - pCur), 0, 1); ctx.beginPath(); ctx.moveTo(PX, PY); zone = zn; }
+      else ctx.lineTo(PX, PY);
+      if (last) break; }
+    if (started) ctx.stroke();
+  }
+  const hv = { ibl: hitVis('ibl'), pix: hitVis('pix'), sct: hitVis('sct'), trt: hitVis('trt') };
+  for (let i = 0; i < ev.nH; i++) { const h = ev.hits[i]; if (h.t > T) continue; const v = hv[h.layer], ht = h.kind === 'ht', trt = h.layer === 'trt';
+    const a = v.a * am * (trt ? (ht ? 1 : .55) : 1) * (h.tk === 'pu' ? .7 : 1); if (a < .01) continue; if (!ev.revH[i]) ev.revH[i] = now;
+    const fl = clamp(1 - (now - ev.revH[i]) / 420, 0, 1); proj(h.x * v.k, h.y * v.k, h.z);
+    const sz = (trt ? (ht ? 1.3 : .75) : 1.35) * (1 + 1.4 * fl);
+    ctx.globalAlpha = clamp(a, 0, 1); ctx.fillStyle = trt ? (ht ? COL.hot : h.color) : COL.hot; ctx.fillRect(PX - sz, PY - sz, 2 * sz, 2 * sz); }
+}
+function drawPhoton(ph, f, a) { if (a < .01) return; const b = [ph.a[0] + (ph.b[0] - ph.a[0]) * f, ph.a[1] + (ph.b[1] - ph.a[1]) * f, ph.a[2] + (ph.b[2] - ph.a[2]) * f];
+  ctx.strokeStyle = COL.gam; ctx.lineWidth = 1.3; ctx.setLineDash([5, 4]); ctx.globalAlpha = clamp(a, 0, 1); ctx.beginPath(); proj(ph.a[0], ph.a[1], ph.a[2]); ctx.moveTo(PX, PY); proj(b[0], b[1], b[2]); ctx.lineTo(PX, PY); ctx.stroke(); ctx.setLineDash(NODASH); }
+function arrowHead(x0, y0, x1, y1, s) { const a = Math.atan2(y1 - y0, x1 - x0); ctx.beginPath(); ctx.moveTo(x1 - s * Math.cos(a - .5), y1 - s * Math.sin(a - .5)); ctx.lineTo(x1, y1); ctx.lineTo(x1 - s * Math.cos(a + .5), y1 - s * Math.sin(a + .5)); ctx.stroke(); }
+function drawMET(ev, a) {
+  if (!ev || a < .01 || ev.met.pt < 20) return; const L = .26 * Math.min(REG.w, REG.h) / S * clamp(ev.met.pt / 90, .35, 1.3), c = Math.cos(ev.met.phi), s = Math.sin(ev.met.phi);
+  proj(0, 0, ev.hsz); const x0 = PX, y0 = PY; proj(L * c, L * s, ev.hsz); const x1 = PX, y1 = PY;
+  ctx.globalAlpha = clamp(a, 0, 1); ctx.strokeStyle = COL.met; ctx.lineWidth = 1.7; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); ctx.setLineDash(NODASH); arrowHead(x0, y0, x1, y1, 7);
+  ctx.fillStyle = COL.met; ctx.font = '12px "B612 Mono", ui-monospace, monospace'; const tx = x1 + 8, ty = y1 - 6;
+  ctx.fillText('E', tx, ty); ctx.font = '9px "B612 Mono", ui-monospace, monospace'; ctx.fillText('T', tx + 8, ty + 3); ctx.fillText('miss', tx + 8, ty - 6); ctx.font = '12px "B612 Mono", ui-monospace, monospace'; ctx.fillText(Math.round(ev.met.pt) + ' GeV', tx + 34, ty);
+}
+function drawTags(ev, a) {
+  if (!ev || a < .01) return; ctx.font = '11.5px "B612 Mono", ui-monospace, monospace'; ctx.setLineDash(NODASH);
+  for (const t of ev.tags) { proj(t.p[0], t.p[1], t.p[2]); const x = PX, y = PY; ctx.globalAlpha = clamp(a, 0, 1); ctx.strokeStyle = t.color; ctx.fillStyle = t.color; ctx.lineWidth = .8;
+    ctx.beginPath(); ctx.arc(x, y, 2, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.moveTo(x + 3, y - 3); ctx.lineTo(x + 14, y - 14); ctx.lineTo(x + 20, y - 14); ctx.stroke(); ctx.fillText(t.text, x + 23, y - 10); }
+}
+function drawVertices(ev, a, now) {
+  if (!ev || a < .01) return; ctx.setLineDash(NODASH);
+  for (const z of ev.pu) { proj(0, 0, z); ctx.globalAlpha = clamp(a * .9, 0, 1); ctx.fillStyle = COL.amber; ctx.beginPath(); ctx.arc(PX, PY, 1.9, 0, TAU); ctx.fill(); }
+  proj(0, 0, ev.hsz); const pulse = reduced ? 0 : Math.sin(now / 280) * .5 + .5; ctx.globalAlpha = clamp(a, 0, 1); ctx.fillStyle = COL.hot; ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, TAU); ctx.fill();
+  ctx.strokeStyle = COL.hot; ctx.lineWidth = 1; ctx.globalAlpha = clamp(a * (.35 + .4 * pulse), 0, 1); ctx.beginPath(); ctx.arc(PX, PY, 9 + 5 * pulse, 0, TAU); ctx.stroke();
+}
+function drawSVs(ev, a) {
+  if (!ev || a < .01 || !ev.svs.length) return; ctx.font = '11px "B612 Mono", ui-monospace, monospace';
+  proj(0, 0, ev.hsz); const hx = PX, hy = PY;
+  for (const v of ev.svs) { proj(v.x, v.y, v.z); ctx.globalAlpha = clamp(a, 0, 1); ctx.strokeStyle = COL.amber; ctx.lineWidth = 1.2; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(PX, PY); ctx.stroke(); ctx.setLineDash(NODASH);
+    ctx.beginPath(); ctx.arc(PX, PY, 4, 0, TAU); ctx.stroke(); ctx.fillStyle = COL.amber; if (Math.hypot(PX - hx, PY - hy) > 18) ctx.fillText('SV ' + v.L.toFixed(1) + ' mm', PX + 8, PY + 4); }
+}
+function drawBunches(zc1, zc2, sr, sz, a) {
+  if (a < .01) return; for (const [zc, col] of [[zc1, COL.b1], [zc2, COL.b2]]) { ctx.fillStyle = col; ctx.globalAlpha = clamp(a, 0, 1);
+    for (const b of BUNCH) { proj(b[0] * sr, b[1] * sr, zc + b[2] * sz); ctx.fillRect(PX - .9, PY - .9, 1.8, 1.8); } }
+}
+
+/* ---------------- HUD ---------------- */
+let curStep = -1, splitter = null, lastEvtSeed = -1;
+function setCard(i) {
+  const info = STEP_INFO[i]; cNum.textContent = String(i + 1).padStart(2, '0');
+  if (splitter) { try { splitter.revert(); } catch (e) {} splitter = null; }
+  cName.textContent = info.name;
+  if (A && !reduced && A.splitText) { try { splitter = A.splitText(cName, { chars: true }); A.animate(splitter.chars, { y: ['60%', '0%'], opacity: [0, 1], duration: 560, delay: A.stagger(14), ease: 'outExpo' }); } catch (e) {} }
+  cSaw.innerHTML = EV ? EV.saw[i] : ''; cSpec.textContent = info.spec;
+  cDims.innerHTML = info.dims.map(d => '<li>' + d + '</li>').join('');
+  marks.querySelectorAll('.mark').forEach((m, j) => m.classList.toggle('on', j === i));
+}
+function onEventChanged() { capProc.innerHTML = EV.name; capMeta.innerHTML = EV.meta + ' · simulated'; if (curStep >= 0) cSaw.innerHTML = EV.saw[curStep]; }
+function niceScale() { const target = 90 / S, e = Math.pow(10, Math.floor(Math.log10(target))), m = target / e, n = m >= 5 ? 5 : m >= 2 ? 2 : 1, L = n * e;
+  let lab = L >= 1 ? (+L.toFixed(0)) + ' m' : L >= .01 ? (+(L * 100).toFixed(0)) + ' cm' : L >= .001 ? (+(L * 1000).toFixed(0)) + ' mm' : (+(L * 1e6).toFixed(0)) + ' µm'; return { px: L * S, lab }; }
+let lastRo = '';
+function updateHUD() {
+  const hv = clamp(ST.hero, 0, 1); hero.style.opacity = hv.toFixed(3); hero.style.visibility = hv < .01 ? 'hidden' : 'visible'; hero.style.transform = 'translateY(' + (-(1 - hv) * 24).toFixed(1) + 'px)';
+  const cvv = clamp(ST.card, 0, 1); card.style.opacity = cvv.toFixed(3); card.style.visibility = cvv < .01 ? 'hidden' : 'visible'; card.style.transform = 'translateY(' + ((1 - cvv) * 10).toFixed(1) + 'px)';
+  const ov = clamp(ST.outro, 0, 1); outro.style.opacity = ov.toFixed(3); outro.style.visibility = ov < .01 ? 'hidden' : 'visible';
+  if (cvv > .01 && ST.step !== curStep) { curStep = ST.step; setCard(curStep); }
+  if (cvv <= .01 && curStep !== -1) { curStep = -1; marks.querySelectorAll('.mark').forEach(m => m.classList.remove('on')); }
+  const sc = niceScale(), t = Math.min(H.t, 48).toFixed(1) + ' ns', key = t + sc.lab + Math.round(sc.px);
+  if (key !== lastRo) { lastRo = key; roT.textContent = t; roScale.textContent = sc.lab; roBar.style.width = Math.round(sc.px) + 'px'; }
+}
+function leader(a) {
+  if (a < .01) return; const info = STEP_INFO[ST.step], sr = stage.getBoundingClientRect(), cr = cName.getBoundingClientRect(); const an = info.anchor;
+  const pk = 1 + .6 * Math.max(0, ST.peel[ST.step] || 0); proj(an[0] * pk, an[1] * pk, ST.step === 7 && EV ? EV.hsz : an[2]); const tx = PX, ty = PY; let x0, y0, x1, y1;
+  if (W >= 900) { x0 = cr.right - sr.left + 10; y0 = cr.top - sr.top + cr.height / 2; x1 = card.getBoundingClientRect().right - sr.left + 18; y1 = y0; }
+  else { const kr = card.getBoundingClientRect(); x0 = kr.left - sr.left + 34; y0 = kr.bottom - sr.top + 4; x1 = x0; y1 = y0 + 14; }
+  ctx.globalAlpha = clamp(a * .5, 0, 1); ctx.strokeStyle = COL.ink; ctx.lineWidth = .8; ctx.setLineDash(NODASH); ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(tx, ty); ctx.stroke();
+  ctx.fillStyle = COL.ink; ctx.beginPath(); ctx.arc(tx, ty, 2.4, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.arc(x1, y1, 1.6, 0, TAU); ctx.fill();
+}
+
+/* ---------------- strip (LHC bunch-train scrubber) ---------------- */
+const MARK_T = []; for (let i = 0; i < NSTEP; i++) MARK_T.push((T0 + i * STEP) / TOTAL);
+MARK_T.forEach((p, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'mark'; b.style.left = 'calc(12px + ' + p.toFixed(4) + ' * (100% - 24px))';
+  b.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="nm"> ' + MARK_NAMES[i] + '</span>'; b.setAttribute('aria-label', 'Jump to ' + STEP_INFO[i].name);
+  b.addEventListener('click', () => { stopTour(); scrollToProgress((T0 + i * STEP + 150) / TOTAL, true); }); marks.appendChild(b); });
+let SW = 0, SH = 0;
+function sizeStrip() { const r = stripCv.getBoundingClientRect(); SW = r.width; SH = r.height; stripCv.width = Math.round(SW * DPR); stripCv.height = Math.round(SH * DPR); sctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+function drawStrip(p) {
+  if (!SW) return; sctx.clearRect(0, 0, SW, SH); sctx.fillStyle = 'rgba(232,226,214,.035)'; sctx.strokeStyle = 'rgba(232,226,214,.13)'; sctx.lineWidth = 1;
+  const r = SH / 2; sctx.beginPath(); sctx.moveTo(r, .5); sctx.lineTo(SW - r, .5); sctx.arc(SW - r, r, r - .5, -Math.PI / 2, Math.PI / 2); sctx.lineTo(r, SH - .5); sctx.arc(r, r, r - .5, Math.PI / 2, 1.5 * Math.PI); sctx.fill(); sctx.stroke();
+  const x0 = 12, x1 = SW - 12, n = Math.floor((x1 - x0) / 3), cur = Math.floor(p * n);
+  const si = ST.card > .01 ? ST.step : -1, a0 = si >= 0 ? Math.floor(MARK_T[si] * n) : -1, a1 = si >= 0 ? Math.floor((si < 7 ? MARK_T[si + 1] : OUT / TOTAL) * n) : -1;
+  for (let i = 0; i < n; i++) { const kk = i % 220, on = (kk % 55) < 48 && kk < 212; const x = x0 + i * 3 + .5, h = on ? 4 : 1.5;
+    sctx.strokeStyle = i <= cur ? (i >= a0 && i < a1 ? COL.amber : 'rgba(232,226,214,.75)') : (on ? 'rgba(232,226,214,.3)' : 'rgba(232,226,214,.14)');
+    sctx.beginPath(); sctx.moveTo(x, r - h); sctx.lineTo(x, r + h); sctx.stroke(); }
+  const px = x0 + cur * 3 + .5; sctx.strokeStyle = COL.met; sctx.lineWidth = 2; sctx.beginPath(); sctx.moveTo(px, 2); sctx.lineTo(px, SH - 2); sctx.stroke();
+}
+let seeking = false;
+function seekFrom(e) { const r = stripCv.getBoundingClientRect(); scrollToProgress(clamp((e.clientX - r.left - 12) / (r.width - 24), 0, 1), false); }
+stripCv.addEventListener('pointerdown', e => { seeking = true; stopTour(); try { stripCv.setPointerCapture(e.pointerId); } catch (_) {} seekFrom(e); });
+stripCv.addEventListener('pointermove', e => { if (seeking) seekFrom(e); });
+['pointerup', 'pointercancel'].forEach(t => stripCv.addEventListener(t, () => { seeking = false; }));
+
+/* ---------------- scroll, tour ---------------- */
+let P = 0, PT = 0;
+function storyMetrics() { const top = story.getBoundingClientRect().top + window.scrollY; return { top, total: Math.max(1, story.offsetHeight - stage.offsetHeight) }; }
+function readScroll() { const m = storyMetrics(); PT = clamp((window.scrollY - m.top) / m.total, 0, 1); }
+function scrollToProgress(p, smooth) { const m = storyMetrics(); window.scrollTo({ top: m.top + p * m.total, behavior: smooth && !reduced ? 'smooth' : 'auto' }); }
+window.addEventListener('scroll', readScroll, { passive: true });
+const tour = { on: false, y: 0, wait: 0 };
+function setPlay(on) { playGlyph.setAttribute('d', on ? 'M3 1.5h3v11H3zM8 1.5h3v11H8z' : 'M3 1.5L12.5 7L3 12.5Z'); btnPlay.setAttribute('aria-label', on ? 'Pause the tour' : 'Play the tour'); }
+function startTour() { readScroll(); if (PT > .995) { scrollToProgress(0, false); readScroll(); } tour.on = true; tour.y = window.scrollY; tour.wait = performance.now() + (PT < .01 ? 900 : 150); setPlay(true); }
+function stopTour() { if (!tour.on) return; tour.on = false; setPlay(false); }
+btnPlay.addEventListener('click', () => tour.on ? stopTour() : startTour());
+window.addEventListener('wheel', () => stopTour(), { passive: true });
+window.addEventListener('touchstart', () => stopTour(), { passive: true });
+window.addEventListener('keydown', e => { if (e.target && e.target.tagName === 'BUTTON') return; stopTour(); });
+
+/* ---------------- collisions (anime.js timelines) ---------------- */
+let heroTL = null, loopTimer = 0, prevProc = -1;
+function newSeed() { let s; do { s = 1 + Math.floor(Math.random() * 99998); } while (s % PROCS.length === prevProc); prevProc = s % PROCS.length; return s; }
+function scheduleLoop() { clearTimeout(loopTimer); if (reduced || !A) return; loopTimer = setTimeout(() => { if (PT < .012 && !document.hidden && !tour.on) fire(); else scheduleLoop(); }, 6500); }
+function fire(opts) {
+  opts = opts || {}; EVold = EV; EV = buildEvent(opts.seed || newSeed()); onEventChanged();
+  if (heroTL) { try { heroTL.pause(); } catch (e) {} heroTL = null; }
+  const skip = !A || reduced || PT > .03 || opts.instant;
+  if (skip) { Object.assign(H, { t: 48, bz: -26, bOp: 0, flash: 0, met: 1, tags: 1, old: 0 }); EVold = null; scheduleLoop(); return; }
+  Object.assign(H, { t: 0, bz: 26, bOp: 0, flash: 0, met: 0, tags: 0, old: EVold ? 1 : 0 });
+  heroTL = A.createTimeline({ defaults: { ease: 'linear' }, onComplete: scheduleLoop });
+  heroTL.add(H, { old: [H.old, 0], duration: 700, ease: 'outQuad' }, 0)
+    .add(H, { bz: [26, 0], duration: 1500, ease: 'inQuad' }, 0)
+    .add(H, { bOp: [0, 1], duration: 500, ease: 'outQuad' }, 0)
+    .add(H, { flash: [0, 1], duration: 80 }, 1500)
+    .add(H, { flash: [1, 0], duration: 1200, ease: 'outExpo' }, 1580)
+    .add(H, { bz: [0, -26], duration: 1400, ease: 'outQuad' }, 1500)
+    .add(H, { bOp: [1, 0], duration: 900, ease: 'inQuad' }, 2000)
+    .add(H, { t: [0, 48], duration: 3600, ease: 'inQuad' }, 1500)
+    .add(H, { met: [0, 1], duration: 700, ease: 'outQuad' }, 4900)
+    .add(H, { tags: [0, 1], duration: 700, ease: 'outQuad' }, 5100);
+}
+function finishHero() { if (heroTL && H.t < 48) { try { heroTL.seek(heroTL.duration); } catch (e) {} Object.assign(H, { t: 48, bOp: 0, flash: 0, met: 1, tags: 1, old: 0 }); } }
+['btnNew', 'btnNew2', 'btnNew3'].forEach(id => $(id).addEventListener('click', () => { stopTour(); fire({ instant: PT > .03 }); }));
+$('btnTop').addEventListener('click', () => { stopTour(); window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }); });
+
+/* ---------------- layout + frame loop ---------------- */
+function layout() {
+  const r = stage.getBoundingClientRect(); W = r.width; H_ = r.height; DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H_ * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const g = clamp(W * .026, 16, 36); let x0, x1, y0, y1;
+  if (W >= 900) { x0 = g + 390; x1 = W - g; y0 = g + 20; y1 = H_ - 140; } else { x0 = g; x1 = W - g; y0 = H_ * .36; y1 = H_ - 150; }
+  if (y1 - y0 < 160) { y0 = H_ * .25; y1 = H_ - 110; }
+  REG = { x0, x1, y0, y1, w: x1 - x0, h: y1 - y0, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 }; computeFits(); sizeStrip(); readScroll();
+}
+let H_ = 0, lastNow = performance.now();
+window.addEventListener('resize', layout);
+function frame(now) {
+  const dt = Math.min(64, now - lastNow); lastNow = now;
+  if (tour.on && now > tour.wait) { const m = storyMetrics(), maxY = m.top + m.total; tour.y += dt * stage.offsetHeight * .3 / 1000; if (tour.y >= maxY) { tour.y = maxY; stopTour(); } window.scrollTo(0, tour.y); readScroll(); }
+  P += (PT - P) * (reduced ? 1 : 1 - Math.exp(-dt / 110)); if (Math.abs(PT - P) < 1e-5) P = PT;
+  if (P > .03) finishHero();
+  storyState(P * TOTAL); setCamera(ST.k, now);
+  ctx.globalAlpha = 1; ctx.fillStyle = COL.stage; ctx.fillRect(0, 0, W, H_);
+  drawStructure();
+  const T = ST.card > .01 || P > .03 ? 1e9 : H.t;
+  if (EVold && H.old > .01) drawEvent(EVold, H.old * .8, 1e9, now);
+  drawEvent(EV, 1, T >= 48 ? 1e9 : T, now);
+  drawSVs(EV, Math.max(ST.focus[6] * ST.card, ST.ip));
+  drawVertices(EV, ST.ip, now);
+  if (ST.ip > .01) { const ph = reduced ? .25 : (now / 4200) % 1, zc = .34 - .68 * ph; drawBunches(-zc, zc, .0012, .075, ST.ip * .45);
+    proj(0, 0, EV ? EV.hsz : 0); ctx.globalAlpha = ST.ip * .8; ctx.fillStyle = COL.ink2; ctx.font = '11px "B612 Mono", ui-monospace, monospace'; ctx.fillText('bunch width drawn ×100', PX + 16, PY + 40); }
+  drawMET(EV, ST.met * H.met * (1 - ST.ip));
+  drawTags(EV, ST.tags * H.tags);
+  if (H.bOp > .01) drawBunches(-H.bz, H.bz, .22, 1.1, H.bOp * .9);
+  if (H.flash > .01 && EV) { proj(0, 0, EV.hsz); ctx.setLineDash(NODASH); ctx.strokeStyle = COL.hot; ctx.fillStyle = COL.hot; ctx.globalAlpha = H.flash;
+    ctx.beginPath(); ctx.arc(PX, PY, 3 + 5 * H.flash, 0, TAU); ctx.fill(); ctx.lineWidth = 1.4; ctx.globalAlpha = H.flash * .7; ctx.beginPath(); ctx.arc(PX, PY, 8 + 90 * (1 - H.flash), 0, TAU); ctx.stroke(); }
+  if (H.t > 0 && H.t < 48 && EV) { proj(0, 0, EV.hsz); ctx.globalAlpha = .32 * (1 - H.t / 48); ctx.strokeStyle = COL.hot; ctx.lineWidth = 1; ctx.setLineDash([3, 5]); ctx.beginPath(); ctx.arc(PX, PY, H.t * C_LIGHT * S, 0, TAU); ctx.stroke(); ctx.setLineDash(NODASH); }
+  leader(ST.card * ST.focus[ST.step]);
+  ctx.globalAlpha = 1;
+  updateHUD(); drawStrip(P);
+  requestAnimationFrame(frame);
+}
+
+/* ---------------- boot ---------------- */
+layout();
+if (A && !reduced) {
+  A.animate(L_ORDER.map(id => GLW[id]), { d: [0, 1], duration: 1100, delay: A.stagger(120), ease: 'outCubic' });
+  try { const sp = A.splitText($('wm'), { chars: true }); A.animate(sp.chars, { opacity: [.25, 1], y: ['14%', '0%'], duration: 900, delay: A.stagger(70), ease: 'outExpo' }); } catch (e) {}
+}
+fire();
+requestAnimationFrame(frame);
+document.fonts && document.fonts.ready && document.fonts.ready.then(() => { sizeStrip(); });
+})();
+</script>
+
+</body></html>

@@ -10,5 +10,6 @@
 - [Publications](https://yuantangchou.com/Publications.html): Journal publications, conference proceedings, and preprints.
 - [News](https://yuantangchou.com/News.html): Papers, talks, posters, awards, and lab milestones.
 - [Teaching](https://yuantangchou.com/Teaching.html): NTHU courses, prior teaching, and public tutorials.
+- [ATLAS, Layer by Layer](https://yuantangchou.com/ATLAS-Layer-by-Layer.html): Interactive outreach demo of a simulated collision in the ATLAS detector, taken apart layer by layer.
 - [Contact](https://yuantangchou.com/Contact.html): Email, phone, and office location.
 - [Join](https://yuantangchou.com/Join.html): Open positions for postdocs, Ph.D./M.S. students, and undergraduates.

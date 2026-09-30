@@ -437,33 +437,6 @@
         </div>
       </div>
     </section>
-    <section data-reveal data-screen-label="Stats" style="background:#1d1721;color:#fff">
-      <div
-        style="max-width:1240px;margin:0 auto;padding:38px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px">
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">2026</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="Lab founded at National Tsing Hua University">Lab founded at National Tsing Hua University</div>
-        </div>
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ presentationCount }}</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="Team member presentations in the last 12 months">Team member presentations in the last 12 months
-          </div>
-        </div>
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">{{ papersCount }}</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="Papers published in the last 12 months">Papers published in the last 12 months</div>
-        </div>
-        <div style="border-left:2px solid #7d2882;padding-left:18px">
-          <div style="font-size:34px;font-weight:800;letter-spacing:-.02em">10,000</div>
-          <div style="font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.45"
-            data-en="NERSC GPU node-hours awarded for AI-driven analysis">NERSC GPU node-hours awarded for
-            AI-driven analysis</div>
-        </div>
-      </div>
-    </section>
     <section data-reveal data-screen-label="News" style="background:#faf9f8">
       <div style="max-width:1240px;margin:0 auto;padding:88px 32px">
         <div
@@ -601,8 +574,6 @@
     data-props="{&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;}}">
 class Component extends DCLogic {
   state = {
-    presentationCount: this.fallbackPresentationCount(),
-    papersCount: this.fallbackPapersCount(),
     latestNews: this.fallbackLatestNews(),
     researchCards: this.fallbackResearchCards()
   };
@@ -667,40 +638,7 @@ class Component extends DCLogic {
       }
     ];
   }
-  fallbackPresentationCount() {
-    // Browsers block cross-page reads when these static files are opened directly,
-    // and some isolated preview environments do not expose sibling pages. Keep a
-    // date-aware copy of the News presentation metadata so the metric still works.
-    const presentations = [
-      { labels: ['poster'], date: '2026-07-13' },
-      { labels: ['talk'], date: '2025-11-01' },
-      { labels: ['talk'], date: '2025-09-01' },
-      { labels: ['talk'], date: '2025-05-01' },
-      { labels: ['talk'], date: '2025-02-01' },
-      { labels: ['talk'], date: '2024-12-01' }
-    ];
-    const now = new Date();
-    const since = new Date(now);
-    since.setMonth(since.getMonth() - 12);
-    return presentations.filter(item => {
-      const dt = new Date(item.date);
-      return item.labels.some(label => label === 'talk' || label === 'poster') && dt >= since && dt <= now;
-    }).length;
-  }
-  // Journal-publication years mirror the "Journal pubs" section in Publications.html.
-  // Only a year is tracked there (same granularity Publications.html itself uses for its
-  // "older than 5 years" toggle), so "last 12 months" is approximated as the current year and
-  // the one preceding it.
-  isRecentPublicationYear(year) {
-    return Number.isFinite(year) && (new Date().getFullYear() - year) <= 1;
-  }
-  fallbackPapersCount() {
-    const journalPublicationYears = [2025, 2026, 2025, 2025, 2025, 2025, 2025, 2024, 2024, 2020, 2017];
-    return journalPublicationYears.filter(year => this.isRecentPublicationYear(year)).length;
-  }
   componentDidMount() {
-    this.updatePresentationCount();
-    this.updatePapersCount();
     this.updateLatestNews();
     this.updateResearchCards();
     this.setupScrollReveal();
@@ -751,58 +689,6 @@ class Component extends DCLogic {
     } catch (_err) {
       return '';
     }
-  }
-  async updatePresentationCount() {
-    const now = new Date();
-    const since = new Date(now);
-    since.setMonth(since.getMonth() - 12);
-    let count = this.fallbackPresentationCount();
-    const presentationLabels = new Set(['talk', 'poster']);
-    const normalize = token => token.trim().toLowerCase();
-    try {
-      const html = await this.loadPageHtml('News.html');
-      if (!html) throw new Error('News page returned no content');
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const newsItems = doc.querySelectorAll('[data-news-item][data-labels][data-date]');
-      if (!newsItems.length) throw new Error('News entries were not available in this preview');
-      let newsCount = 0;
-      newsItems.forEach(el => {
-        const labels = (el.getAttribute('data-labels') || '')
-          .split(/[;,|]/)
-          .map(normalize)
-          .filter(Boolean);
-        if (!labels.some(label => presentationLabels.has(label))) return;
-        const dt = new Date(el.getAttribute('data-date'));
-        if (Number.isNaN(dt.getTime())) return;
-        if (dt >= since && dt <= now) newsCount += 1;
-      });
-      count = newsCount;
-    } catch (_err) {
-      console.warn('Failed to count talks and posters from News.html', _err);
-    }
-    this.setState({ presentationCount: count });
-  }
-  async updatePapersCount() {
-    let count = this.fallbackPapersCount();
-    try {
-      const html = await this.loadPageHtml('Publications.html');
-      if (!html) throw new Error('Publications page returned no content');
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const journalSection = Array.from(doc.querySelectorAll('section[data-screen-label]'))
-        .find(el => el.getAttribute('data-screen-label') === 'Journal pubs');
-      if (!journalSection) throw new Error('Journal publications section was not available in this preview');
-      const entries = journalSection.querySelectorAll('[data-pub-entry][data-year]');
-      if (!entries.length) throw new Error('No journal publication entries were found');
-      let papersCount = 0;
-      entries.forEach(el => {
-        const year = Number(el.getAttribute('data-year'));
-        if (this.isRecentPublicationYear(year)) papersCount += 1;
-      });
-      count = papersCount;
-    } catch (_err) {
-      console.warn('Failed to count recent papers from Publications.html', _err);
-    }
-    this.setState({ papersCount: count });
   }
   async updateLatestNews() {
     try {
@@ -864,8 +750,6 @@ class Component extends DCLogic {
   renderVals() {
     return {
       showAnnouncement: this.props.showAnnouncement ?? true,
-      presentationCount: this.state.presentationCount,
-      papersCount: this.state.papersCount,
       latestNews: this.state.latestNews,
       researchCards: this.state.researchCards,
       lastUpdated: this.formatLastUpdated()
